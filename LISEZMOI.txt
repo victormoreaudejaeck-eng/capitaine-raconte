@@ -1,0 +1,21 @@
+Le Capitaine Raconte — générateur de vidéos
+
+Installation (une fois) :
+  pip install kokoro-onnx soundfile numpy
+  npm i playwright && npx playwright install chromium   (si pas déjà installé)
+  + ffmpeg
+
+Fabriquer une vidéo :
+  python3 build.py titanic        ->  videos/titanic.mp4
+  python3 build.py lusitania      ->  videos/lusitania.mp4
+
+Voix ElevenLabs (Brian) : définir  ELEVEN_API_KEY=sk_...  avant de lancer.
+Sans clé ni voix choisie : ELEVEN_VOICE="" utilise la voix locale Kokoro (modèle dans models/, à re-télécharger).
+
+Fichiers :
+  stories/<histoire>/scenes.json   le texte de chaque scène (voix + sous-titres + compteur)
+  anim.html                        tous les dessins et animations
+  render.js                        rendu image par image
+  build.py                         voix + musique + montage
+  brand/                           photo de profil
+  LANCEMENT.md                     le kit de lancement complet

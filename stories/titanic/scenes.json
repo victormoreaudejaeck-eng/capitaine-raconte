@@ -1,0 +1,148 @@
+[
+  {
+    "id": "intro",
+    "say": "Plus de mille cinq cents morts. En deux heures quarante. Sur un navire que tout le monde disait... insubmersible. Voici l'histoire vraie du Titanic.",
+    "show": "Plus de 1 500 morts. En 2 h 40. Sur un navire que tout le monde disait… insubmersible. Voici l'histoire vraie du Titanic.",
+    "counter": {
+      "type": "clock",
+      "from": 1420,
+      "to": 1580
+    }
+  },
+  {
+    "id": "shipyard",
+    "say": "Tout commence à Belfast, en Irlande. Pendant trois ans, des milliers d'ouvriers construisent un géant d'acier de deux cent soixante-neuf mètres de long. Le plus grand navire jamais construit.",
+    "show": "Tout commence à Belfast, en Irlande. Pendant 3 ans, des milliers d'ouvriers construisent un géant d'acier de 269 mètres de long. Le plus grand navire jamais construit.",
+    "counter": {
+      "type": "number",
+      "from": 0,
+      "to": 269,
+      "suffix": " MÈTRES"
+    }
+  },
+  {
+    "id": "departure",
+    "say": "Le dix avril mille neuf cent douze, la foule se presse sur le port de Southampton. Le Titanic part pour New York. Personne ne se doute de ce qui va arriver.",
+    "show": "Le 10 avril 1912, la foule se presse sur le port de Southampton. Le Titanic part pour New York. Personne ne se doute de ce qui va arriver.",
+    "counter": {
+      "type": "text",
+      "value": "10 AVRIL 1912"
+    }
+  },
+  {
+    "id": "passengers",
+    "say": "À bord, plus de deux mille deux cents personnes. Des millionnaires dans des cabines de luxe, des marins, et des familles pleines d'espoir qui partent refaire leur vie en Amérique.",
+    "show": "À bord, plus de 2 200 personnes. Des millionnaires dans des cabines de luxe, des marins, et des familles pleines d'espoir qui partent refaire leur vie en Amérique.",
+    "counter": {
+      "type": "number",
+      "from": 0,
+      "to": 2224,
+      "suffix": " À BORD"
+    }
+  },
+  {
+    "id": "warnings",
+    "say": "Le quatorze avril, les opérateurs radio reçoivent au moins six messages d'alerte. Attention, glaces droit devant. Mais le navire garde sa vitesse.",
+    "show": "Le 14 avril, les opérateurs radio reçoivent au moins 6 messages d'alerte. « Attention, glaces droit devant. » Mais le navire garde sa vitesse.",
+    "counter": {
+      "type": "number",
+      "from": 0,
+      "to": 6,
+      "suffix": " ALERTES"
+    }
+  },
+  {
+    "id": "calm",
+    "say": "Cette nuit-là, il n'y a pas de lune. La mer est plate comme un miroir, et l'eau est à moins deux degrés. Pire encore, les guetteurs n'ont même pas de jumelles.",
+    "show": "Cette nuit-là, il n'y a pas de lune. La mer est plate comme un miroir, et l'eau est à -2 °C. Pire encore : les guetteurs n'ont même pas de jumelles.",
+    "counter": {
+      "type": "number",
+      "from": 8,
+      "to": -2,
+      "suffix": " °C"
+    }
+  },
+  {
+    "id": "lookout",
+    "say": "Vingt-trois heures trente-neuf. Dans le nid de pie, le guetteur Frederick Fleet aperçoit une ombre géante. Il sonne la cloche. Iceberg, droit devant !",
+    "show": "23 h 39. Dans le nid de pie, le guetteur Frederick Fleet aperçoit une ombre géante. Il sonne la cloche. ICEBERG, DROIT DEVANT !",
+    "counter": {
+      "type": "clock",
+      "from": 1418,
+      "to": 1419
+    }
+  },
+  {
+    "id": "impact",
+    "say": "Le navire tourne, mais trop tard. Trente-sept secondes plus tard, la glace frotte contre la coque et l'ouvre sur près de cent mètres.",
+    "show": "Le navire tourne, mais trop tard. 37 secondes plus tard, la glace frotte contre la coque et l'ouvre sur près de 100 mètres.",
+    "counter": {
+      "type": "clock",
+      "from": 1419,
+      "to": 1420
+    }
+  },
+  {
+    "id": "compartments",
+    "say": "L'architecte Thomas Andrews inspecte les dégâts. Le Titanic peut flotter avec quatre compartiments inondés. Mais cinq sont déjà touchés. Son verdict est terrible : le navire va couler.",
+    "show": "L'architecte Thomas Andrews inspecte les dégâts. Le Titanic peut flotter avec 4 compartiments inondés. Mais 5 sont déjà touchés. Son verdict est terrible : le navire va couler.",
+    "counter": {
+      "type": "number",
+      "from": 0,
+      "to": 5,
+      "suffix": " COMPARTIMENTS"
+    }
+  },
+  {
+    "id": "flooding",
+    "say": "On lance des fusées de détresse dans le ciel. Les canots sont mis à l'eau, mais il n'y en a que pour la moitié des passagers. Et certains partent à moitié vides.",
+    "show": "On lance des fusées de détresse dans le ciel. Les canots sont mis à l'eau, mais il n'y en a que pour la moitié des passagers. Et certains partent à moitié vides.",
+    "counter": {
+      "type": "clock",
+      "from": 1445,
+      "to": 1530
+    }
+  },
+  {
+    "id": "band",
+    "say": "Sur le pont qui penche, les musiciens de l'orchestre continuent de jouer, pour calmer les passagers. Ils joueront presque jusqu'à la fin.",
+    "show": "Sur le pont qui penche, les musiciens de l'orchestre continuent de jouer, pour calmer les passagers. Ils joueront presque jusqu'à la fin.",
+    "counter": {
+      "type": "clock",
+      "from": 1540,
+      "to": 1570
+    }
+  },
+  {
+    "id": "sinking",
+    "say": "Deux heures vingt du matin. La poupe se dresse vers le ciel, le Titanic se brise en deux… et disparaît sous les flots glacés.",
+    "show": "2 h 20 du matin. La poupe se dresse vers le ciel, le Titanic se brise en deux… et disparaît sous les flots glacés.",
+    "counter": {
+      "type": "clock",
+      "from": 1575,
+      "to": 1580
+    }
+  },
+  {
+    "id": "rescue",
+    "say": "À l'aube, le paquebot Carpathia arrive enfin. Il recueille environ sept cents survivants. Mais plus de mille cinq cents personnes ont péri dans l'eau glacée.",
+    "show": "À l'aube, le paquebot Carpathia arrive enfin. Il recueille environ 700 survivants. Mais plus de 1 500 personnes ont péri dans l'eau glacée.",
+    "counter": {
+      "type": "number",
+      "from": 0,
+      "to": 705,
+      "suffix": " SURVIVANTS"
+    }
+  },
+  {
+    "id": "wreck",
+    "say": "Pendant soixante-treize ans, personne ne retrouve l'épave. Puis en mille neuf cent quatre-vingt-cinq, une équipe franco-américaine la découvre grâce à un robot sous-marin, à trois mille huit cents mètres de profondeur. Abonne-toi pour la prochaine histoire !",
+    "show": "Pendant 73 ans, personne ne retrouve l'épave. Puis en 1985, une équipe franco-américaine la découvre grâce à un robot sous-marin, à 3 800 mètres de profondeur. Abonne-toi pour la prochaine histoire !",
+    "counter": {
+      "type": "number",
+      "from": 0,
+      "to": 3800,
+      "suffix": " M DE FOND"
+    }
+  }
+]

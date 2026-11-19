@@ -1,0 +1,113 @@
+<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0;background:#000}</style></head><body>
+<canvas id="c" width="1080" height="1080"></canvas>
+<script>
+const c = document.getElementById('c'), x = c.getContext('2d');
+const W = 1080, INK = '#1b1a2e';
+let seed = 42; const r = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+// hand-drawn stroke: draw path twice with jitter
+function sketch(path, fill, lw = 9, stroke = INK){
+  if (fill){ x.beginPath(); path(0); x.fillStyle = fill; x.fill(); }
+  x.strokeStyle = stroke; x.lineJoin = 'round'; x.lineCap = 'round';
+  for (let k = 0; k < 2; k++){
+    x.save(); x.translate((r()-.5)*4, (r()-.5)*4); x.lineWidth = k ? lw*0.45 : lw;
+    x.globalAlpha = k ? .55 : 1; x.beginPath(); path(k); x.stroke(); x.restore();
+  }
+}
+const circ = (cx, cy, rr) => () => x.arc(cx, cy, rr, 0, Math.PI*2);
+const ell = (cx, cy, rx, ry, a=0, s=0, e=Math.PI*2) => () => x.ellipse(cx, cy, rx, ry, a, s, e);
+
+// background: night sea gradient
+const g = x.createRadialGradient(540, 420, 80, 540, 540, 760);
+g.addColorStop(0, '#3a4f9a'); g.addColorStop(.55, '#1d2a6b'); g.addColorStop(1, '#0b1033');
+x.fillStyle = g; x.fillRect(0, 0, W, W);
+// stars
+for (let i = 0; i < 70; i++){ x.globalAlpha = .4 + r()*.6; x.fillStyle = '#fff3c4'; x.beginPath(); x.arc(r()*W, r()*620, 1.5 + r()*3, 0, 7); x.fill(); }
+x.globalAlpha = 1;
+// moon
+sketch(circ(820, 250, 70), '#fff3b0', 7);
+// waves (bottom)
+const waves = [['#3567b8', 860, 26], ['#2a5fb0', 920, 30], ['#163a78', 990, 34]];
+for (const [col, y0, amp] of waves){
+  sketch(() => { x.moveTo(-20, W+20); for (let X = -20; X <= W+20; X += 30) x.lineTo(X, y0 + Math.sin(X/70 + y0)*amp*.5); x.lineTo(W+20, W+20); x.closePath(); }, col, 7);
+}
+// tiny ship on horizon
+x.save(); x.translate(200, 868); x.scale(.55,.55);
+sketch(() => { x.moveTo(-90,-10); x.lineTo(95,-14); x.lineTo(80,18); x.lineTo(-75,18); x.closePath(); }, '#23232e', 6);
+sketch(() => { x.rect(-55,-36,110,24); }, '#fbf7ee', 5);
+for (const fx of [-35, -5, 25]) sketch(() => { x.moveTo(fx,-36); x.lineTo(fx+14,-36); x.lineTo(fx+18,-70); x.lineTo(fx+4,-70); x.closePath(); }, '#f0a43a', 4);
+x.restore();
+
+// ---- the captain-storyteller ----
+const cx = 540, cy = 560;
+// coat / shoulders
+sketch(() => { x.moveTo(250, 1100); x.quadraticCurveTo(270, 820, 540, 800); x.quadraticCurveTo(810, 820, 830, 1100); x.closePath(); }, '#24305e', 10);
+// coat buttons + lapels
+sketch(() => { x.moveTo(540, 810); x.lineTo(470, 1080); }, null, 6); sketch(() => { x.moveTo(540, 810); x.lineTo(610, 1080); }, null, 6);
+for (const by of [900, 980]) { sketch(circ(500, by, 13), '#f5d76e', 5); sketch(circ(580, by, 13), '#f5d76e', 5); }
+// head
+sketch(circ(cx, cy, 215), '#ffd6b0', 10);
+// ears
+sketch(ell(326, 580, 34, 50), '#ffc89a', 8); sketch(ell(754, 580, 34, 50), '#ffc89a', 8);
+// beard (big, fluffy, cream)
+sketch(() => {
+  x.moveTo(345, 590);
+  const pts = [[345,590],[330,690],[380,790],[450,850],[540,875],[630,850],[700,790],[750,690],[735,590]];
+  for (let i = 1; i < pts.length; i++){ const [a,b] = pts[i-1], [cc,d] = pts[i]; x.quadraticCurveTo((a+cc)/2 + (i%2?-25:25), (b+d)/2 + 25, cc, d); }
+  x.quadraticCurveTo(640, 690, 540, 700); x.quadraticCurveTo(440, 690, 345, 590); x.closePath();
+}, '#f4ead5', 9);
+// beard texture curls
+x.strokeStyle = 'rgba(27,26,46,.35)'; x.lineWidth = 4;
+for (let i = 0; i < 14; i++){ const bx = 400 + r()*280, by = 730 + r()*100; x.beginPath(); x.arc(bx, by, 10 + r()*8, 0.3, 2.6); x.stroke(); }
+// moustache
+sketch(() => { x.moveTo(540, 650); x.quadraticCurveTo(470, 620, 420, 668); x.quadraticCurveTo(480, 700, 540, 672); x.quadraticCurveTo(600, 700, 660, 668); x.quadraticCurveTo(610, 620, 540, 650); x.closePath(); }, '#ece0c6', 8);
+// smile under moustache
+sketch(() => { x.arc(540, 690, 34, .35, Math.PI - .35); }, null, 7);
+// nose
+sketch(ell(540, 610, 34, 30), '#ffb88a', 8);
+// cheeks
+x.globalAlpha = .45; x.fillStyle = '#ff8a8a'; x.beginPath(); x.ellipse(415, 610, 38, 26, 0, 0, 7); x.ellipse(665, 610, 38, 26, 0, 0, 7); x.fill(); x.globalAlpha = 1;
+// eyes (warm, slightly squinting smile)
+sketch(ell(460, 540, 30, 34), '#fff', 7); sketch(ell(620, 540, 30, 34), '#fff', 7);
+x.fillStyle = INK; x.beginPath(); x.arc(466, 546, 15, 0, 7); x.arc(626, 546, 15, 0, 7); x.fill();
+x.fillStyle = '#fff'; x.beginPath(); x.arc(472, 539, 5, 0, 7); x.arc(632, 539, 5, 0, 7); x.fill();
+// bushy eyebrows
+sketch(() => { x.moveTo(415, 490); x.quadraticCurveTo(455, 465, 500, 488); }, null, 16, '#e9dcc0');
+sketch(() => { x.moveTo(580, 488); x.quadraticCurveTo(625, 465, 665, 490); }, null, 16, '#e9dcc0');
+// smile wrinkles
+x.strokeStyle = 'rgba(27,26,46,.45)'; x.lineWidth = 4;
+x.beginPath(); x.arc(405, 555, 22, -0.6, 0.6); x.stroke(); x.beginPath(); x.arc(675, 555, 22, Math.PI-0.6, Math.PI+0.6); x.stroke();
+// captain cap
+sketch(() => { x.moveTo(318, 445); x.quadraticCurveTo(330, 300, 540, 285); x.quadraticCurveTo(750, 300, 762, 445); x.closePath(); }, '#1d2550', 10);
+sketch(() => { x.moveTo(300, 450); x.quadraticCurveTo(540, 400, 780, 450); x.quadraticCurveTo(790, 480, 770, 490); x.quadraticCurveTo(540, 445, 310, 490); x.quadraticCurveTo(290, 480, 300, 450); x.closePath(); }, '#11163a', 9);
+sketch(() => { x.rect(330, 405, 420, 22); }, '#fbf7ee', 6);
+// gold anchor badge
+x.save(); x.translate(540, 350);
+sketch(ell(0, 0, 58, 44), '#f5c542', 7);
+x.strokeStyle = INK; x.lineWidth = 7; x.lineCap = 'round';
+x.beginPath(); x.moveTo(0, -24); x.lineTo(0, 26); x.moveTo(-16, -12); x.lineTo(16, -12); x.stroke();
+x.beginPath(); x.arc(0, 8, 22, 0.2, Math.PI - 0.2); x.stroke();
+x.beginPath(); x.arc(0, -30, 7, 0, 7); x.stroke();
+x.restore();
+// lantern (held, bottom-right) with warm glow
+const lg = x.createRadialGradient(850, 840, 10, 850, 840, 260);
+lg.addColorStop(0, 'rgba(255,214,90,.55)'); lg.addColorStop(1, 'rgba(255,214,90,0)');
+x.fillStyle = lg; x.fillRect(560, 560, 520, 520);
+sketch(() => { x.moveTo(850, 720); x.lineTo(850, 760); }, null, 7);
+sketch(() => { x.arc(850, 712, 18, Math.PI, 0); }, null, 7);
+sketch(() => { x.moveTo(800, 770); x.lineTo(900, 770); x.lineTo(890, 790); x.lineTo(810, 790); x.closePath(); }, '#2d2d3a', 7);
+sketch(() => { x.rect(812, 790, 76, 100); }, '#ffe08a', 8);
+x.fillStyle = '#ff9f43'; x.beginPath(); x.ellipse(850, 845, 14, 26, 0, 0, 7); x.fill();
+x.fillStyle = '#fff6c8'; x.beginPath(); x.ellipse(850, 852, 7, 13, 0, 0, 7); x.fill();
+sketch(() => { x.moveTo(850, 790); x.lineTo(850, 890); }, null, 5);
+sketch(() => { x.moveTo(800, 890); x.lineTo(900, 890); x.lineTo(890, 910); x.lineTo(810, 910); x.closePath(); }, '#2d2d3a', 7);
+// hand holding lantern
+sketch(circ(850, 935, 34), '#ffd6b0', 8);
+
+// paper grain + soft vignette for the artistic touch
+const img = x.getImageData(0, 0, W, W), d = img.data;
+for (let i = 0; i < d.length; i += 4){ const n = (r() - .5) * 18; d[i] += n; d[i+1] += n; d[i+2] += n; }
+x.putImageData(img, 0, 0);
+const v = x.createRadialGradient(540, 540, 380, 540, 540, 780);
+v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,.35)');
+x.fillStyle = v; x.fillRect(0, 0, W, W);
+</script></body></html>

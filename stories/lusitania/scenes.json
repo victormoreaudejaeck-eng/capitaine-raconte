@@ -1,0 +1,130 @@
+{
+  "ship": {
+    "funnel": "#c8402e",
+    "name": "LUSITANIA"
+  },
+  "scenes": [
+    {
+      "id": "lu_intro",
+      "say": "Une seule torpille. Dix-huit minutes. Et près de mille deux cents morts. Voici l'histoire vraie du Lusitania.",
+      "show": "Une seule torpille. 18 minutes. Et près de 1 200 morts. Voici l'histoire vraie du Lusitania.",
+      "counter": {
+        "type": "text",
+        "value": "7 MAI 1915"
+      }
+    },
+    {
+      "id": "lu_liner",
+      "say": "En mille neuf cent quinze, le Lusitania est l'une des stars de l'Atlantique. Un paquebot britannique immense, et l'un des plus rapides du monde.",
+      "show": "En 1915, le Lusitania est l'une des stars de l'Atlantique. Un paquebot britannique immense, et l'un des plus rapides du monde.",
+      "counter": {
+        "type": "number",
+        "from": 0,
+        "to": 240,
+        "suffix": " MÈTRES"
+      }
+    },
+    {
+      "id": "lu_war",
+      "say": "Mais l'Europe est en pleine guerre mondiale. Sous la surface, les sous-marins allemands chassent les navires qui approchent de la Grande-Bretagne.",
+      "show": "Mais l'Europe est en pleine guerre mondiale. Sous la surface, les sous-marins allemands chassent les navires qui approchent de la Grande-Bretagne.",
+      "counter": {
+        "type": "text",
+        "value": "1914 - 1918"
+      }
+    },
+    {
+      "id": "lu_newspaper",
+      "say": "Le jour du départ, à New York, l'ambassade d'Allemagne publie un avertissement dans les journaux. Les passagers voyagent à leurs propres risques. Presque personne ne le prend au sérieux.",
+      "show": "Le jour du départ, à New York, l'ambassade d'Allemagne publie un avertissement dans les journaux : les passagers voyagent « à leurs propres risques ». Presque personne ne le prend au sérieux.",
+      "counter": {
+        "type": "text",
+        "value": "1er MAI 1915"
+      }
+    },
+    {
+      "id": "lu_passengers",
+      "say": "Près de deux mille personnes embarquent. Des familles, des enfants, des célébrités, et plus d'une centaine d'Américains.",
+      "show": "Près de 2 000 personnes embarquent. Des familles, des enfants, des célébrités… et plus d'une centaine d'Américains.",
+      "counter": {
+        "type": "number",
+        "from": 0,
+        "to": 1959,
+        "suffix": " À BORD"
+      }
+    },
+    {
+      "id": "lu_periscope",
+      "say": "Six jours plus tard, au large de l'Irlande. Le sous-marin U-20 sort son périscope. Dans le viseur, une silhouette géante.",
+      "show": "6 jours plus tard, au large de l'Irlande. Le sous-marin U-20 sort son périscope. Dans le viseur : une silhouette géante.",
+      "counter": {
+        "type": "clock",
+        "from": 845,
+        "to": 849
+      }
+    },
+    {
+      "id": "lu_torpedo",
+      "say": "Quatorze heures dix. Le commandant donne l'ordre. Une torpille file sous l'eau… et frappe le navire de plein fouet.",
+      "show": "14 h 10. Le commandant donne l'ordre. Une torpille file sous l'eau… et frappe le navire de plein fouet.",
+      "counter": {
+        "type": "clock",
+        "from": 849,
+        "to": 850
+      }
+    },
+    {
+      "id": "lu_second",
+      "say": "Puis, quelques secondes plus tard, une deuxième explosion, venue de l'intérieur. Aujourd'hui encore, personne ne sait exactement ce qui l'a provoquée.",
+      "show": "Puis, quelques secondes plus tard… une deuxième explosion, venue de l'intérieur. Aujourd'hui encore, personne ne sait exactement ce qui l'a provoquée.",
+      "counter": {
+        "type": "clock",
+        "from": 850,
+        "to": 851
+      }
+    },
+    {
+      "id": "lu_list",
+      "say": "Le navire penche si fort sur le côté que la moitié des canots de sauvetage deviennent inutilisables. C'est la panique sur le pont.",
+      "show": "Le navire penche si fort sur le côté que la moitié des canots de sauvetage deviennent inutilisables. C'est la panique sur le pont.",
+      "counter": {
+        "type": "clock",
+        "from": 851,
+        "to": 858
+      }
+    },
+    {
+      "id": "lu_sinking",
+      "say": "Dix-huit minutes. C'est tout ce qu'il faut au géant pour disparaître sous les vagues.",
+      "show": "18 minutes. C'est tout ce qu'il faut au géant pour disparaître sous les vagues.",
+      "counter": {
+        "type": "number",
+        "from": 0,
+        "to": 18,
+        "suffix": " MINUTES"
+      }
+    },
+    {
+      "id": "lu_toll",
+      "say": "Mille cent quatre-vingt-dix-huit personnes meurent, dont cent vingt-huit Américains. Le monde entier est sous le choc.",
+      "show": "1 198 personnes meurent, dont 128 Américains. Le monde entier est sous le choc.",
+      "counter": {
+        "type": "number",
+        "from": 0,
+        "to": 1198,
+        "suffix": " VICTIMES"
+      }
+    },
+    {
+      "id": "lu_end",
+      "say": "Ce drame contribue à retourner l'opinion américaine contre l'Allemagne. Deux ans plus tard, les États-Unis entrent en guerre. L'épave, elle, repose toujours à quatre-vingt-dix mètres de fond. Abonne-toi pour la prochaine histoire !",
+      "show": "Ce drame contribue à retourner l'opinion américaine contre l'Allemagne. 2 ans plus tard, les États-Unis entrent en guerre. L'épave, elle, repose toujours à 90 mètres de fond. Abonne-toi pour la prochaine histoire !",
+      "counter": {
+        "type": "number",
+        "from": 0,
+        "to": 90,
+        "suffix": " M DE FOND"
+      }
+    }
+  ]
+}

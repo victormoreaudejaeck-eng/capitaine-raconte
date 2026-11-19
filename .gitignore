@@ -1,0 +1,6 @@
+models/
+out/
+voix_test/
+titanic-video.zip
+__pycache__/
+*.raw.wav
