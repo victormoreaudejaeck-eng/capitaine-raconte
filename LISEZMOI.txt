@@ -19,3 +19,10 @@ Fichiers :
   build.py                         voix + musique + montage
   brand/                           photo de profil
   LANCEMENT.md                     le kit de lancement complet
+
+Outils installés (versions figées) :
+  npm install                      -> Remotion 4.0.540 + HyperFrames 0.9.13 (voir package.json)
+  pip install yt-dlp==2026.10.26 openai-whisper==20250625
+  ffmpeg (système)
+Whisper : modèles téléchargés depuis openaipublic.azureedge.net (autorisé dans l'environnement).
+  ex : whisper voix.wav --model small --language fr --word_timestamps True --output_format json
