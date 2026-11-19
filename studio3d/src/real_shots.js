@@ -66,19 +66,21 @@ const SHOTS = {
   frigate(t, p){ look('grey'); only(sky, water, frigate); water.material.uniforms.time.value = t * .5; frigate.position.set(0, -1.5, lerp(-60, 10, p)); frigate.rotation.set(0, 0, Math.sin(t * .5) * .01);
     frigate.userData.radar.rotation.y = t * 2; cam(V(70, 10, 120), V(0, 12, frigate.position.z), 38); sunFollow(V(0, 0, 0)); return {}; },
   rhib(t, p){ look('grey'); only(sky, water, boat, rhib, sailorA, sailorB); water.material.uniforms.time.value = t * .5; floatBoat(boat, 0, 0, t, 0, .3, true); keel(boat, 1);
-    rhib.position.set(lerp(-40, -8, ease(p)), .2, 2); rhib.rotation.set(0, Math.PI / 2, 0);
+    rhib.position.set(lerp(-30, -7.5, ease(p)), .2, 2); rhib.rotation.set(0, Math.PI / 2, 0);
     for (const [s, dz] of [[sailorA, .9], [sailorB, -1.4]]){ rest(s); mood(s, 'neutral'); s.position.set(rhib.position.x + dz, .05, 2); s.rotation.y = Math.PI / 2; s.userData.legs.forEach(l => { l.hip.rotation.x = -1.2; l.knee.rotation.x = 1.3; }); s.position.y -= .3; }
-    cam(V(-34 + p * 8, 4, 16), V(-12, 1, 0), 36); sunFollow(V(0, 0, 0)); return {}; },
+    cam(V(lerp(-24, -14, ease(p)), 2.4, 9.5), V(lerp(-27, -8, ease(p)), 1.1, 2), 34); sunFollow(V(0, 0, 0)); return {}; },
   knock_out(t, p){ look('grey'); only(sky, water, boat, rhib, sailorA); water.material.uniforms.time.value = t * .5; floatBoat(boat, 0, 0, t, 0, .2, true); keel(boat, 1);
     rhib.position.set(-4.3, .2, 1.2); rhib.rotation.set(0, Math.PI / 2 + .15, 0); rest(sailorA); mood(sailorA, 'neutral'); const u = sailorA.userData;
     sailorA.position.set(-3.1, .15, 1.2); sailorA.rotation.y = Math.PI / 2; u.spine.rotation.x = .25; u.arms[1].sh.rotation.x = -1.7 + (Math.sin(t * 14) > 0 && p > .3 ? .35 : 0); u.arms[1].el.rotation.x = -.3;
-    sailorA.updateMatrixWorld(true); const h = u.neck.getWorldPosition(V(0, 0, 0)); cam(h.clone().add(V(-1.8, .4, 2.6)), h.clone().add(V(1.2, -.3, -.3)), 34); sunFollow(h); return {knock: p > .3 ? 'TOC TOC' : null}; },
-  knock_in(t, p){ look('pocket'); only(pocket, tony, torch, beam); const h = posePocket(t, {m: p > .45 ? 'happy' : 'scared', lvl: .3}); const u = tony.userData;
-    u.arms[0].sh.rotation.set(-2.7 + (Math.sin(t * 14) > 0 && p > .5 ? .25 : 0), 0, .2); u.arms[0].el.rotation.x = -.3; cam(h.clone().add(V(.7, .05, 1.1)), h.clone().add(V(0, .05, 0)), 36); return {knock: p > .5 ? 'TOC TOC TOC' : null}; },
+    sailorA.updateMatrixWorld(true); const h = u.neck.getWorldPosition(V(0, 0, 0)); cam(h.clone().add(V(1.9, .25, 2.6)), h.clone().add(V(.5, -.25, -.2)), 38); sunFollow(h); return {knock: p > .3 ? 'TOC TOC' : null}; },
+  knock_in(t, p){ look('pocket'); only(pocket, tony, torch, beam); const h = posePocket(t, {m: p > .45 ? 'happy' : 'scared', lvl: .08}); const u = tony.userData;
+    u.arms[0].sh.rotation.set(-2.7 + (Math.sin(t * 14) > 0 && p > .5 ? .25 : 0), 0, .2); u.arms[0].el.rotation.x = -.3; cam(h.clone().add(V(-.25, -.1, 2.3)), h.clone().add(V(0, .12, 0)), 46); return {knock: p > .5 ? 'TOC TOC TOC' : null}; },
   // --- the rescue ---
-  swim_under(t, p){ look('under'); only(boat, tony, bubbles, rays, motes, underSurf); boat.position.set(0, .9, 0); boat.rotation.set(0, 0, Math.PI); keel(boat, 1); rest(tony); mood(tony, 'scared'); const u = tony.userData;
-    tony.position.set(lerp(-.5, 3.6, p), -1.6 + p * 1.2, 3); tony.rotation.set(0, Math.PI / 2, -1.25); u.legs.forEach((l, i) => l.hip.rotation.x = Math.sin(t * 9 + i * Math.PI) * .5); u.arms.forEach(a => a.sh.rotation.x = -2.9 + Math.sin(t * 4) * .3);
-    bubblesAt(tony.position, t, .25, 2); cam(V(8.5, -2.6, 6.5), V(1.8, -1.1, 2.6), 42); return {}; },
+  swim_under(t, p){ look('under'); only(tony, bubbles, rays, motes, underSurf); rest(tony); mood(tony, 'scared'); const u = tony.userData;
+    tony.position.set(Math.sin(t * .8) * .2, -7.5 + ease(p) * 4.8, 0); tony.rotation.set(-.25, .4, Math.sin(t * 2) * .05);
+    u.arms.forEach((a, i) => { a.sh.rotation.set(-2.7 + Math.sin(t * 3 + i) * .35, 0, (i ? -1 : 1) * .25); a.el.rotation.x = -.3; });
+    u.legs.forEach((l, i) => { l.hip.rotation.x = Math.sin(t * 7 + i * Math.PI) * .45; l.knee.rotation.x = .35 + Math.sin(t * 7 + i * Math.PI) * .25; });
+    bubblesAt(tony.position.clone().add(V(0, 1.6, 0)), t, .3, 7); cam(V(2.6, tony.position.y - 3.2, 4.2), tony.position.clone().add(V(0, 1.8, 0)), 52); return {}; },
   surface(t, p){ look('dawn'); only(sky, water, boat, tony, rhib, sailorB); water.material.uniforms.time.value = t * .45; floatBoat(boat, 0, 0, t, 0, .2, true); keel(boat, 1);
     rest(tony); mood(tony, 'happy'); const u = tony.userData; tony.position.set(3.6, -1.25 + easeOut(clamp(p * 2, 0, 1)) * .55, 2.2); tony.rotation.y = -.6; u.arms[1].sh.rotation.set(-2.8 * easeOut(clamp((p - .3) * 2, 0, 1)), 0, -.2);
     rhib.position.set(7, .2, 3.5); rhib.rotation.y = .4; rest(sailorB); mood(sailorB, 'happy'); sailorB.position.set(6.3, .15, 3.3); sailorB.rotation.y = -1.6; sailorB.userData.arms[0].sh.rotation.x = -1.6;
@@ -121,8 +123,9 @@ function overlay(t, fx, lt, sd){
 }
 window.drawFrame = (t) => {
   const sh = DATA.shotAt(t); const lt = t - sh.start, p = clamp(lt / sh.dur, 0, 1);
-  pocket.rotation.set(0, 0, 0); pocket.position.set(0, 0, 0); boat.rotation.set(0, 0, 0); fill.distance = 6; sky.visible = true; fill.color.set(0xffa860);
+  pocket.rotation.set(0, 0, 0); pocket.position.set(0, 0, 0); boat.rotation.set(0, 0, 0); boat.traverse(o => { if (o.material === sailMat) o.visible = true; }); fill.distance = 6; sky.visible = true; fill.color.set(0xffa860);
   const fx = SHOTS[sh.name](t, p, sh.dur) || {};
+  [tony, sailorA, sailorB].forEach((pp, i) => { if (!pp.visible) return; const u = pp.userData; u.spine.rotation.x += Math.sin(t * 1.7 + i) * .025; u.neck.rotation.z += Math.sin(t * .9 + i * 2) * .035; u.neck.rotation.y += Math.sin(t * .6 + i) * .05; });
   composer.render(); octx.drawImage(renderer.domElement, 0, 0); overlay(t, fx, lt, sh.dur);
 };
 window.grab = () => out.toDataURL('image/jpeg', .9);

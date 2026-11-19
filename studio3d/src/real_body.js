@@ -109,6 +109,11 @@ function makePerson(o = {}){
     legs.push({hip, knee}); }
   const spine = new THREE.Group(); spine.position.y = .08; hips.add(spine);
   const torso = capsule(.2, .3, jacket); torso.scale.set(1.12, 1, .72); torso.position.y = .3; spine.add(torso);
+  const refl = std(0xc9ced4, {roughness: .3, metalness: .6});
+  const band = new THREE.Mesh(new THREE.CylinderGeometry(.226, .226, .035, 24, 1, true), refl); band.scale.set(1.0, 1, .73); band.position.y = .16; spine.add(band);
+  const zip = new THREE.Mesh(new THREE.BoxGeometry(.012, .42, .01), std(0x2a2a2a, {roughness: .4})); zip.position.set(0, .34, .148); spine.add(zip);
+  const pocketL = new THREE.Mesh(new THREE.BoxGeometry(.12, .08, .02), jacket); pocketL.position.set(-.1, .2, .142); spine.add(pocketL);
+  const pocketR = pocketL.clone(); pocketR.position.x = .1; spine.add(pocketR);
   const collar = new THREE.Mesh(new THREE.CylinderGeometry(.11, .14, .1, 14), jacket); collar.position.y = .6; spine.add(collar);
   const neck = new THREE.Group(); neck.position.y = .64; spine.add(neck);
   const headMat = new THREE.MeshStandardMaterial({map: faceTex('neutral', !!o.beard, o.brow, o.hairCss), roughness: .6}); const head = new THREE.Mesh(new THREE.SphereGeometry(.118, 32, 24), headMat); head.scale.set(.97, 1.07, 1.0); head.position.y = .14; head.castShadow = true; neck.add(head);
@@ -124,7 +129,7 @@ function makePerson(o = {}){
   for (const sx of [-1, 1]){ const sh = new THREE.Group(); sh.position.set(sx * .25, .52, 0); spine.add(sh);
     const up = capsule(.065, .24, jacket); up.position.y = -.16; sh.add(up);
     const el = new THREE.Group(); el.position.y = -.33; sh.add(el);
-    const fo = capsule(.055, .22, jacket); fo.position.y = -.15; el.add(fo);
+    const fo = capsule(.055, .22, jacket); fo.position.y = -.15; el.add(fo); const cuff = new THREE.Mesh(new THREE.CylinderGeometry(.058, .058, .03, 14, 1, true), std(0xc9ced4, {roughness: .3, metalness: .6})); cuff.position.y = -.2; el.add(cuff);
     const hand = new THREE.Mesh(new THREE.SphereGeometry(.05, 12, 10), skin); hand.position.y = -.32; hand.scale.set(1, 1.2, .7); el.add(hand);
     arms.push({sh, el, hand}); }
   P.userData = {hips, spine, neck, legs, arms, headMat, o};
@@ -192,6 +197,14 @@ const frigate = new THREE.Group(); scene.add(frigate);
   const radar = new THREE.Mesh(new THREE.BoxGeometry(5, .6, .6), darkGrey); radar.position.set(0, 34, 0); frigate.add(radar); frigate.userData.radar = radar;
   const funnel = new THREE.Mesh(new THREE.BoxGeometry(5, 7, 7), darkGrey); funnel.position.set(0, 16, -18); frigate.add(funnel);
   const gun = new THREE.Mesh(new THREE.SphereGeometry(1.8, 14, 10, 0, Math.PI * 2, 0, Math.PI / 2), grey); gun.position.set(0, 5.6, 40); frigate.add(gun);
+  const barrel = new THREE.Mesh(new THREE.CylinderGeometry(.18, .22, 6, 10), darkGrey); barrel.rotation.x = Math.PI / 2 - .1; barrel.position.set(0, 6.4, 43.5); frigate.add(barrel);
+  const hangar = new THREE.Mesh(new THREE.BoxGeometry(11, 6, 16), grey); hangar.position.set(0, 8.5, -42); hangar.castShadow = true; frigate.add(hangar);
+  const heli = new THREE.Mesh(new THREE.BoxGeometry(12, .15, 18), phys(0x3a3f45, {roughness: .9})); heli.position.set(0, 5.6, -58); frigate.add(heli);
+  const ring = new THREE.Mesh(new THREE.RingGeometry(3.6, 3.9, 32), new THREE.MeshBasicMaterial({color: 0xeeeeee})); ring.rotation.x = -Math.PI / 2; ring.position.set(0, 5.7, -58); frigate.add(ring);
+  for (const sx of [-1, 1]){ for (let i = 0; i < 2; i++){ const lb = new THREE.Mesh(new THREE.CapsuleGeometry(.8, 3.5, 4, 10), phys(0xe8590c, {roughness: .5})); lb.rotation.x = Math.PI / 2; lb.position.set(sx * 6.3, 11, -4 - i * 9); frigate.add(lb); } }
+  const rail = new THREE.Mesh(new THREE.TorusGeometry(1, .04, 4, 60), darkGrey); rail.scale.set(7, 70, 1); rail.rotation.x = Math.PI / 2; rail.position.y = 6.6; frigate.add(rail);
+  const dome = new THREE.Mesh(new THREE.SphereGeometry(1.3, 14, 10), phys(0xe9ecef, {roughness: .4})); dome.position.set(0, 19.5, 2); frigate.add(dome);
+  const ant = new THREE.Mesh(new THREE.CylinderGeometry(.06, .06, 9), darkGrey); ant.position.set(2, 31, -3); frigate.add(ant);
   const numT = new THREE.Mesh(new THREE.PlaneGeometry(8, 5), new THREE.MeshBasicMaterial({map: canvasTex(256, 160, c => { c.font = '900 140px sans-serif'; c.fillStyle = '#eeeeee'; c.textAlign = 'center'; c.fillText('01', 128, 135); }), transparent: true}));
   numT.position.set(6.9, 2.6, 50); numT.rotation.y = Math.PI / 2 + .1; frigate.add(numT); }
 const rhib = new THREE.Group(); scene.add(rhib);
