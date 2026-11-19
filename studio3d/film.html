@@ -1,0 +1,490 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>html,body{margin:0;background:#000;overflow:hidden}canvas{display:block}#gl{position:absolute;left:0;top:0}</style>
+<script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js"}}</script>
+</head><body>
+<canvas id="out" width="1080" height="1920"></canvas>
+<script type="module">
+import * as THREE from 'three';
+
+const W = 1080, H = 1920;
+const out = document.getElementById('out'), octx = out.getContext('2d');
+const renderer = new THREE.WebGLRenderer({antialias: true, preserveDrawingBuffer: true});
+renderer.setSize(W, H, false); renderer.setPixelRatio(1);
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.outputColorSpace = THREE.SRGBColorSpace;
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 2000);
+
+// ---------- helpers ----------
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const lerp = (a, b, p) => a + (b - a) * p;
+const ease = p => p < .5 ? 2*p*p : 1 - Math.pow(-2*p+2, 2)/2;
+const easeOut = p => 1 - Math.pow(1 - p, 3);
+function rng(s){ return () => (s = (s * 16807) % 2147483647) / 2147483647; }
+const mat = (color, o = {}) => new THREE.MeshStandardMaterial({color, flatShading: true, roughness: .75, metalness: 0, ...o});
+function box(w, h, d, m){ const g = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); g.castShadow = g.receiveShadow = true; return g; }
+function canvasTex(w, h, draw){ const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; }
+
+// ---------- lights ----------
+const hemi = new THREE.HemisphereLight(0xbfd8ff, 0x203040, 1.0); scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xffffff, 2.2); sun.position.set(30, 50, 20); sun.castShadow = true;
+sun.shadow.mapSize.set(1024, 1024); Object.assign(sun.shadow.camera, {left: -40, right: 40, top: 40, bottom: -40, near: 1, far: 200});
+scene.add(sun);
+const flash = new THREE.SpotLight(0xffb060, 0, 45, Math.PI/6, .45, 1); flash.castShadow = true; scene.add(flash); scene.add(flash.target);
+const lamp = new THREE.PointLight(0xffa040, 0, 25, 1.5); scene.add(lamp);
+
+// ---------- ocean ----------
+const OCEAN_SIZE = 600, OSEG = 110;
+const oceanGeo = new THREE.PlaneGeometry(OCEAN_SIZE, OCEAN_SIZE, OSEG, OSEG); oceanGeo.rotateX(-Math.PI/2);
+const oceanBase = oceanGeo.attributes.position.array.slice();
+const oceanMat = mat(0x1d4f7a, {roughness: .35, metalness: .1});
+const ocean = new THREE.Mesh(oceanGeo, oceanMat); ocean.receiveShadow = true; scene.add(ocean);
+let SEA = {amp: 1, chop: 1};
+function waveH(x, z, t){
+  const a = SEA.amp;
+  return a * (Math.sin(x*.05 + t*.9) * 2.2 + Math.sin(z*.07 - t*1.1) * 1.6 + Math.sin((x+z)*.11 + t*1.7) * .7 * SEA.chop + Math.sin((x-z)*.23 - t*2.3) * .3 * SEA.chop);
+}
+function updateOcean(t){
+  const p = oceanGeo.attributes.position.array;
+  for (let i = 0; i < p.length; i += 3) p[i+1] = waveH(oceanBase[i], oceanBase[i+2], t);
+  oceanGeo.attributes.position.needsUpdate = true; oceanGeo.computeVertexNormals();
+}
+
+// ---------- sky dome ----------
+const skyUniforms = {top: {value: new THREE.Color()}, bot: {value: new THREE.Color()}};
+const sky = new THREE.Mesh(new THREE.SphereGeometry(900, 24, 12), new THREE.ShaderMaterial({
+  side: THREE.BackSide, depthWrite: false, uniforms: skyUniforms,
+  vertexShader: 'varying vec3 vp; void main(){ vp = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.); }',
+  fragmentShader: 'uniform vec3 top; uniform vec3 bot; varying vec3 vp; void main(){ float h = clamp(vp.y*1.6+.15,0.,1.); gl_FragColor = vec4(mix(bot, top, h), 1.); }'
+}));
+scene.add(sky);
+const sunDisc = new THREE.Mesh(new THREE.CircleGeometry(40, 32), new THREE.MeshBasicMaterial({color: 0xffd27a, fog: false})); scene.add(sunDisc);
+
+// ---------- rain ----------
+const RAIN_N = 2500, rainGeo = new THREE.BufferGeometry(), rainPos = new Float32Array(RAIN_N * 6);
+const rainSeed = []; { const r = rng(3); for (let i = 0; i < RAIN_N; i++) rainSeed.push([r()*120-60, r()*60, r()*120-60, .6 + r()*.4]); }
+rainGeo.setAttribute('position', new THREE.BufferAttribute(rainPos, 3));
+const rain = new THREE.LineSegments(rainGeo, new THREE.LineBasicMaterial({color: 0xaabbd0, transparent: true, opacity: .45})); scene.add(rain);
+function updateRain(t, center){
+  for (let i = 0; i < RAIN_N; i++){
+    const [x, y0, z, s] = rainSeed[i]; const y = ((y0 - t * 40 * s) % 60 + 60) % 60;
+    const X = center.x + x, Z = center.z + z;
+    rainPos.set([X, y, Z, X - 1.2, y - 2.4, Z], i * 6);
+  }
+  rainGeo.attributes.position.needsUpdate = true;
+}
+
+// ---------- the sailboat (Vendée Globe 60ft, stylised) ----------
+function makeBoat(colors = {hull: 0xf4f1ea, stripe: 0xd7263d, sail: 0xf7f7f2}){
+  const g = new THREE.Group();
+  const hullShape = new THREE.Shape();
+  hullShape.moveTo(0, 9); hullShape.quadraticCurveTo(2.6, 4, 2.4, -6); hullShape.lineTo(-2.4, -6); hullShape.quadraticCurveTo(-2.6, 4, 0, 9);
+  const hullGeo = new THREE.ExtrudeGeometry(hullShape, {depth: 1.6, bevelEnabled: true, bevelSize: .25, bevelThickness: .25, bevelSegments: 1});
+  hullGeo.rotateX(Math.PI/2); hullGeo.translate(0, .4, 0);
+  // taper the bottom for a V-hull
+  const hp = hullGeo.attributes.position; for (let i = 0; i < hp.count; i++){ const y = hp.getY(i); if (y < -.5) hp.setX(i, hp.getX(i) * .55); } hullGeo.computeVertexNormals();
+  const hull = new THREE.Mesh(hullGeo, mat(colors.hull)); hull.castShadow = hull.receiveShadow = true; g.add(hull);
+  const stripe = new THREE.Mesh(hullGeo.clone().scale(1.01, .18, 1.01).translate(0, -.15, 0), mat(colors.stripe)); g.add(stripe);
+  const deck = box(3.2, .2, 9, mat(0x5b5f66)); deck.position.set(0, .55, 1); g.add(deck);
+  const cabin = box(2.2, .9, 3, mat(0xe8e4da)); cabin.position.set(0, 1.0, -2); g.add(cabin);
+  const win = box(2.25, .3, 1.2, mat(0x1b2a3a, {roughness: .1})); win.position.set(0, 1.15, -1); g.add(win);
+  const mast = new THREE.Mesh(new THREE.CylinderGeometry(.13, .18, 22, 8), mat(0x2a2d33)); mast.position.set(0, 11.5, 1); mast.castShadow = true; g.add(mast);
+  const boom = box(.18, .18, 6.5, mat(0x2a2d33)); boom.position.set(0, 2.2, -2.1); g.add(boom);
+  const sailGeo = new THREE.BufferGeometry(); sailGeo.setAttribute('position', new THREE.Float32BufferAttribute([0,2.4,.9, 0,22,.95, 0,2.4,-5.3, 0,12,-2.2], 3)); sailGeo.setIndex([0,1,3, 0,3,2]); sailGeo.computeVertexNormals();
+  const sail = new THREE.Mesh(sailGeo, mat(colors.sail, {side: THREE.DoubleSide})); sail.castShadow = true; g.add(sail);
+  const jibGeo = new THREE.BufferGeometry(); jibGeo.setAttribute('position', new THREE.Float32BufferAttribute([0,1,8.6, 0,19,1.2, 0,1.2,2], 3)); jibGeo.computeVertexNormals();
+  const jib = new THREE.Mesh(jibGeo, mat(0xe9e9e3, {side: THREE.DoubleSide})); g.add(jib);
+  const num = new THREE.Mesh(new THREE.PlaneGeometry(4, 4), new THREE.MeshBasicMaterial({map: canvasTex(256, 256, (c) => { c.font = '900 150px sans-serif'; c.fillStyle = '#d7263d'; c.textAlign = 'center'; c.fillText('GB', 128, 180); }), transparent: true, side: THREE.DoubleSide}));
+  num.position.set(.05, 10, -1.2); num.rotation.y = Math.PI/2; g.add(num);
+  const keel = new THREE.Group();
+  const fin = box(.25, 4.2, 1.1, mat(0x30343b)); fin.position.y = -2.4; keel.add(fin);
+  const bulb = new THREE.Mesh(new THREE.CapsuleGeometry(.55, 2.2, 4, 10), mat(0x1c1f24)); bulb.rotation.x = Math.PI/2; bulb.position.y = -4.6; keel.add(bulb);
+  keel.position.set(0, 0, 0); g.add(keel);
+  const rudder = box(.15, 2, .7, mat(0x30343b)); rudder.position.set(0, -1, -5.6); g.add(rudder);
+  g.userData = {keel, sail, jib, mast, boom, num};
+  return g;
+}
+const boat = makeBoat(); scene.add(boat);
+const fleet = []; { const cols = [0x2a7de1, 0xf2a900, 0x1faa59, 0x8e44ad, 0xe8590c, 0x101418]; for (let i = 0; i < 6; i++){ const b = makeBoat({hull: cols[i], stripe: 0xffffff, sail: 0xf2f2ec}); b.scale.setScalar(.9); scene.add(b); fleet.push(b); } }
+
+// ---------- characters (blocky, faces drawn on a texture) ----------
+const FACES = {};
+function faceTex(mood, beard){
+  const key = mood + beard; if (FACES[key]) return FACES[key];
+  return FACES[key] = canvasTex(256, 256, (c) => {
+    c.fillStyle = '#f2c29b'; c.fillRect(0, 0, 256, 256);
+    c.fillStyle = 'rgba(230,120,110,.35)'; c.beginPath(); c.ellipse(60, 160, 22, 14, 0, 0, 7); c.ellipse(196, 160, 22, 14, 0, 0, 7); c.fill();
+    const eyeR = mood === 'scared' ? 26 : mood === 'tired' ? 16 : 20;
+    for (const ex of [82, 174]){
+      c.fillStyle = '#fff'; c.beginPath(); c.ellipse(ex, 118, eyeR, mood === 'tired' ? 10 : eyeR, 0, 0, 7); c.fill();
+      c.lineWidth = 5; c.strokeStyle = '#1b1a2e'; c.stroke();
+      c.fillStyle = '#1b1a2e'; c.beginPath(); c.arc(ex + 3, 120, mood === 'tired' ? 6 : 9, 0, 7); c.fill();
+      c.fillStyle = '#fff'; c.beginPath(); c.arc(ex + 7, 114, 3, 0, 7); c.fill();
+    }
+    c.strokeStyle = '#1b1a2e'; c.lineWidth = 10; c.lineCap = 'round';
+    const by = mood === 'scared' ? 66 : 80, tilt = mood === 'scared' ? -10 : mood === 'tired' ? 8 : 0;
+    c.beginPath(); c.moveTo(50, by + tilt); c.lineTo(110, by); c.moveTo(146, by); c.lineTo(206, by + tilt); c.stroke();
+    if (beard){ c.fillStyle = '#b9b4ab'; c.beginPath(); c.moveTo(30, 150); c.quadraticCurveTo(128, 300, 226, 150); c.lineTo(226, 256); c.lineTo(30, 256); c.fill(); }
+    c.fillStyle = '#5a1e24'; c.strokeStyle = '#1b1a2e'; c.lineWidth = 6;
+    if (mood === 'scared'){ c.beginPath(); c.ellipse(128, 196, 18, 24, 0, 0, 7); c.fill(); c.stroke(); }
+    else if (mood === 'happy'){ c.beginPath(); c.arc(128, 178, 34, .2, Math.PI - .2); c.fill(); c.stroke(); }
+    else if (mood === 'tired'){ c.beginPath(); c.moveTo(100, 200); c.quadraticCurveTo(128, 186, 156, 200); c.stroke(); }
+    else { c.beginPath(); c.moveTo(102, 192); c.lineTo(154, 192); c.stroke(); }
+  });
+}
+function makeChar(opts = {}){
+  const g = new THREE.Group();
+  const coat = mat(opts.coat ?? 0xf2c400), dark = mat(opts.pants ?? 0x2b2f3a), skin = mat(0xf2c29b);
+  const headMats = [skin, skin, mat(opts.hair ?? 0x8a8379), skin, new THREE.MeshStandardMaterial({map: faceTex(opts.mood ?? 'neutral', opts.beard ?? true), roughness: .8}), skin];
+  const head = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.2, 1.2), headMats); head.position.y = 3.3; head.castShadow = true; g.add(head);
+  const hood = box(1.32, .35, 1.32, coat); hood.position.y = 3.95; g.add(hood);
+  const body = box(1.4, 1.6, .8, coat); body.position.y = 2.0; g.add(body);
+  const armL = box(.45, 1.5, .5, coat), armR = box(.45, 1.5, .5, coat);
+  armL.geometry.translate(0, -.6, 0); armR.geometry.translate(0, -.6, 0);
+  armL.position.set(-.95, 2.7, 0); armR.position.set(.95, 2.7, 0); g.add(armL, armR);
+  const legL = box(.6, 1.3, .65, dark), legR = box(.6, 1.3, .65, dark); legL.position.set(-.35, .65, 0); legR.position.set(.35, .65, 0); g.add(legL, legR);
+  g.userData = {head, headMats, armL, armR, legL, legR, opts};
+  return g;
+}
+function setMood(ch, mood){ ch.userData.headMats[4].map = faceTex(mood, ch.userData.opts.beard ?? true); ch.userData.headMats[4].needsUpdate = true; }
+const tony = makeChar({beard: true}); scene.add(tony);
+const sailor = makeChar({coat: 0x6b7380, pants: 0x2b2f3a, beard: false, hair: 0x2a1d14, mood: 'neutral'}); scene.add(sailor);
+const sailor2 = makeChar({coat: 0xe8590c, pants: 0x2b2f3a, beard: false, hair: 0x5a3a1a, mood: 'happy'}); scene.add(sailor2);
+
+// ---------- inside the upturned hull ----------
+const pocket = new THREE.Group(); scene.add(pocket);
+{
+  const wallM = mat(0x4a4236, {side: THREE.BackSide});
+  const room = new THREE.Mesh(new THREE.BoxGeometry(10, 6, 16), wallM); room.position.y = 1; room.receiveShadow = true; pocket.add(room);
+  // upside-down furniture on the ceiling (it was the floor)
+  const t1 = box(2.4, .3, 1.6, mat(0x6b4a2b)); t1.position.set(-2, 3.6, -2); pocket.add(t1);
+  const t1l = box(.2, 1.4, .2, mat(0x6b4a2b)); t1l.position.set(-2, 3.0, -2); pocket.add(t1l);
+  const bunk = box(2.2, .6, 5, mat(0x3a5a7a)); bunk.position.set(3.4, 3.5, 2); pocket.add(bunk);
+  for (let i = 0; i < 6; i++){ const rib = box(10, .35, .35, mat(0x3a332a)); rib.position.set(0, 3.95, -7 + i*2.8); pocket.add(rib); }
+  const ropes = []; for (let i = 0; i < 5; i++){ const r = box(.08, 1.6 + (i%3)*.6, .08, mat(0x9a8a6a)); r.position.set(-3 + i*1.5, 3.1, 4 - i); pocket.add(r); ropes.push(r); }
+  pocket.userData.ropes = ropes;
+}
+const pWaterGeo = new THREE.PlaneGeometry(10, 16, 40, 60); pWaterGeo.rotateX(-Math.PI/2);
+const pWaterBase = pWaterGeo.attributes.position.array.slice();
+const pWater = new THREE.Mesh(pWaterGeo, mat(0x0d2b3a, {roughness: .15, metalness: .3, transparent: true, opacity: .92})); pocket.add(pWater);
+const beam = new THREE.Mesh(new THREE.ConeGeometry(2.2, 9, 24, 1, true), new THREE.MeshBasicMaterial({color: 0xffc070, transparent: true, opacity: .08, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide}));
+beam.geometry.translate(0, -4.5, 0); beam.geometry.rotateX(-Math.PI/2); scene.add(beam);
+const torch = box(.25, .25, .7, mat(0x222222)); scene.add(torch);
+const choc = box(.9, .15, .35, mat(0x5a2e1a)); scene.add(choc);
+const chocWrap = box(.5, .17, .37, mat(0xc0392b)); scene.add(chocWrap);
+
+// ---------- bubbles ----------
+const bubbles = new THREE.Group(); scene.add(bubbles);
+{ const r = rng(9); for (let i = 0; i < 60; i++){ const b = new THREE.Mesh(new THREE.SphereGeometry(.08 + r()*.12, 8, 6), new THREE.MeshStandardMaterial({color: 0xcfefff, transparent: true, opacity: .5, roughness: .1})); b.userData = {x: r()*8-4, z: r()*8-4, s: .5 + r(), ph: r()}; bubbles.add(b); } }
+
+// ---------- underwater god rays ----------
+const rays = new THREE.Group(); scene.add(rays);
+for (let i = 0; i < 7; i++){ const r = new THREE.Mesh(new THREE.PlaneGeometry(2.5, 60), new THREE.MeshBasicMaterial({color: 0x9fd8ff, transparent: true, opacity: .07, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide})); r.position.set(-15 + i*5, -20, -10 + (i%3)*6); r.rotation.z = .25; rays.add(r); }
+
+// ---------- aircraft (P-3 Orion style) ----------
+const plane = new THREE.Group(); scene.add(plane);
+{
+  const gm = mat(0x9aa3ad);
+  const fus = new THREE.Mesh(new THREE.CylinderGeometry(1, .8, 18, 10), gm); fus.rotation.x = Math.PI/2; plane.add(fus);
+  const nose = new THREE.Mesh(new THREE.ConeGeometry(1, 2.5, 10), gm); nose.rotation.x = Math.PI/2; nose.position.z = 10.2; plane.add(nose);
+  const wing = box(26, .3, 3, gm); wing.position.set(0, -.2, 1.5); plane.add(wing);
+  const tail = box(8, .25, 2, gm); tail.position.set(0, .3, -8); plane.add(tail);
+  const fin = box(.3, 3.5, 2.5, gm); fin.position.set(0, 2, -8); plane.add(fin);
+  const props = [];
+  for (const x of [-9, -4.5, 4.5, 9]){ const eng = new THREE.Mesh(new THREE.CylinderGeometry(.55, .55, 3, 8), mat(0x7f8892)); eng.rotation.x = Math.PI/2; eng.position.set(x, -.3, 3); plane.add(eng);
+    const pr = box(3.4, .2, .1, mat(0x222)); pr.position.set(x, -.3, 4.6); plane.add(pr); props.push(pr); }
+  const roundel = new THREE.Mesh(new THREE.CircleGeometry(.9, 20), new THREE.MeshBasicMaterial({color: 0xd7263d})); roundel.position.set(1.02, .1, -2); roundel.rotation.y = Math.PI/2; plane.add(roundel);
+  plane.userData.props = props;
+}
+
+// ---------- frigate ----------
+const frigate = new THREE.Group(); scene.add(frigate);
+{
+  const g = mat(0x7d8790), d = mat(0x5f6870);
+  const s = new THREE.Shape(); s.moveTo(0, 40); s.quadraticCurveTo(6.5, 15, 6, -28); s.lineTo(-6, -28); s.quadraticCurveTo(-6.5, 15, 0, 40);
+  const hg = new THREE.ExtrudeGeometry(s, {depth: 7, bevelEnabled: false}); hg.rotateX(Math.PI/2); hg.translate(0, 4, 0);
+  const hull = new THREE.Mesh(hg, g); hull.castShadow = true; frigate.add(hull);
+  const sup = box(9, 6, 22, d); sup.position.set(0, 7, -6); frigate.add(sup);
+  const bridge = box(8, 3, 6, g); bridge.position.set(0, 11.5, 2); frigate.add(bridge);
+  const wins = box(8.1, .8, 6.1, mat(0x1b2a3a, {roughness: .1})); wins.position.set(0, 12, 2); frigate.add(wins);
+  const mastF = new THREE.Mesh(new THREE.CylinderGeometry(.3, .6, 14, 6), d); mastF.position.set(0, 18, -2); frigate.add(mastF);
+  const funnel = box(4, 5, 5, d); funnel.position.set(0, 12, -10); frigate.add(funnel);
+  const gun = box(2, 1.5, 3, d); gun.position.set(0, 5, 18); frigate.add(gun);
+  const barrel = new THREE.Mesh(new THREE.CylinderGeometry(.2, .2, 5, 6), d); barrel.rotation.x = Math.PI/2; barrel.position.set(0, 5.3, 21); frigate.add(barrel);
+  const numT = new THREE.Mesh(new THREE.PlaneGeometry(6, 4), new THREE.MeshBasicMaterial({map: canvasTex(256, 170, (c) => { c.font = '900 140px sans-serif'; c.fillStyle = '#f2f2f2'; c.textAlign = 'center'; c.fillText('01', 128, 140); }), transparent: true}));
+  numT.position.set(6.2, 2, 25); numT.rotation.y = Math.PI/2 + .15; frigate.add(numT);
+}
+const rhib = new THREE.Group(); scene.add(rhib);
+{ const tube = new THREE.Mesh(new THREE.TorusGeometry(2.2, .5, 8, 16), mat(0xe8590c)); tube.scale.set(.75, 1.6, 1); tube.rotation.x = Math.PI/2; rhib.add(tube); const fl = box(2.4, .2, 5.5, mat(0x30343b)); fl.position.y = -.2; rhib.add(fl); }
+
+// ---------- chart table (map) ----------
+const chartTex = canvasTex(1024, 1536, (c, w, h) => {
+  c.fillStyle = '#e9dfc4'; c.fillRect(0, 0, w, h);
+  c.strokeStyle = 'rgba(80,100,130,.25)'; c.lineWidth = 2;
+  for (let x = 0; x < w; x += 64){ c.beginPath(); c.moveTo(x, 0); c.lineTo(x, h); c.stroke(); }
+  for (let y = 0; y < h; y += 64){ c.beginPath(); c.moveTo(0, y); c.lineTo(w, y); c.stroke(); }
+  // Australia (stylised)
+  c.fillStyle = '#c9b48a'; c.strokeStyle = '#5a4a32'; c.lineWidth = 6;
+  const au = [[300,180],[420,120],[560,150],[640,110],[760,190],[850,330],[880,470],[820,560],[700,600],[600,560],[520,600],[420,560],[330,580],[250,500],[230,360],[260,250]];
+  c.beginPath(); au.forEach(([x,y],i) => i ? c.lineTo(x,y) : c.moveTo(x,y)); c.closePath(); c.fill(); c.stroke();
+  c.beginPath(); c.ellipse(760, 680, 50, 40, 0, 0, 7); c.fill(); c.stroke();
+  // Antarctica edge
+  c.beginPath(); c.moveTo(0, 1400); for (let x = 0; x <= w; x += 40) c.lineTo(x, 1390 + Math.sin(x/70)*25); c.lineTo(w, h); c.lineTo(0, h); c.closePath(); c.fillStyle = '#f4f7fa'; c.fill(); c.stroke();
+  c.font = 'italic 700 48px serif'; c.fillStyle = '#5a4a32'; c.textAlign = 'center';
+  c.fillText('AUSTRALIE', 560, 380); c.fillText('OCÉAN AUSTRAL', 512, 1000); c.fillText('ANTARCTIQUE', 512, 1480);
+});
+const chart = new THREE.Mesh(new THREE.PlaneGeometry(10, 15), new THREE.MeshStandardMaterial({map: chartTex, roughness: .9})); chart.rotation.x = -Math.PI/2; chart.receiveShadow = true; scene.add(chart);
+const routeMat = new THREE.LineDashedMaterial({color: 0xd7263d, dashSize: .25, gapSize: .15, linewidth: 2});
+let routeLine = null;
+const marker = new THREE.Mesh(new THREE.ConeGeometry(.25, .7, 4), mat(0xd7263d)); marker.rotation.x = Math.PI; scene.add(marker);
+const pencil = box(.15, .15, 3, mat(0xf2c400)); scene.add(pencil);
+const desk = box(14, .5, 20, mat(0x4a3423)); scene.add(desk);
+
+// ---------- beacon (EPIRB) ----------
+const beacon = new THREE.Group(); scene.add(beacon);
+{ const bb = new THREE.Mesh(new THREE.CylinderGeometry(.5, .6, 2.2, 10), mat(0xf2c400)); beacon.add(bb); const ant = new THREE.Mesh(new THREE.CylinderGeometry(.05, .05, 2.5, 4), mat(0x222)); ant.position.y = 2.3; beacon.add(ant);
+  const led = new THREE.Mesh(new THREE.SphereGeometry(.25, 10, 8), new THREE.MeshBasicMaterial({color: 0xff2a2a})); led.position.y = 1.2; beacon.add(led); beacon.userData.led = led; }
+const pulseRings = []; for (let i = 0; i < 3; i++){ const r = new THREE.Mesh(new THREE.TorusGeometry(1, .05, 6, 40), new THREE.MeshBasicMaterial({color: 0xff4040, transparent: true})); scene.add(r); pulseRings.push(r); }
+
+// ---------- scene graph control ----------
+const ALL = [ocean, sky, sunDisc, rain, boat, ...fleet, tony, sailor, sailor2, pocket, beam, torch, choc, chocWrap, bubbles, rays, plane, frigate, rhib, chart, marker, pencil, desk, beacon, ...pulseRings];
+function only(...objs){ for (const o of ALL) o.visible = false; for (const o of objs) o.visible = true; }
+
+const LOOKS = {
+  day:    {top: 0x3d86d1, bot: 0xbfe2ff, fog: 0xbfe2ff, fogD: [80, 520], hemi: [0xdcecff, 0x335577, 1.1], sun: [0xfff2dc, 2.4], sea: 0x1f6aa5, exp: 1.0},
+  storm:  {top: 0x1a2330, bot: 0x4a5a6a, fog: 0x3b4855, fogD: [20, 230], hemi: [0x8aa0b8, 0x101820, .8], sun: [0x9fb4c8, .9], sea: 0x1c3a4c, exp: .95},
+  night:  {top: 0x0a1430, bot: 0x2a3d5e, fog: 0x1a2a44, fogD: [40, 420], hemi: [0x6a88b8, 0x0a1020, .9], sun: [0x9fb8e0, .9], sea: 0x163a55, exp: 1.15},
+  under:  {top: 0x1a6a95, bot: 0x05263a, fog: 0x0b4a6e, fogD: [6, 110], hemi: [0x8fd0ff, 0x05263a, 2.0], sun: [0xbfe8ff, 1.4], sea: 0x0d3a55, exp: 1.1},
+  pocket: {top: 0x000000, bot: 0x000000, fog: 0x070605, fogD: [9, 40], hemi: [0x7a6a55, 0x151515, .55], sun: [0x000000, 0], sea: 0x0d2b3a, exp: 1.35},
+  grey:   {top: 0x6f7c88, bot: 0xc5ccd2, fog: 0xb8c0c7, fogD: [60, 480], hemi: [0xd8e0e8, 0x404850, 1.0], sun: [0xf0f0f0, 1.6], sea: 0x2a5878, exp: 1.0},
+  dawn:   {top: 0x2c3e70, bot: 0xffb36b, fog: 0xf0a878, fogD: [60, 520], hemi: [0xffd2a8, 0x2a3048, 1.0], sun: [0xffc27a, 2.6], sea: 0x2c4f78, exp: 1.05},
+  desk:   {top: 0x000000, bot: 0x000000, fog: 0x000000, fogD: [10, 80], hemi: [0x4a4038, 0x000000, .3], sun: [0xffe0b0, 1.2], sea: 0x000000, exp: 1.0},
+};
+function look(name){
+  const L = LOOKS[name];
+  skyUniforms.top.value.set(L.top); skyUniforms.bot.value.set(L.bot);
+  scene.fog = new THREE.Fog(L.fog, L.fogD[0], L.fogD[1]);
+  hemi.color.set(L.hemi[0]); hemi.groundColor.set(L.hemi[1]); hemi.intensity = L.hemi[2];
+  sun.color.set(L.sun[0]); sun.intensity = L.sun[1]; oceanMat.color.set(L.sea);
+  renderer.toneMappingExposure = L.exp; scene.background = new THREE.Color(L.bot);
+  flash.intensity = 0; lamp.intensity = 0;
+}
+function cam(px, py, pz, tx, ty, tz, fov = 40, roll = 0){
+  camera.position.set(px, py, pz); camera.fov = fov; camera.updateProjectionMatrix(); camera.lookAt(tx, ty, tz);
+  if (roll) camera.rotateZ(roll);
+}
+function shake(amt, t){ camera.position.x += Math.sin(t*37)*amt; camera.position.y += Math.cos(t*29)*amt*.7; }
+function floatOn(obj, x, z, t, k = 1){
+  const y = waveH(x, z, t); const dx = waveH(x + 2, z, t) - waveH(x - 2, z, t); const dz = waveH(x, z + 3, t) - waveH(x, z - 3, t);
+  obj.position.set(x, y, z); obj.rotation.z = -dx * .12 * k; obj.rotation.x = dz * .08 * k;
+}
+function placeBoatParts(b, {keelBroken = 0} = {}){
+  const k = b.userData.keel; k.position.set(0, -keelBroken*8, -keelBroken*2); k.rotation.x = keelBroken * 1.2;
+}
+function updatePocketWater(t, level){
+  const p = pWaterGeo.attributes.position.array;
+  for (let i = 0; i < p.length; i += 3) p[i+1] = level + Math.sin(pWaterBase[i]*1.3 + t*2.2)*.08 + Math.sin(pWaterBase[i+2]*.9 - t*1.7)*.1;
+  pWaterGeo.attributes.position.needsUpdate = true; pWaterGeo.computeVertexNormals();
+}
+function bubblesAt(cx, cy, cz, t, spread = 1){
+  bubbles.position.set(cx, cy, cz);
+  for (const b of bubbles.children){ const u = b.userData; const a = ((t*.4*u.s + u.ph) % 1); b.position.set(u.x*spread + Math.sin(t*3+u.ph*9)*.2, a*10, u.z*spread); b.material.opacity = .55*(1-a); }
+}
+function posePocket(t, {mood = 'scared', level = 0, torchOn = true, shiver = 0} = {}){
+  setMood(tony, mood);
+  tony.position.set(0, level - 2.3 + Math.sin(t*1.3)*.06, 0); tony.rotation.set(0, Math.sin(t*.4)*.15, 0);
+  tony.position.x += Math.sin(t*40)*.03*shiver;
+  tony.userData.armR.rotation.x = -1.1; tony.userData.armL.rotation.x = -.2 + Math.sin(t*2)*.05;
+  const hand = new THREE.Vector3(.95, 1.4, .9).applyMatrix4(new THREE.Matrix4().makeRotationY(tony.rotation.y)).add(tony.position);
+  torch.position.copy(hand); flash.position.copy(hand);
+  const aim = new THREE.Vector3(Math.sin(t*.7)*2.5, level + 1.6 + Math.sin(t*.9)*.6, 6);
+  flash.target.position.copy(aim); torch.lookAt(aim); beam.position.copy(hand); beam.lookAt(aim);
+  flash.intensity = torchOn ? 420 : 0; beam.visible = torchOn;
+  lamp.color.set(0xffa860); lamp.intensity = torchOn ? 9 : 2; lamp.position.copy(tony.position).add(new THREE.Vector3(.6, 3.3, 1.6));
+  updatePocketWater(t, level);
+  for (const [i, r] of pocket.userData.ropes.entries()) r.rotation.z = Math.sin(t*1.2 + i)*.15;
+}
+function resetChar(ch){ for (const k of ['armL', 'armR', 'legL', 'legR']) ch.userData[k].rotation.set(0, 0, 0); ch.rotation.set(0, 0, 0); ch.scale.setScalar(1); }
+
+// ---------- SHOTS : each is f(t global, p in [0,1], d duration) ----------
+const SHOTS = {
+  title(t, p){ look('storm'); only(ocean, sky, rain, boat); SEA = {amp: 2.4, chop: 1.4};
+    floatOn(boat, 0, 0, t, 1.4); boat.rotation.z += Math.PI; boat.position.y += 1.2; placeBoatParts(boat, {keelBroken: 1});
+    cam(lerp(30, 24, p), 9, 30, 0, 0, 0, 38); updateRain(t, camera.position); return {title: true}; },
+  pocket_face(t, p){ look('pocket'); only(pocket, tony, torch, beam); posePocket(t, {mood: 'scared'}); cam(1.6, 1.4 + p*.15, 4.2 - p*.6, 0, 1.0, 0, 34); return {}; },
+  pocket_dark(t, p){ look('pocket'); only(pocket, tony, torch, beam); posePocket(t, {mood: 'scared', torchOn: p > .45}); cam(-3, 1.5, 5, 0, .6, 0, 40); shake(.03, t); return {dark: p < .45 ? 1 - p/.45*.3 : 0}; },
+  pocket_water(t, p){ look('pocket'); only(pocket, tony, torch, beam, bubbles); posePocket(t, {mood: 'scared', level: lerp(-.3, .25, p)}); bubblesAt(0, -2, 0, t, .6);
+    cam(3.5, -.1, 3.5, 0, .4, 0, 42, .05); return {}; },
+  pocket_wide(t, p){ look('pocket'); only(pocket, tony, torch, beam); posePocket(t, {mood: 'scared', level: .1}); cam(0, 3.2, 7.5 - p*.8, 0, .2, 0, 48); return {}; },
+  pocket_choc(t, p){ look('pocket'); only(pocket, tony, torch, beam, choc, chocWrap); posePocket(t, {mood: 'tired', level: .1});
+    tony.userData.armL.rotation.x = -1.3; const hp = new THREE.Vector3(-.95, 2.6, 1.1).add(tony.position);
+    choc.position.copy(hp); chocWrap.position.copy(hp).add(new THREE.Vector3(.2, 0, 0)); choc.rotation.y = chocWrap.rotation.y = .3;
+    cam(-1.2, .9, 3, -.6, .5, .6, 30); lamp.intensity = 0; return {}; },
+  pocket_days(t, p){ look('pocket'); only(pocket, tony, torch, beam); posePocket(t, {mood: 'tired', level: lerp(.1, .55, p)}); cam(2.5, 2, 5, 0, .5, 0, 40); return {days: true}; },
+  pocket_shiver(t, p){ look('pocket'); only(pocket, tony, torch, beam); posePocket(t, {mood: 'tired', level: .6, shiver: 1}); cam(1.6, 1.6, 5.2 - p*.5, 0, .9, 0, 34); return {breath: true, cold: true}; },
+  knock_in(t, p){ look('pocket'); only(pocket, tony, torch, beam); posePocket(t, {mood: p > .45 ? 'happy' : 'scared', level: .55});
+    tony.userData.armL.rotation.x = -2.6 + (Math.sin(t*14) > 0 && p > .5 ? .3 : 0); cam(2.2, 1.5, 3.6, 0, 1.4, 0, 36);
+    return {knock: p > .5 ? 'TOC TOC TOC' : null}; },
+  hull_storm(t, p){ look('storm'); only(ocean, sky, rain, boat); SEA = {amp: 2.2, chop: 1.5};
+    floatOn(boat, 0, 0, t, 1.5); boat.rotation.z += Math.PI; boat.position.y += 1; placeBoatParts(boat, {keelBroken: 1});
+    cam(-18 + p*4, 6, 22, 0, 0, 0, 36); updateRain(t, camera.position); return {lightning: (t % 4) < .12}; },
+  hull_night(t, p){ look('night'); only(ocean, sky, boat, sunDisc); sunDisc.material.color.set(0xdfe8ff); sunDisc.position.set(-200, 200, -600); sunDisc.lookAt(camera.position); SEA = {amp: 1.4, chop: 1};
+    floatOn(boat, 0, 0, t); boat.rotation.z += Math.PI; boat.position.y += .9; placeBoatParts(boat, {keelBroken: 1});
+    cam(0, 40 - p*6, 30, 0, 0, 0, 40); return {}; },
+  ocean_wide(t, p){ look('storm'); only(ocean, sky, rain, boat); SEA = {amp: 2.5, chop: 1.5};
+    floatOn(boat, 0, 0, t, 1.5); boat.rotation.z += Math.PI; boat.position.y += 1; placeBoatParts(boat, {keelBroken: 1});
+    cam(0, 70 + p*25, 60, 0, 0, 0, 45); updateRain(t, new THREE.Vector3(0, 0, 0)); return {}; },
+  race_fleet(t, p){ look('day'); only(ocean, sky, sunDisc, boat, ...fleet); SEA = {amp: .5, chop: .7};
+    floatOn(boat, 0, -p*6, t); boat.rotation.z -= .25;
+    fleet.forEach((b, i) => { floatOn(b, -30 + i*12, 25 + (i%2)*18 - p*6, t); b.rotation.z -= .25; });
+    sunDisc.position.set(300, 220, -700); sunDisc.lookAt(camera.position);
+    cam(26, 9, -40 + p*5, 0, 7, 6, 42); return {}; },
+  race_fleet_top(t, p){ look('day'); only(ocean, sky, boat, ...fleet); SEA = {amp: .5, chop: .7};
+    floatOn(boat, 0, p*8, t); boat.rotation.z -= .25; fleet.forEach((b, i) => { floatOn(b, -40 + i*15, -20 - (i%3)*20 + p*8, t); b.rotation.z -= .25; });
+    cam(0, 90, 8, 0, 0, 6, 45); camera.rotation.z = p*.2; return {}; },
+  boat_hero(t, p){ look('day'); only(ocean, sky, sunDisc, boat); SEA = {amp: .6, chop: .8};
+    floatOn(boat, 0, 0, t); boat.rotation.z -= .3; sunDisc.position.set(-200, 160, -600); sunDisc.lookAt(camera.position);
+    const a = lerp(-.6, .4, p); cam(Math.sin(a)*24, 3, Math.cos(a)*24, 0, 6, 0, 38); return {}; },
+  tony_helm(t, p){ look('day'); only(ocean, sky, boat, tony); SEA = {amp: .6, chop: .8}; resetChar(tony); setMood(tony, 'happy');
+    floatOn(boat, 0, 0, t); boat.rotation.z -= .2; tony.position.set(0, 0, -4.8); boat.localToWorld(tony.position); tony.rotation.copy(boat.rotation); tony.rotation.y = Math.PI;
+    tony.scale.setScalar(.5); tony.userData.armL.rotation.x = tony.userData.armR.rotation.x = -.9;
+    const hp = tony.position.clone(); cam(hp.x + 3.5, hp.y + 2.6, hp.z - 4.5 + p*.6, hp.x, hp.y + 1.5, hp.z, 34); return {}; },
+  boat_lonely(t, p){ look('grey'); only(ocean, sky, boat); SEA = {amp: 1.1, chop: 1};
+    floatOn(boat, 0, 0, t); boat.rotation.z -= .35; cam(0, 25 + p*40, 40 + p*60, 0, 3, 0, 40); return {}; },
+  chart(t, p){ look('desk'); only(chart, desk, marker, pencil); lamp.intensity = 40; lamp.position.set(2, 6, 2);
+    desk.position.set(0, -.3, 0); chart.position.set(0, 0, 0); marker.position.set(1.2, .4 + Math.sin(t*4)*.1, 3.5); pencil.position.set(-2.6, .1, 4.4); pencil.rotation.y = .6;
+    drawRoute(p); cam(0, 13 - p*3, 6, 0, 0, 1, 45); return {}; },
+  chart_close(t, p){ look('desk'); only(chart, desk, marker, pencil); lamp.intensity = 40; lamp.position.set(2, 5, 4);
+    marker.position.set(1.2, .4 + Math.sin(t*4)*.1, 3.5); drawRoute(1); cam(3.2, 2.6 - p*.4, 6.2, 1.2, .3, 3.5, 32); return {}; },
+  storm_boat(t, p){ look('storm'); only(ocean, sky, rain, boat); SEA = {amp: 2.4, chop: 1.6};
+    floatOn(boat, 0, 0, t, 1.6); boat.rotation.z -= .5; placeBoatParts(boat);
+    cam(-14, 4, -16 + p*3, 0, 4, 2, 40); shake(.15, t); updateRain(t, camera.position); return {lightning: (t % 3.3) < .1}; },
+  storm_wave(t, p){ look('storm'); only(ocean, sky, rain, boat); SEA = {amp: 3.2, chop: 1.8};
+    floatOn(boat, 6, 10, t, 2); boat.rotation.z -= .6; cam(-4, 1.5 + waveH(-4, -14, t)*.4, -14, 4, 8, 10, 52); shake(.2, t); updateRain(t, camera.position); return {}; },
+  cabin_shock(t, p){ look('pocket'); only(pocket, tony); setMood(tony, 'scared'); resetChar(tony);
+    pocket.rotation.z = Math.PI + Math.sin(t*9)*.03*(p > .2 ? 1 : 0); pocket.position.y = 2;
+    tony.position.set(0, -.9, 0); lamp.intensity = 60; lamp.position.set(1, 2.5, 3); lamp.color.set(0xffa040);
+    tony.userData.armL.rotation.z = .6; tony.userData.armR.rotation.z = -.6;
+    cam(0, 2.6, 6.5 - p, 0, 2.2, 0, 38); shake(p > .2 ? .08 : 0, t); return {sfx: 'crack', flashW: p > .2 && p < .3}; },
+  keel_under(t, p){ look('under'); only(boat, rays, bubbles); SEA = {amp: 1, chop: 1};
+    boat.position.set(0, 0, 0); boat.rotation.set(0, 0, -.3 + Math.sin(t)*.05); placeBoatParts(boat);
+    bubblesAt(0, -6, 0, t, 1.2); cam(8, -12, 10, 0, -3, 0, 45); shake(.05, t); return {}; },
+  keel_snap(t, p){ look('under'); only(boat, rays, bubbles); boat.position.set(0, 0, 0); boat.rotation.set(0, 0, -.3 - p*.4);
+    placeBoatParts(boat, {keelBroken: ease(clamp((p - .25)/.75, 0, 1))}); bubblesAt(0, -5, 0, t, 2);
+    cam(10, -9, 8, 0, -4, 0, 42); shake(p > .25 && p < .5 ? .3 : .04, t); return {flashW: p > .25 && p < .3}; },
+  capsize(t, p){ look('storm'); only(ocean, sky, rain, boat); SEA = {amp: 2.2, chop: 1.5};
+    floatOn(boat, 0, 0, t, 1.2); boat.rotation.z -= ease(p) * Math.PI; boat.position.y += ease(p) * 1; placeBoatParts(boat, {keelBroken: 1});
+    cam(-20, 5, 4, 0, 3, 0, 40); shake(.12, t); updateRain(t, camera.position); return {}; },
+  capsize_under(t, p){ look('under'); only(boat, rays, bubbles, ocean); boat.position.set(0, 0, 0); boat.rotation.set(0, 0, -Math.PI*.6 - ease(p)*Math.PI*.4);
+    placeBoatParts(boat, {keelBroken: 1}); bubblesAt(0, -3, 0, t, 2.5); cam(0, -14, 18, 0, -1, 0, 46); return {}; },
+  beacon(t, p){ look('night'); only(ocean, sky, boat, beacon, ...pulseRings); SEA = {amp: 1.1, chop: 1};
+    floatOn(boat, 0, 0, t); boat.rotation.z += Math.PI; boat.position.y += .9; placeBoatParts(boat, {keelBroken: 1});
+    floatOn(beacon, 3, 6, t); beacon.position.y += .6; beacon.userData.led.material.color.set(Math.sin(t*12) > 0 ? 0xff2a2a : 0x330000);
+    pulseRings.forEach((r, i) => { const a = ((t*.8 + i/3) % 1); r.position.copy(beacon.position).add(new THREE.Vector3(0, 3.6, 0)); r.scale.setScalar(1 + a*12); r.material.opacity = 1 - a; r.lookAt(camera.position); });
+    cam(10, 4, 16, 3, 2.5, 6, 36); return {}; },
+  plane_fly(t, p){ look('grey'); only(ocean, sky, plane); SEA = {amp: .9, chop: 1};
+    plane.position.set(lerp(-160, 120, p), 60, 0); plane.rotation.set(0, Math.PI/2, -.08); plane.userData.props.forEach(pr => pr.rotation.z = t*40);
+    cam(0, 30, 80, plane.position.x*.6, 55, 0, 40); return {}; },
+  plane_view(t, p){ look('grey'); only(ocean, sky, boat); SEA = {amp: .9, chop: 1};
+    floatOn(boat, 0, 0, t); boat.rotation.z += Math.PI; boat.position.y += .9; placeBoatParts(boat, {keelBroken: 1});
+    const a = t*.25; cam(Math.cos(a)*90, 110, Math.sin(a)*90, 0, 0, 0, 30 - p*8); return {scope: true}; },
+  frigate(t, p){ look('grey'); only(ocean, sky, frigate); SEA = {amp: .9, chop: 1};
+    floatOn(frigate, 0, lerp(-30, 10, p), t, .3); frigate.rotation.y = 0; cam(28, 6, 60, 0, 8, 0, 40); return {}; },
+  rhib(t, p){ look('grey'); only(ocean, sky, boat, rhib, sailor, sailor2); SEA = {amp: .8, chop: 1};
+    floatOn(boat, 0, 0, t); boat.rotation.z += Math.PI; boat.position.y += .9; placeBoatParts(boat, {keelBroken: 1});
+    floatOn(rhib, lerp(-26, -6, ease(p)), 2, t); resetChar(sailor); resetChar(sailor2);
+    sailor.scale.setScalar(.5); sailor2.scale.setScalar(.5); sailor.position.copy(rhib.position).add(new THREE.Vector3(0, -.1, 1)); sailor2.position.copy(rhib.position).add(new THREE.Vector3(0, -.1, -1.2));
+    sailor.rotation.y = sailor2.rotation.y = Math.PI/2; cam(-30, 6, 20, -8, 1, 0, 36); return {}; },
+  knock_out(t, p){ look('grey'); only(ocean, sky, boat, rhib, sailor); SEA = {amp: .7, chop: 1};
+    floatOn(boat, 0, 0, t, .6); boat.rotation.z += Math.PI; boat.position.y += .9; placeBoatParts(boat, {keelBroken: 1});
+    floatOn(rhib, -5, 1, t); resetChar(sailor); sailor.scale.setScalar(.5); sailor.position.copy(rhib.position).add(new THREE.Vector3(1.2, 0, 0)); sailor.rotation.y = Math.PI/2;
+    sailor.userData.armR.rotation.x = -1.6 + (Math.sin(t*14) > 0 ? .35 : 0);
+    cam(-9, 2.5, 6, -2.5, 1.5, 0, 32); return {knock: p > .3 ? 'TOC TOC' : null}; },
+  swim_under(t, p){ look('under'); only(boat, tony, bubbles, rays); boat.position.set(0, 0, 0); boat.rotation.set(0, 0, Math.PI); placeBoatParts(boat, {keelBroken: 1});
+    resetChar(tony); setMood(tony, 'scared'); tony.scale.setScalar(.5); tony.position.set(lerp(-1, 5, p), -2.5 + p*1.5, 1); tony.rotation.set(0, Math.PI/2, -1.2);
+    tony.userData.legL.rotation.x = Math.sin(t*10)*.6; tony.userData.legR.rotation.x = -Math.sin(t*10)*.6; tony.userData.armL.rotation.x = tony.userData.armR.rotation.x = -2.8;
+    bubblesAt(tony.position.x, -3, 1, t, .4); cam(2, -6, 9, 2, -2, 0, 42); return {}; },
+  surface(t, p){ look('dawn'); only(ocean, sky, sunDisc, boat, tony, rhib, sailor2); SEA = {amp: .7, chop: .9};
+    floatOn(boat, 0, 0, t, .6); boat.rotation.z += Math.PI; boat.position.y += .9; placeBoatParts(boat, {keelBroken: 1});
+    resetChar(tony); setMood(tony, 'happy'); tony.scale.setScalar(.5); tony.position.set(4.5, waveH(4.5, 2, t) - 1.6 + ease(clamp(p*2, 0, 1))*.9, 2);
+    tony.userData.armR.rotation.x = -2.9 * ease(clamp((p - .3)*2, 0, 1)); floatOn(rhib, 8, 3, t); sailor2.scale.setScalar(.5); resetChar(sailor2); sailor2.position.copy(rhib.position).add(new THREE.Vector3(0, -.1, 0)); sailor2.userData.armL.rotation.x = -2.5;
+    sunDisc.position.set(-150, 40, -500); sunDisc.lookAt(camera.position); { const hp = tony.position.clone().add(new THREE.Vector3(0, 1.4, 0)); cam(hp.x + 3.2, hp.y + .8, hp.z + 5, hp.x - .5, hp.y - .2, hp.z, 34); } return {}; },
+  rescue_dawn(t, p){ look('dawn'); only(ocean, sky, sunDisc, frigate, boat); SEA = {amp: .6, chop: .8};
+    floatOn(frigate, -30, -40, t, .2); frigate.rotation.y = .6; floatOn(boat, 10, 0, t, .5); boat.rotation.z += Math.PI; boat.position.y += .9; placeBoatParts(boat, {keelBroken: 1});
+    sunDisc.position.set(-120, 30, -600); sunDisc.lookAt(camera.position); cam(40, 8 + p*6, 50, -10, 6, -20, 40); return {}; },
+  sail_again(t, p){ look('day'); only(ocean, sky, sunDisc, boat); SEA = {amp: .5, chop: .7}; placeBoatParts(boat);
+    floatOn(boat, 0, p*20, t); boat.rotation.z -= .25; sunDisc.position.set(200, 120, 600); sunDisc.lookAt(camera.position);
+    cam(-16, 5, -30 + p*20, 0, 6, p*20, 40); return {}; },
+  end_card(t, p){ look('dawn'); only(ocean, sky, sunDisc, boat); SEA = {amp: .5, chop: .7}; placeBoatParts(boat);
+    floatOn(boat, 0, 0, t); boat.rotation.z -= .25; sunDisc.position.set(0, 40, 600); sunDisc.lookAt(camera.position);
+    cam(0, 4 + p*10, -40 - p*20, 0, 6, 0, 40); return {endcard: true}; },
+};
+function drawRoute(p){
+  if (routeLine) { scene.remove(routeLine); routeLine.geometry.dispose(); }
+  const pts = []; const N = Math.max(2, Math.round(60 * p));
+  for (let i = 0; i < N; i++){ const a = i / 59; pts.push(new THREE.Vector3(lerp(-4.5, 1.2, a), .03, lerp(5.5, 3.5, a) + Math.sin(a*3)*.3)); }
+  routeLine = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), routeMat); routeLine.computeLineDistances(); scene.add(routeLine);
+  ALL.includes(routeLine) || null; routeLine.visible = true;
+}
+
+// ---------- 2D overlay (captions, grade, titles) ----------
+function strokeText(txt, x, y, size, fill, lw = 14, font = '900'){
+  octx.font = `${font} ${size}px "Inter", "DejaVu Sans", sans-serif`; octx.textAlign = 'center'; octx.textBaseline = 'middle';
+  octx.lineJoin = 'round'; octx.strokeStyle = '#000'; octx.lineWidth = lw; octx.strokeText(txt, x, y); octx.fillStyle = fill; octx.fillText(txt, x, y);
+}
+let DATA = null;
+window.setData = d => {
+  const find = (arr, t) => { for (const x of arr) if (t >= x.start && t < x.start + x.dur) return x; return null; };
+  DATA = {
+    shotAt: t => find(d.shots, t) || d.shots[d.shots.length - 1],
+    wordAt: t => { for (const w of d.words) if (t >= w.start && t < w.end) return w; return null; },
+    chipAt: t => { const c = find(d.chips, t); return c ? c.text : null; },
+  };
+};
+function overlay(t, shot, fx, lt, sd){
+  // vignette + grain = cinematic grade
+  const v = octx.createRadialGradient(W/2, H/2, 500, W/2, H/2, 1250); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,.55)');
+  octx.fillStyle = v; octx.fillRect(0, 0, W, H);
+  if (fx.dark) { octx.fillStyle = `rgba(0,0,0,${fx.dark})`; octx.fillRect(0, 0, W, H); }
+  if (fx.lightning) { octx.fillStyle = 'rgba(220,235,255,.55)'; octx.fillRect(0, 0, W, H); }
+  if (fx.flashW) { octx.fillStyle = 'rgba(255,255,255,.7)'; octx.fillRect(0, 0, W, H); }
+  if (fx.cold) { const g = octx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, 'rgba(120,180,255,.18)'); g.addColorStop(1, 'rgba(120,180,255,0)'); octx.fillStyle = g; octx.fillRect(0, 0, W, H); }
+  if (fx.breath){ for (let i = 0; i < 6; i++){ const a = ((t*.5 + i/6) % 1); octx.fillStyle = `rgba(230,240,255,${.25*(1-a)})`; octx.beginPath(); octx.arc(560 + a*160, 820 - a*120, 30 + a*90, 0, 7); octx.fill(); } }
+  if (fx.scope){ octx.strokeStyle = 'rgba(160,255,160,.75)'; octx.lineWidth = 4; octx.beginPath(); octx.arc(W/2, H/2, 330, 0, 7); octx.stroke();
+    octx.beginPath(); octx.moveTo(W/2 - 380, H/2); octx.lineTo(W/2 + 380, H/2); octx.moveTo(W/2, H/2 - 380); octx.lineTo(W/2, H/2 + 380); octx.stroke();
+    octx.font = '700 34px monospace'; octx.fillStyle = 'rgba(160,255,160,.9)'; octx.textAlign = 'left'; octx.fillText('RAAF  ORION  —  CONTACT', 120, 330); }
+  if (fx.knock){ const s = 1 + Math.max(0, Math.sin(t*14))*.15; octx.save(); octx.translate(W/2, 640); octx.scale(s, s); octx.rotate(-.05); strokeText(fx.knock, 0, 0, 120, '#ffffff', 18); octx.restore(); }
+  if (fx.days){ const day = 1 + Math.floor(clamp(lt/sd, 0, .999) * 4); strokeText('JOUR ' + day, W/2, 380, 150, '#ff5a4d', 20); }
+  if (fx.title){ const s = easeOut(clamp(lt/.5, 0, 1)); octx.save(); octx.translate(W/2, 820); octx.scale(s, s);
+    strokeText('4 JOURS', 0, -110, 190, '#ffe14d', 26); strokeText('SOUS LA COQUE', 0, 70, 120, '#ffffff', 20); octx.restore(); }
+  if (fx.endcard){ const s = easeOut(clamp((lt - .3)/.5, 0, 1)); if (s > 0){ octx.save(); octx.translate(W/2, 700); octx.scale(s, s);
+    octx.fillStyle = '#e63946'; octx.beginPath(); octx.roundRect(-400, -110, 800, 220, 60); octx.fill(); octx.lineWidth = 8; octx.strokeStyle = '#000'; octx.stroke();
+    strokeText('ABONNE-TOI', 0, -20, 96, '#fff', 12); strokeText('pour la prochaine histoire', 0, 60, 44, '#ffe9a8', 8, '800'); octx.restore(); } }
+  // chip (top info pill)
+  if (DATA && DATA.chipAt){ const ch = DATA.chipAt(t); if (ch){ octx.font = '900 54px "Inter", sans-serif'; const w = octx.measureText(ch).width + 80;
+    octx.fillStyle = 'rgba(10,12,20,.75)'; octx.beginPath(); octx.roundRect(W/2 - w/2, 170, w, 96, 48); octx.fill(); octx.strokeStyle = '#ffe14d'; octx.lineWidth = 5; octx.stroke();
+    octx.fillStyle = '#ffe14d'; octx.textAlign = 'center'; octx.textBaseline = 'middle'; octx.fillText(ch, W/2, 220); } }
+  // single-word caption (the viral style)
+  if (DATA){ const w = DATA.wordAt(t); if (w){ const age = t - w.start; const s = age < .08 ? .7 + age/.08*.38 : 1.08 - Math.min(.08, (age - .08)*.6);
+    octx.font = '900 118px "Inter", sans-serif'; const fit = Math.min(1, 940 / octx.measureText(w.text).width);
+    octx.save(); octx.translate(W/2, 1240); octx.scale(s * fit, s * fit); strokeText(w.text, 0, 0, 118, '#ffe14d', 22); octx.restore(); } }
+  // cut flash: 2 frames darken at each shot start for punch
+  if (lt < 1/30) { octx.fillStyle = 'rgba(0,0,0,.35)'; octx.fillRect(0, 0, W, H); }
+}
+
+// ---------- frame entry point ----------
+window.drawFrame = (t) => {
+  const sh = DATA.shotAt(t); const lt = t - sh.start, p = clamp(lt / sh.dur, 0, 1);
+  rain.visible = false; pocket.rotation.set(0, 0, 0); pocket.position.set(0, 0, 0); boat.rotation.set(0, 0, 0); resetChar(tony);
+  updateOcean(t);
+  sunDisc.material.color.set(0xffd27a);
+  const fx = SHOTS[sh.name](t, p, sh.dur) || {};
+  renderer.render(scene, camera);
+  octx.drawImage(renderer.domElement, 0, 0);
+  overlay(t, sh, fx, lt, sh.dur);
+};
+window.grab = () => out.toDataURL('image/jpeg', .9);
+window.ready = true;
+</script>
+</body></html>
