@@ -61,10 +61,14 @@ const fleet = []; { const cols = [0x2a7de1, 0xf2a900, 0x1faa59, 0x101418, 0xe859
 
 // ================= PEOPLE (realistic proportions, ~1.8 m) =================
 const FACE = {};
-function faceTex(m, beard, brow = '#4a4038'){
-  const key = m + beard + brow; if (FACE[key]) return FACE[key];
+function faceTex(m, beard, brow = '#4a4038', hair = '#8f8a82'){
+  const key = m + beard + brow + hair; if (FACE[key]) return FACE[key];
   return FACE[key] = canvasTex(1024, 512, (c) => {
     const cx = 256, cy = 248; const g = c.createLinearGradient(0, 0, 0, 512); g.addColorStop(0, '#e6b693'); g.addColorStop(1, '#d39d79'); c.fillStyle = g; c.fillRect(0, 0, 1024, 512);
+    // painted short hair: hairline on the forehead, lower at the back (front centre = x 256, back centre = x 768)
+    const hairAt = x => { const d = Math.min(Math.abs(x - 256), 1024 - Math.abs(x - 256)) / 512; return 150 + Math.pow(d, 1.6) * 175; };
+    c.fillStyle = hair; c.beginPath(); c.moveTo(0, 0); for (let x = 0; x <= 1024; x += 8) c.lineTo(x, hairAt(x) + Math.sin(x * .7) * 3); c.lineTo(1024, 0); c.closePath(); c.fill();
+    for (let i = 0; i < 9000; i++){ const x = Math.random() * 1024, y = Math.random() * hairAt(x); c.fillStyle = `rgba(${Math.random() < .5 ? '255,255,255' : '0,0,0'},${Math.random() * .13})`; c.fillRect(x, y, 1.5, 5); }
     c.fillStyle = 'rgba(205,110,95,.28)'; c.beginPath(); c.ellipse(cx - 70, cy + 52, 26, 16, 0, 0, 7); c.ellipse(cx + 70, cy + 52, 26, 16, 0, 0, 7); c.fill();
     const scared = m === 'scared', tired = m === 'tired', happy = m === 'happy';
     for (const sx of [-1, 1]){ const ex = cx + sx * 50, ey = cy;
@@ -84,7 +88,7 @@ function faceTex(m, beard, brow = '#4a4038'){
     else { c.beginPath(); c.moveTo(cx - 22, my); c.quadraticCurveTo(cx, my + 4, cx + 22, my); c.stroke(); }
     if (beard){ c.fillStyle = '#b9b3a8'; c.beginPath(); c.moveTo(cx - 105, cy + 30); c.quadraticCurveTo(cx - 100, cy + 175, cx, cy + 200); c.quadraticCurveTo(cx + 100, cy + 175, cx + 105, cy + 30);
       c.quadraticCurveTo(cx + 60, cy + 70, cx + 40, my - 14); c.quadraticCurveTo(cx, my - 26, cx - 40, my - 14); c.quadraticCurveTo(cx - 60, cy + 70, cx - 105, cy + 30); c.fill();
-      for (let i = 0; i < 500; i++){ const a = Math.random() * Math.PI, r = 60 + Math.random() * 110; c.fillStyle = `rgba(${Math.random() < .5 ? '235,232,226' : '140,135,128'},.5)`; c.fillRect(cx + Math.cos(a) * r * .9, cy + 40 + Math.sin(a) * r * .9, 2, 5); }
+      for (let i = 0; i < 500; i++){ const a = Math.random() * Math.PI, r = 60 + Math.random() * 110; c.fillStyle = `rgba(${Math.random() < .5 ? '235,232,226' : '150,145,138'},.22)`; c.fillRect(cx + Math.cos(a) * r * .9, cy + 40 + Math.sin(a) * r * .9, 2, 5); }
       // keep the mouth visible through the beard
       c.fillStyle = '#5a2224'; if (scared){ c.beginPath(); c.ellipse(cx, my + 4, 16, 20, 0, 0, 7); c.fill(); } else if (happy){ c.beginPath(); c.moveTo(cx - 34, my - 6); c.quadraticCurveTo(cx, my + 34, cx + 34, my - 6); c.closePath(); c.fill(); }
       else { c.strokeStyle = '#5a2224'; c.lineWidth = 6; c.beginPath(); c.moveTo(cx - 22, my + 2); c.quadraticCurveTo(cx, my + (tired ? -6 : 5), cx + 22, my + 2); c.stroke(); } }
@@ -107,11 +111,13 @@ function makePerson(o = {}){
   const torso = capsule(.2, .3, jacket); torso.scale.set(1.12, 1, .72); torso.position.y = .3; spine.add(torso);
   const collar = new THREE.Mesh(new THREE.CylinderGeometry(.11, .14, .1, 14), jacket); collar.position.y = .6; spine.add(collar);
   const neck = new THREE.Group(); neck.position.y = .64; spine.add(neck);
-  const headMat = new THREE.MeshStandardMaterial({map: faceTex('neutral', !!o.beard, o.brow), roughness: .6}); const head = new THREE.Mesh(new THREE.SphereGeometry(.118, 32, 24), headMat); head.scale.set(.95, 1.12, 1.0); head.position.y = .14; head.castShadow = true; neck.add(head);
+  const headMat = new THREE.MeshStandardMaterial({map: faceTex('neutral', !!o.beard, o.brow, o.hairCss), roughness: .6}); const head = new THREE.Mesh(new THREE.SphereGeometry(.118, 32, 24), headMat); head.scale.set(.97, 1.07, 1.0); head.position.y = .14; head.castShadow = true; neck.add(head);
   const face = new THREE.Group(); face.position.set(0, .14, 0); neck.add(face);
   const nose = new THREE.Mesh(new THREE.ConeGeometry(.017, .045, 10), skin); nose.rotation.x = Math.PI / 2 - .35; nose.position.set(0, -.008, .118); face.add(nose);
   const eyes = [], brows = [], mouth = null;
-  const hair = new THREE.Mesh(new THREE.SphereGeometry(.12, 18, 12, 0, Math.PI * 2, 0, Math.PI * .42), std(o.hair ?? 0x8f8a82, {roughness: .9})); hair.position.y = .145; hair.scale.set(.98, 1.1, 1.02); neck.add(hair);
+  for (const sx of [-1, 1]){ const ear = new THREE.Mesh(new THREE.SphereGeometry(.028, 12, 10), skin); ear.scale.set(.45, 1, .75); ear.position.set(sx * .112, .13, -.005); neck.add(ear); }
+  const hiCollar = new THREE.Mesh(new THREE.CylinderGeometry(.085, .12, .07, 20, 1, true), new THREE.MeshPhysicalMaterial({color: o.jacket ?? 0xf2b705, roughness: .45, clearcoat: .4, side: THREE.DoubleSide})); hiCollar.position.y = -.075; neck.add(hiCollar);
+  const neckM = new THREE.Mesh(new THREE.CylinderGeometry(.05, .058, .13, 16), skin); neckM.position.y = -.01; neckM.castShadow = true; neck.add(neckM);
   if (o.hood){ const hood = new THREE.Mesh(new THREE.SphereGeometry(.15, 24, 16, Math.PI * .72, Math.PI * 1.56, 0, Math.PI * .78), jacket); hood.position.set(0, .15, -.012); hood.scale.set(1, 1.12, 1.05); neck.add(hood); }
   if (o.cap){ const cap = new THREE.Mesh(new THREE.SphereGeometry(.125, 18, 10, 0, Math.PI * 2, 0, Math.PI * .5), std(o.cap)); cap.position.y = .16; neck.add(cap); }
   const arms = [];
@@ -124,12 +130,12 @@ function makePerson(o = {}){
   P.userData = {hips, spine, neck, legs, arms, headMat, o};
   return P;
 }
-function mood(p, m){ const u = p.userData; const t = faceTex(m, !!u.o.beard, u.o.brow); if (u.headMat.map !== t){ u.headMat.map = t; u.headMat.needsUpdate = true; } }
+function mood(p, m){ const u = p.userData; const t = faceTex(m, !!u.o.beard, u.o.brow, u.o.hairCss); if (u.headMat.map !== t){ u.headMat.map = t; u.headMat.needsUpdate = true; } }
 function rest(p){ const u = p.userData; p.position.set(0, 0, 0); p.rotation.set(0, 0, 0); u.hips.rotation.set(0, 0, 0); u.spine.rotation.set(0, 0, 0); u.neck.rotation.set(0, 0, 0);
   u.legs.forEach(l => { l.hip.rotation.set(0, 0, 0); l.knee.rotation.set(0, 0, 0); }); u.arms.forEach(a => { a.sh.rotation.set(0, 0, 0); a.el.rotation.set(0, 0, 0); }); }
-const tony = makePerson({jacket: 0xf2b705, beard: true, hood: true, hair: 0x9a958c}); scene.add(tony);
-const sailorA = makePerson({jacket: 0x59626e, pants: 0x2a2e36, hair: 0x2a1d14, cap: 0x1d2433}); scene.add(sailorA);
-const sailorB = makePerson({jacket: 0xe8590c, pants: 0x2a2e36, hair: 0x5a3a1a, cap: 0xf0f0f0}); scene.add(sailorB);
+const tony = makePerson({jacket: 0xf2b705, beard: true, hood: false, hairCss: '#a9a49b', brow: '#6e675e'}); scene.add(tony);
+const sailorA = makePerson({jacket: 0x59626e, pants: 0x2a2e36, hairCss: '#2a1d14', brow: '#2a1d14'}); scene.add(sailorA);
+const sailorB = makePerson({jacket: 0xe8590c, pants: 0x2a2e36, hairCss: '#5a3a1a', brow: '#4a2e14'}); scene.add(sailorB);
 const torch = new THREE.Group(); { const bdy = new THREE.Mesh(new THREE.CylinderGeometry(.03, .025, .2, 10), std(0x202020, {roughness: .4})); bdy.rotation.x = Math.PI / 2; torch.add(bdy);
   const lens = new THREE.Mesh(new THREE.CircleGeometry(.03, 12), new THREE.MeshBasicMaterial({color: 0xfff2c0})); lens.position.z = .101; torch.add(lens); } scene.add(torch);
 const beam = new THREE.Mesh(new THREE.ConeGeometry(1.1, 5, 24, 1, true), new THREE.MeshBasicMaterial({color: 0xffd9a0, transparent: true, opacity: .06, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide}));
