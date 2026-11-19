@@ -468,7 +468,7 @@ function overlay(t, shot, fx, lt, sd){
   // single-word caption (the viral style)
   if (DATA){ const w = DATA.wordAt(t); if (w){ const age = t - w.start; const s = age < .08 ? .7 + age/.08*.38 : 1.08 - Math.min(.08, (age - .08)*.6);
     octx.font = '900 118px "Inter", sans-serif'; const fit = Math.min(1, 940 / octx.measureText(w.text).width);
-    octx.save(); octx.translate(W/2, 1240); octx.scale(s * fit, s * fit); strokeText(w.text, 0, 0, 118, '#ffe14d', 22); octx.restore(); } }
+    octx.save(); octx.translate(W/2, 1520); octx.scale(s * fit * .68, s * fit * .68); strokeText(w.text, 0, 0, 118, '#ffffff', 22); octx.restore(); } }
   // cut flash: 2 frames darken at each shot start for punch
   if (lt < 1/30) { octx.fillStyle = 'rgba(0,0,0,.35)'; octx.fillRect(0, 0, W, H); }
 }

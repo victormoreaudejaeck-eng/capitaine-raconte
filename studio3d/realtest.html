@@ -1,0 +1,152 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>html,body{margin:0;background:#000;overflow:hidden}</style>
+<script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js","three/addons/":"/node_modules/three/examples/jsm/"}}</script>
+</head><body>
+<script type="module">
+import * as THREE from 'three';
+import {Water} from 'three/addons/objects/Water.js';
+import {Sky} from 'three/addons/objects/Sky.js';
+import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
+import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
+import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js';
+import {OutputPass} from 'three/addons/postprocessing/OutputPass.js';
+
+const W = 1080, H = 1920;
+const renderer = new THREE.WebGLRenderer({antialias: true, preserveDrawingBuffer: true});
+renderer.setSize(W, H, false); renderer.setPixelRatio(1);
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = .55;
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(38, W / H, .5, 20000);
+
+// ---- physical sky + sun ----
+const sky = new Sky(); sky.scale.setScalar(10000); scene.add(sky);
+const su = sky.material.uniforms; su.turbidity.value = 6; su.rayleigh.value = 1.6; su.mieCoefficient.value = .004; su.mieDirectionalG.value = .85;
+const sunDir = new THREE.Vector3().setFromSphericalCoords(1, THREE.MathUtils.degToRad(90 - 18), THREE.MathUtils.degToRad(200));
+su.sunPosition.value.copy(sunDir);
+const sunLight = new THREE.DirectionalLight(0xfff1e0, 2.2); sunLight.position.copy(sunDir).multiplyScalar(100); sunLight.castShadow = true;
+sunLight.shadow.mapSize.set(2048, 2048); Object.assign(sunLight.shadow.camera, {left: -25, right: 25, top: 25, bottom: -25, near: 1, far: 300}); sunLight.shadow.bias = -.0005;
+scene.add(sunLight); scene.add(sunLight.target);
+scene.add(new THREE.HemisphereLight(0xcfe6ff, 0x1d3a52, .6));
+// environment reflections from the sky
+const pmrem = new THREE.PMREMGenerator(renderer);
+const envScene = new THREE.Scene(); const sky2 = new Sky(); sky2.scale.setScalar(10000); Object.assign(sky2.material.uniforms.sunPosition.value, sunDir);
+for (const k of ['turbidity', 'rayleigh', 'mieCoefficient', 'mieDirectionalG']) sky2.material.uniforms[k].value = su[k].value;
+envScene.add(sky2); scene.environment = pmrem.fromScene(envScene).texture;
+
+// ---- realistic ocean ----
+const normals = new THREE.TextureLoader().load('/studio3d/assets/waternormals.png', t => { t.wrapS = t.wrapT = THREE.RepeatWrapping; });
+const water = new Water(new THREE.PlaneGeometry(10000, 10000), {textureWidth: 1024, textureHeight: 1024, waterNormals: normals,
+  sunDirection: sunDir.clone(), sunColor: 0xfff4e0, waterColor: 0x062638, distortionScale: 22, fog: false});
+water.rotation.x = -Math.PI / 2; water.material.uniforms.size.value = 2.2; scene.add(water);
+
+// ---- detailed IMOCA-style sailboat ----
+const paint = new THREE.MeshPhysicalMaterial({color: 0xf3f4f2, roughness: .22, metalness: 0, clearcoat: 1, clearcoatRoughness: .08});
+const hullRed = new THREE.MeshPhysicalMaterial({color: 0xc8102e, roughness: .3, clearcoat: .8});
+const antifoul = new THREE.MeshStandardMaterial({color: 0x1d2a3a, roughness: .6});
+const carbon = new THREE.MeshPhysicalMaterial({color: 0x1a1b1e, roughness: .35, metalness: .4, clearcoat: .6});
+const deckMat = new THREE.MeshStandardMaterial({color: 0x9aa0a6, roughness: .85});
+const sailMat = new THREE.MeshPhysicalMaterial({color: 0xe6e2d8, roughness: .85, sheen: .15, sheenColor: 0xffffff, side: THREE.DoubleSide, transparent: true, opacity: .97});
+
+function loftHull(){
+  // stations along length: [z, halfBeam, depth, deckHeight]
+  const st = [[-9.2, 1.9, .9, 1.0], [-7, 2.6, 1.2, 1.05], [-3, 2.85, 1.35, 1.1], [1, 2.7, 1.3, 1.15], [5, 2.0, 1.1, 1.25], [8, .9, .75, 1.35], [9.6, .05, .3, 1.45]];
+  const ring = 18, pos = [], idx = [];
+  const sample = z => { for (let i = 0; i < st.length - 1; i++){ const a = st[i], b = st[i+1]; if (z <= b[0]){ const p = (z - a[0]) / (b[0] - a[0]), s = p*p*(3-2*p); return a.map((v, k) => v + (b[k] - v) * (k === 0 ? p : s)); } } return st[st.length-1]; };
+  const L = 40;
+  for (let j = 0; j <= L; j++){
+    const z = -9.2 + 18.8 * j / L; const [, hb, dp, dh] = sample(z);
+    for (let i = 0; i <= ring; i++){
+      const a = Math.PI * i / ring; // 0 = starboard deck edge, PI = port deck edge
+      const x = Math.cos(a) * hb; const yy = -Math.pow(Math.sin(a), .7) * dp;
+      pos.push(x, yy + dh * (1 - Math.sin(a)) * .0 + (Math.sin(a) < .15 ? dh * 0 : 0), z);
+    }
+  }
+  for (let j = 0; j < L; j++) for (let i = 0; i < ring; i++){ const a = j*(ring+1)+i, b = a + ring + 1; idx.push(a, b, a+1, b, b+1, a+1); }
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+  return g;
+}
+function makeBoat(){
+  const b = new THREE.Group();
+  const hg = loftHull();
+  const hull = new THREE.Mesh(hg, paint); hull.castShadow = hull.receiveShadow = true; b.add(hull);
+  const bottom = new THREE.Mesh(hg, antifoul); bottom.scale.set(1.004, .55, 1.0); bottom.position.y = -.42; b.add(bottom);
+  const stripe = new THREE.Mesh(hg, hullRed); stripe.scale.set(1.006, .12, .995); stripe.position.y = -.08; b.add(stripe);
+  // deck: flat surface closing the hull
+  const deckShape = new THREE.Shape(); deckShape.moveTo(-1.9, -9.2); deckShape.bezierCurveTo(-2.9, -3, -2.6, 5, 0, 9.6); deckShape.bezierCurveTo(2.6, 5, 2.9, -3, 1.9, -9.2); deckShape.closePath();
+  const deck = new THREE.Mesh(new THREE.ShapeGeometry(deckShape, 24), deckMat); deck.rotation.x = -Math.PI/2; deck.position.y = .02; deck.receiveShadow = true; b.add(deck);
+  // coachroof + cockpit
+  const roofG = new THREE.BoxGeometry(2.6, .7, 4.2, 4, 2, 4); const rp = roofG.attributes.position; for (let i = 0; i < rp.count; i++){ if (rp.getY(i) > 0) { rp.setX(i, rp.getX(i) * .8); } if (rp.getZ(i) > 0) rp.setY(i, rp.getY(i) * (rp.getY(i) > 0 ? .5 : 1)); } roofG.computeVertexNormals();
+  const roof = new THREE.Mesh(roofG, paint); roof.position.set(0, .35, -1.8); roof.castShadow = true; b.add(roof);
+  const glass = new THREE.Mesh(new THREE.BoxGeometry(2.62, .22, 1.6), new THREE.MeshPhysicalMaterial({color: 0x101820, roughness: .05, metalness: .2, clearcoat: 1})); glass.position.set(0, .5, -.6); b.add(glass);
+  // mast, boom, rigging
+  const mast = new THREE.Mesh(new THREE.CylinderGeometry(.11, .17, 27, 12), carbon); mast.position.set(0, 13.5, 1.2); mast.castShadow = true; b.add(mast);
+  const boom = new THREE.Mesh(new THREE.CylinderGeometry(.09, .12, 7.2, 10), carbon); boom.rotation.x = Math.PI/2; boom.position.set(0, 2.1, -2.3); b.add(boom);
+  const line = (a, c) => { const v = new THREE.Vector3().subVectors(c, a); const m = new THREE.Mesh(new THREE.CylinderGeometry(.015, .015, v.length(), 4), carbon); m.position.copy(a).addScaledVector(v, .5); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), v.clone().normalize()); b.add(m); };
+  const top = new THREE.Vector3(0, 26.5, 1.2);
+  line(top, new THREE.Vector3(0, .1, 9.4)); line(top, new THREE.Vector3(2.4, .1, .4)); line(top, new THREE.Vector3(-2.4, .1, .4)); line(top, new THREE.Vector3(0, .9, -8.8));
+  // cambered mainsail
+  const sail = (luffBottom, luffTop, clew, camber, segU = 14, segV = 20) => {
+    const g = new THREE.PlaneGeometry(1, 1, segU, segV); const p = g.attributes.position;
+    for (let i = 0; i < p.count; i++){
+      const u = p.getX(i) + .5, v = p.getY(i) + .5; // u: luff->leech, v: foot->head
+      const luff = new THREE.Vector3().lerpVectors(luffBottom, luffTop, v);
+      const leech = new THREE.Vector3().lerpVectors(clew, luffTop, Math.pow(v, 1.1));
+      const pt = new THREE.Vector3().lerpVectors(luff, leech, u);
+      pt.x += Math.sin(Math.PI * u) * camber * (1 - v * .6);
+      p.setXYZ(i, pt.x, pt.y, pt.z);
+    }
+    g.computeVertexNormals(); const m = new THREE.Mesh(g, sailMat); m.castShadow = true; return m;
+  };
+  const main = sail(new THREE.Vector3(0, 2.2, 1.0), new THREE.Vector3(0, 26, 1.1), new THREE.Vector3(.4, 2.2, -5.8), 1.1); b.add(main);
+  const jib = sail(new THREE.Vector3(0, 1.0, 9.2), new THREE.Vector3(0, 24, 1.6), new THREE.Vector3(.5, 1.0, 2.2), .8); b.add(jib);
+  // sail number
+  const tex = (() => { const c = document.createElement('canvas'); c.width = 512; c.height = 256; const x = c.getContext('2d'); x.font = '900 200px Inter, sans-serif'; x.fillStyle = '#c8102e'; x.textAlign = 'center'; x.fillText('GBR', 256, 200); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+  const num = new THREE.Mesh(new THREE.PlaneGeometry(3.6, 1.8), new THREE.MeshBasicMaterial({map: tex, transparent: true, side: THREE.DoubleSide, depthWrite: false})); num.position.set(.75, 12, -1.6); num.rotation.y = Math.PI/2; b.add(num);
+  // keel + bulb + rudders
+  const fin = new THREE.Mesh(new THREE.BoxGeometry(.18, 4.2, 1.0), carbon); fin.position.set(0, -2.9, -.5); b.add(fin);
+  const bulb = new THREE.Mesh(new THREE.CapsuleGeometry(.45, 2.6, 6, 14), antifoul); bulb.rotation.x = Math.PI/2; bulb.position.set(0, -5.0, -.6); b.add(bulb);
+  return b;
+}
+const boat = makeBoat(); scene.add(boat);
+
+// wake + spray foam (soft sprites)
+const foamTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d'); const g = x.createRadialGradient(32, 32, 0, 32, 32, 32); g.addColorStop(0, 'rgba(255,255,255,.9)'); g.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = g; x.fillRect(0, 0, 64, 64); return new THREE.CanvasTexture(c); })();
+const FOAM = 500, foamGeo = new THREE.BufferGeometry(), foamPos = new Float32Array(FOAM * 3);
+foamGeo.setAttribute('position', new THREE.BufferAttribute(foamPos, 3));
+const foam = new THREE.Points(foamGeo, new THREE.PointsMaterial({map: foamTex, size: 2.6, transparent: true, depthWrite: false, opacity: .95})); scene.add(foam);
+const fr = []; { let s = 7; const r = () => (s = (s * 16807) % 2147483647) / 2147483647; for (let i = 0; i < FOAM; i++) fr.push([r(), r(), r()]); }
+
+// ---- post-processing ----
+const rt = new THREE.WebGLRenderTarget(W, H, {samples: 4, type: THREE.HalfFloatType});
+const composer = new EffectComposer(renderer, rt); composer.setSize(W, H);
+composer.addPass(new RenderPass(scene, camera));
+composer.addPass(new UnrealBloomPass(new THREE.Vector2(W, H), .12, .4, 6.0));
+composer.addPass(new OutputPass());
+
+window.drawFrame = (t) => {
+  water.material.uniforms.time.value = t * .55;
+  const speed = 6; const z = t * speed;
+  boat.position.set(0, Math.sin(t * 1.1) * .18 + .95, z);
+  boat.rotation.set(Math.sin(t * .9) * .025, 0, -.22 + Math.sin(t * .7) * .03);
+  // wake: particles trailing behind the hull
+  for (let i = 0; i < FOAM; i++){
+    const [a, b, c] = fr[i]; const age = (a + t * .35) % 1; const side = b < .5 ? -1 : 1;
+    foamPos.set([side * (1.4 + age * 7 + c * 1.2), .35, z - 7.5 - age * 45 + c * 3], i * 3);
+  }
+  foamGeo.attributes.position.needsUpdate = true;
+  // smooth drone move: low chase -> orbit -> rise (like a fly-through)
+  const a = THREE.MathUtils.lerp(-2.4, -0.9, Math.min(1, t / 8));
+  const r = 62 - Math.min(1, t / 8) * 10, hgt = 6 + Math.min(1, t / 8) * 14;
+  camera.position.set(Math.sin(a) * r, hgt, z + Math.cos(a) * r);
+  camera.lookAt(0, 9, z + 1);
+  sunLight.target.position.set(0, 0, z); sunLight.position.copy(sunDir).multiplyScalar(100).add(new THREE.Vector3(0, 0, z));
+  composer.render();
+};
+const oc = document.createElement('canvas'); oc.width = W; oc.height = H; const ox = oc.getContext('2d');
+window.grab = () => { ox.drawImage(renderer.domElement, 0, 0); ox.font = '900 78px Inter, sans-serif'; ox.textAlign = 'center'; ox.textBaseline = 'middle';
+  ox.lineJoin = 'round'; ox.lineWidth = 14; ox.strokeStyle = '#000'; ox.strokeText('OCÉAN', W/2, 1520); ox.fillStyle = '#fff'; ox.fillText('OCÉAN', W/2, 1520); return oc.toDataURL('image/jpeg', .9); };
+window.ready = true;
+</script></body></html>
