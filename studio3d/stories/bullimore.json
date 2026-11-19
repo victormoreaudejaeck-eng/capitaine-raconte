@@ -1,35 +1,128 @@
 {
-  "title": "4 JOURS SOUS LA COQUE",
-  "beats": [
-    {"say": "Imagine. Ton bateau vient de se retourner. Tu es enfermé dessous. Dans le noir. Au milieu de l'océan le plus dangereux du monde.",
-     "shots": ["pocket_face", "hull_storm", "pocket_water", "ocean_wide"], "chip": null},
-    {"say": "Voici l'histoire vraie de Tony Bullimore.",
-     "shots": ["title"], "chip": null},
-    {"say": "Janvier mille neuf cent quatre-vingt-dix-sept. Tony, cinquante-sept ans, fait le tour du monde en solitaire. C'est le Vendée Globe, la course la plus dure de la planète.",
-     "shots": ["race_fleet", "tony_helm", "boat_hero", "race_fleet_top"], "chip": "JANVIER 1997"},
-    {"say": "Il navigue dans l'océan Austral, à deux mille cinq cents kilomètres des côtes australiennes. Ici, aucun secours ne peut arriver vite.",
-     "shots": ["chart", "chart_close", "boat_lonely"], "chip": "2 500 KM"},
-    {"say": "Le cinq janvier, la tempête se déchaîne. Les vagues sont gigantesques.",
-     "shots": ["storm_boat", "storm_wave"], "chip": "5 JANVIER"},
-    {"say": "Soudain, un craquement sous la coque. La quille, la lourde lame qui tient le bateau droit, vient de se briser.",
-     "shots": ["cabin_shock", "keel_under", "keel_snap"], "chip": null},
-    {"say": "En quelques secondes, le voilier se retourne complètement.",
-     "shots": ["capsize", "capsize_under"], "chip": null},
-    {"say": "Tony se retrouve dans le noir total. L'eau glacée envahit la cabine. Il trouve une petite poche d'air, coincée sous la coque.",
-     "shots": ["pocket_dark", "pocket_water", "pocket_face", "pocket_wide"], "chip": null},
-    {"say": "Il n'a presque plus rien à manger. Juste une barre de chocolat. Et un peu d'eau.",
-     "shots": ["pocket_choc", "pocket_face"], "chip": null},
-    {"say": "Les heures passent. Puis les jours. La poche d'air rétrécit. Le froid le paralyse.",
-     "shots": ["hull_night", "pocket_days", "pocket_shiver"], "chip": "DAYS"},
-    {"say": "Mais sa balise de détresse a fonctionné. Un avion de l'armée australienne repère enfin la coque retournée.",
-     "shots": ["beacon", "plane_fly", "plane_view"], "chip": null},
-    {"say": "Le neuf janvier, la frégate HMAS Adelaide arrive. Un canot s'approche. Un marin frappe sur la coque.",
-     "shots": ["frigate", "rhib", "knock_out"], "chip": "9 JANVIER"},
-    {"say": "Et de l'intérieur... quelqu'un répond.",
-     "shots": ["knock_in"], "chip": null},
-    {"say": "Tony plonge sous l'eau glacée, nage sous la coque, et remonte à la surface. Vivant. Après quatre jours sous son bateau.",
-     "shots": ["swim_under", "surface", "rescue_dawn"], "chip": "VIVANT"},
-    {"say": "Le plus fou ? Quelques années plus tard, il est reparti en course. Abonne-toi pour la prochaine histoire.",
-     "shots": ["sail_again", "end_card"], "chip": null}
-  ]
+ "title": "4 JOURS SOUS LA COQUE",
+ "beats": [
+  {
+   "say": "Imagine. Ton bateau vient de se retourner. Tu es enfermé dessous. Dans le noir. Au milieu de l'océan le plus dangereux du monde.",
+   "shots": [
+    "pocket_face",
+    "hull_storm",
+    "ocean_wide"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Voici l'histoire vraie de Tony Bullimore.",
+   "shots": [
+    "title"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Janvier mille neuf cent quatre-vingt-dix-sept. Tony, cinquante-sept ans, fait le tour du monde en solitaire. C'est le Vendée Globe, la course la plus dure de la planète.",
+   "shots": [
+    "race_fleet",
+    "tony_helm",
+    "boat_hero"
+   ],
+   "chip": "JANVIER 1997"
+  },
+  {
+   "say": "Il navigue dans l'océan Austral, à deux mille cinq cents kilomètres des côtes australiennes. Ici, aucun secours ne peut arriver vite.",
+   "shots": [
+    "chart",
+    "boat_lonely"
+   ],
+   "chip": "2 500 KM"
+  },
+  {
+   "say": "Le cinq janvier, la tempête se déchaîne. Les vagues sont gigantesques.",
+   "shots": [
+    "storm_boat",
+    "storm_wave"
+   ],
+   "chip": "5 JANVIER"
+  },
+  {
+   "say": "Soudain, un craquement sous la coque. La quille, la lourde lame qui tient le bateau droit, vient de se briser.",
+   "shots": [
+    "cabin_shock",
+    "keel_snap"
+   ],
+   "chip": null
+  },
+  {
+   "say": "En quelques secondes, le voilier se retourne complètement.",
+   "shots": [
+    "capsize"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Tony se retrouve dans le noir total. L'eau glacée envahit la cabine. Il trouve une petite poche d'air, coincée sous la coque.",
+   "shots": [
+    "pocket_dark",
+    "pocket_water",
+    "pocket_wide"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Il n'a presque plus rien à manger. Juste une barre de chocolat. Et un peu d'eau.",
+   "shots": [
+    "pocket_choc"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Les heures passent. Puis les jours. La poche d'air rétrécit. Le froid le paralyse.",
+   "shots": [
+    "hull_night",
+    "pocket_days"
+   ],
+   "chip": "DAYS"
+  },
+  {
+   "say": "Mais sa balise de détresse a fonctionné. Un avion de l'armée australienne repère enfin la coque retournée.",
+   "shots": [
+    "beacon",
+    "plane_fly",
+    "plane_view"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le neuf janvier, la frégate HMAS Adelaide arrive. Un canot s'approche. Un marin frappe sur la coque.",
+   "shots": [
+    "frigate",
+    "rhib",
+    "knock_out"
+   ],
+   "chip": "9 JANVIER"
+  },
+  {
+   "say": "Et de l'intérieur... quelqu'un répond.",
+   "shots": [
+    "knock_in"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Tony plonge sous l'eau glacée, nage sous la coque, et remonte à la surface. Vivant. Après quatre jours sous son bateau.",
+   "shots": [
+    "swim_under",
+    "surface",
+    "rescue_dawn"
+   ],
+   "chip": "VIVANT"
+  },
+  {
+   "say": "Le plus fou ? Quelques années plus tard, il est reparti en course. Abonne-toi pour la prochaine histoire.",
+   "shots": [
+    "sail_again",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ],
+ "film": "film_real.html"
 }

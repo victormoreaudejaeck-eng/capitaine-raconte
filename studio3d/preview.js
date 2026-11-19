@@ -8,7 +8,7 @@ const { chromium } = require('playwright'); const fs = require('fs'); const { sp
   const b = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
   const pg = await b.newPage({ viewport: { width: 1080, height: 1920 } });
   pg.on('pageerror', e => console.log('ERR', e.message)); pg.on('console', m => { if (m.type() === 'error') console.log('CERR', m.text()); });
-  await pg.goto('http://127.0.0.1:8765/studio3d/film.html'); await pg.waitForFunction(() => window.ready);
+  await pg.goto('http://127.0.0.1:8765/studio3d/' + (story.film || 'film.html')); await pg.waitForFunction(() => window.ready); await pg.waitForTimeout(1500);
   await pg.evaluate(d => window.setData(d), { shots, words: [{ text: 'EXEMPLE', start: 0, end: 1e9 }], chips: [] });
   fs.mkdirSync(out, { recursive: true });
   const t0 = Date.now();

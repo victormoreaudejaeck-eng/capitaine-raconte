@@ -222,7 +222,7 @@ def main():
 
     # ---------- render ----------
     silent = os.path.join(OUT, "video_silent.mp4")
-    sh("node", os.path.join(HERE, "render3d.js"), os.path.join(OUT, "timeline.json"), silent, str(FPS))
+    sh("node", os.path.join(HERE, "render3d.js"), os.path.join(OUT, "timeline.json"), silent, str(FPS), story.get("film", "film.html"))
     os.makedirs(os.path.join(ROOT, "videos"), exist_ok=True)
     final = os.path.join(ROOT, "videos", f"{STORY}.mp4")
     sh("ffmpeg", "-v", "error", "-y", "-i", silent, "-i", os.path.join(OUT, "mix.wav"), "-map", "0:v", "-map", "1:a",
