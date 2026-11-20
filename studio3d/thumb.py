@@ -20,7 +20,7 @@ subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", str(cfg.get("time", 1.5)),
 W, H = 1080, 1920
 im = Image.open(frame).convert("RGB").resize((W, H))
 # hide the burned-in single-word caption (bottom band) with a blurred patch of the frame itself
-band = im.crop((0, 1430, W, 1610)).filter(ImageFilter.GaussianBlur(28)); im.paste(band, (0, 1430))
+cy = int((story.get('caption') or {}).get('y', 1520)); band = im.crop((0, cy - 95, W, cy + 95)).filter(ImageFilter.GaussianBlur(70)); im.paste(band, (0, cy - 95))
 im = ImageEnhance.Contrast(im).enhance(1.18); im = ImageEnhance.Color(im).enhance(1.25)
 # vignette for punch
 vig = Image.new("L", (W, H), 0); dv = ImageDraw.Draw(vig)
