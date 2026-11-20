@@ -1,0 +1,124 @@
+{
+ "film": "film_paris.html",
+ "title1": "DANS CETTE VILLE",
+ "title2": "PARISIENS INTERDITS",
+ "resolve_shot": "escape_tease",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "beats": [
+  {
+   "say": "Dans cette ville, les Parisiens sont interdits.",
+   "shots": [
+    "gate_wide",
+    "sign_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "À l'entrée, il y a une douane. Et un détecteur de Parisiens.",
+   "shots": [
+    "checkpoint",
+    "detector"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Tu dis « en vrai » ? Alarme. Tu râles sur le prix du café ? Alarme.",
+   "shots": [
+    "det_envrai",
+    "det_cafe"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Tu arrives en trottinette électrique ? Direct en garde à vue.",
+   "shots": [
+    "scooter_arrive",
+    "scooter_arrest"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Ici, les gens disent bonjour. Ils sourient. Ils attendent même que le feu passe au vert.",
+   "shots": [
+    "hello_street",
+    "crosswalk_wait"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Moi, j'avais un terrible secret. Je suis né... dans le quinzième arrondissement.",
+   "shots": [
+    "me_secret",
+    "paris_flashback"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Alors j'ai tout appris. Dire bonjour à la boulangère. Marcher lentement. Et ne jamais, jamais dire que c'était mieux à Paris.",
+   "shots": [
+    "learn_bonjour",
+    "learn_slow",
+    "learn_never"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Pendant trois ans, personne n'a rien remarqué.",
+   "shots": [
+    "me_blend"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Jusqu'à ce dimanche, au café. Le serveur pose l'addition : trente-huit euros pour un brunch.",
+   "shots": [
+    "cafe_wide",
+    "bill_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et moi, sans réfléchir, je dis : Ah, c'est pas cher !",
+   "shots": [
+    "me_says"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le détecteur s'est mis à sonner dans toute la ville.",
+   "shots": [
+    "alarm_city",
+    "everyone_turns"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Partie deux : comment j'ai fui la ville... en trottinette. Abonne-toi pour la suite !",
+   "shots": [
+    "escape_tease",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ],
+ "thumb": {
+  "time": 40.0,
+  "lines": [
+   "PARISIENS",
+   "INTERDITS",
+   "DANS CETTE VILLE"
+  ],
+  "hl": 1,
+  "top": 170,
+  "emoji": "🚨",
+  "emoji_pos": [
+   800,
+   640
+  ]
+ }
+}

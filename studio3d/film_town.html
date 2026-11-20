@@ -415,11 +415,27 @@ const clouds = new THREE.Group(); scene.add(clouds);
 { const r = rng(77); const cm = toon(0xffffff, {roughness: .9}); for (let i = 0; i < 22; i++){ const g = new THREE.Group(); for (let k = 0; k < 6; k++){ const s = new THREE.Mesh(new THREE.SphereGeometry(6 + r() * 6, 14, 10), cm); s.position.set(k * 6 - 15 + r() * 4, r() * 4, r() * 6); g.add(s); }
   g.position.set(r() * 500 - 250, 80 + r() * 50, r() * 500 - 250); g.scale.y = .6; clouds.add(g); } }
 // ground, roads, sidewalks
-{ const grass = new THREE.Mesh(new THREE.PlaneGeometry(800, 800), toon(0x7ccf5a)); grass.rotation.x = -Math.PI / 2; grass.receiveShadow = true; town.add(grass);
-  const dash = canvasTex(64, 256, (c) => { c.fillStyle = '#3c3f46'; c.fillRect(0, 0, 64, 256); c.fillStyle = '#ffd400'; c.fillRect(28, 20, 8, 110); }); dash.wrapS = dash.wrapT = THREE.RepeatWrapping; dash.repeat.set(1, 40);
-  const road = new THREE.Mesh(new THREE.PlaneGeometry(10, 300), toon(0xffffff, {map: dash})); road.rotation.x = -Math.PI / 2; road.position.y = .02; road.receiveShadow = true; town.add(road);
-  const road2 = road.clone(); road2.rotation.z = Math.PI / 2; road2.position.set(0, .021, -40); town.add(road2);
-  for (const sx of [-1, 1]){ const sw = new THREE.Mesh(new THREE.BoxGeometry(5, .3, 300), toon(0xd8d4cc)); sw.position.set(sx * 7.5, .15, 0); sw.receiveShadow = true; town.add(sw); } }
+{ const grassTex = canvasTex(512, 512, (c, w, h) => { for (let i = 0; i < 8; i++){ c.fillStyle = i % 2 ? '#7fd060' : '#74c656'; c.fillRect(0, i * h / 8, w, h / 8); }
+    for (let i = 0; i < 6000; i++){ c.fillStyle = `rgba(${Math.random() < .5 ? '40,90,30' : '190,240,140'},${Math.random() * .18})`; c.fillRect(Math.random() * w, Math.random() * h, 2, 3); } });
+  grassTex.wrapS = grassTex.wrapT = THREE.RepeatWrapping; grassTex.repeat.set(60, 60);
+  const grass = new THREE.Mesh(new THREE.PlaneGeometry(800, 800), toon(0xffffff, {map: grassTex, roughness: .95})); grass.rotation.x = -Math.PI / 2; grass.receiveShadow = true; town.add(grass);
+  const asphalt = (lines) => { const t = canvasTex(256, 256, (c, w, h) => { c.fillStyle = '#4a4d55'; c.fillRect(0, 0, w, h); for (let i = 0; i < 4000; i++){ c.fillStyle = `rgba(${Math.random() < .5 ? '0,0,0' : '255,255,255'},${Math.random() * .08})`; c.fillRect(Math.random() * w, Math.random() * h, 2, 2); }
+    if (lines){ c.fillStyle = '#f2f2f2'; c.fillRect(122, 30, 12, 110); c.fillRect(4, 0, 6, h); c.fillRect(w - 10, 0, 6, h); } }); t.wrapS = t.wrapT = THREE.RepeatWrapping; return t; };
+  const rt = asphalt(true); rt.repeat.set(1, 30);
+  const roadMat = toon(0xffffff, {map: rt, roughness: .9, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1});
+  const road = new THREE.Mesh(new THREE.PlaneGeometry(10, 300), roadMat); road.rotation.x = -Math.PI / 2; road.position.y = .03; road.receiveShadow = true; town.add(road);
+  const rt2 = asphalt(true); rt2.repeat.set(1, 30); const road2Mat = toon(0xffffff, {map: rt2, roughness: .9, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2});
+  const road2 = new THREE.Mesh(new THREE.PlaneGeometry(10, 300), road2Mat); road2.rotation.x = -Math.PI / 2; road2.rotation.z = Math.PI / 2; road2.position.set(0, .06, -40); road2.receiveShadow = true; town.add(road2);
+  const inter = new THREE.Mesh(new THREE.PlaneGeometry(10.2, 10.2), toon(0xffffff, {map: asphalt(false), roughness: .9, polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -3})); inter.rotation.x = -Math.PI / 2; inter.position.set(0, .09, -40); town.add(inter);
+  const zebra = canvasTex(256, 128, (c) => { c.clearRect(0, 0, 256, 128); c.fillStyle = '#f4f4f4'; for (let x = 8; x < 256; x += 32) c.fillRect(x, 0, 18, 128); });
+  for (const z of [-28, 20]){ const zb = new THREE.Mesh(new THREE.PlaneGeometry(10, 3.2), toon(0xffffff, {map: zebra, transparent: true, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4})); zb.rotation.x = -Math.PI / 2; zb.position.set(0, .1, z); town.add(zb); }
+  const tile = canvasTex(256, 256, (c, w, h) => { c.fillStyle = '#d9d4ca'; c.fillRect(0, 0, w, h); c.strokeStyle = 'rgba(0,0,0,.12)'; c.lineWidth = 3; for (let i = 0; i <= 4; i++){ c.beginPath(); c.moveTo(i * 64, 0); c.lineTo(i * 64, h); c.stroke(); c.beginPath(); c.moveTo(0, i * 64); c.lineTo(w, i * 64); c.stroke(); } });
+  tile.wrapS = tile.wrapT = THREE.RepeatWrapping; tile.repeat.set(1.5, 90);
+  for (const sx of [-1, 1]){ const sw = new THREE.Mesh(new THREE.BoxGeometry(5, .3, 300), toon(0xffffff, {map: tile})); sw.position.set(sx * 7.5, .15, 0); sw.receiveShadow = true; town.add(sw);
+    const curb = new THREE.Mesh(new THREE.BoxGeometry(.3, .34, 300), toon(0xbdb7ab)); curb.position.set(sx * 5.1, .17, 0); town.add(curb); } }
+// soft contact shadow (cheap ambient occlusion) under objects
+const blobTex = canvasTex(128, 128, (c) => { const g = c.createRadialGradient(64, 64, 4, 64, 64, 64); g.addColorStop(0, 'rgba(0,0,0,.45)'); g.addColorStop(1, 'rgba(0,0,0,0)'); c.fillStyle = g; c.fillRect(0, 0, 128, 128); });
+function blob(obj, r = 1.2){ const m = new THREE.Mesh(new THREE.PlaneGeometry(r * 2, r * 2), new THREE.MeshBasicMaterial({map: blobTex, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -6, polygonOffsetUnits: -6})); m.rotation.x = -Math.PI / 2; m.position.y = .02; obj.add(m); return m; }
 // buildings + houses with posters
 const houses = [];
 function house(x, z, col, withPoster = true, rot = 0){ const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = rot;
@@ -505,7 +521,7 @@ function makeBlocky(o = {}){
   const mk = (w, h, d, m, x, y) => { const a = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); a.geometry.translate(0, -h / 2 + .1, 0); a.position.set(x, y, 0); a.castShadow = true; g.add(a); return a; };
   const armL = mk(.5, 1.55, .55, shirt, -.98, 2.75), armR = mk(.5, 1.55, .55, shirt, .98, 2.75);
   const legL = mk(.66, 1.3, .7, pants, -.36, 1.25), legR = mk(.66, 1.3, .7, pants, .36, 1.25);
-  g.userData = {head, headMats, armL, armR, legL, legR}; scene.add(g); return g; }
+  blob(g, 1.1); g.userData = {head, headMats, armL, armR, legL, legR}; scene.add(g); return g; }
 function bMood(p, m){ p.userData.headMats[4].map = bFace(m); p.userData.headMats[4].needsUpdate = true; }
 function bRest(p){ const u = p.userData; for (const k of ['armL', 'armR', 'legL', 'legR']) u[k].rotation.set(0, 0, 0); p.rotation.set(0, 0, 0); u.head.rotation.set(0, 0, 0); }
 function bWalk(p, t, s = 1){ const u = p.userData; const a = Math.sin(t * 7 * s) * .6; u.legL.rotation.x = a; u.legR.rotation.x = -a; u.armL.rotation.x = -a; u.armR.rotation.x = a; }
@@ -517,7 +533,7 @@ const dog = new THREE.Group(); { const b = new THREE.Mesh(new THREE.BoxGeometry(
   for (const sx of [-1, 1]){ const ear = new THREE.Mesh(new THREE.BoxGeometry(.15, .3, .1), toon(0x8a5a3a)); ear.position.set(sx * .25, 1.55, .85); dog.add(ear); }
   for (const [x, z] of [[-.25, .5], [.25, .5], [-.25, -.5], [.25, -.5]]){ const l = new THREE.Mesh(new THREE.BoxGeometry(.18, .45, .18), toon(0xd9a066)); l.position.set(x, .22, z); dog.add(l); } } scene.add(dog);
 ALL.push(town, clouds, ...cars, bakery, bigBread, classroom, booth, binoc, me, ...citizens, dog);
-function townLook(){ look('day'); setSky('toy', 42, 210, 1.6, 1.3, .002); renderer.toneMappingExposure = .4; sunLight.intensity = 2.4; sunLight.color.set(0xfff4e2); hemi.intensity = .55; hemi.color.set(0xd6ecff); hemi.groundColor.set(0x6fae55); scene.fog = new THREE.Fog(0xbfdcf5, 220, 1000); bloom.strength = .06; scene.environment = null; renderer.toneMappingExposure = .95; hemi.intensity = 2.4; hemi.color.set(0xeef6ff); hemi.groundColor.set(0x9ccf88); sunLight.intensity = 2.0; }
+function townLook(){ look('day'); setSky('toy', 42, 210, 1.6, 1.3, .002); renderer.toneMappingExposure = .4; sunLight.intensity = 2.4; sunLight.color.set(0xfff4e2); hemi.intensity = .55; hemi.color.set(0xd6ecff); hemi.groundColor.set(0x6fae55); scene.fog = new THREE.Fog(0xbfdcf5, 220, 1000); bloom.strength = .06; scene.environment = null; renderer.toneMappingExposure = .95; hemi.intensity = 2.4; hemi.color.set(0xeef6ff); hemi.groundColor.set(0x9ccf88); sunLight.intensity = 2.0; sunLight.shadow.radius = 4; sunLight.color.set(0xfff0d8); }
 
 
 // ===================== "DANS CETTE VILLE" : shots =====================
@@ -534,7 +550,7 @@ const SHOTS = {
     crowd(8, 0, -6, t, {rot: 0, mood: 'smug'}); citizens.slice(0, 8).forEach((c, i) => { c.rotation.y = Math.PI; });
     cam(V(0, 3.6, 12 - p * 3), V(0, 3, 3), 42); sunFollow(V(0, 0, 0)); return {}; },
   houses_posters(t, p){ T0(); cam(V(8 + p * 2, 2.5, -24 + p * 18), V(-20, 3, -20 + p * 18), 40); sunFollow(V(0, 0, 0)); return {}; },
-  car_sticker(t, p){ T0(); only(sky, town, clouds, cars[0]); cars[0].position.set(-2.4, 0, 6 + p * 3); cars[0].rotation.y = 0; cam(V(-1.6, 1.5, 1.2 + p * 3), V(-2.4, 1, 3.8 + p * 3), 40); sunFollow(V(0, 0, 0)); return {}; },
+  car_sticker(t, p){ T0(); only(sky, town, clouds, cars[0]); cars[0].position.set(-2.4, 0, 6 + p * 3); cars[0].rotation.y = 0; cam(V(-2.1, 1.7, -1.6 + p * 3), V(-2.4, 1.0, 3.8 + p * 3), 40); sunFollow(V(0, 0, 0)); return {}; },
   dog_suit(t, p){ T0(); only(sky, town, clouds, dog); dog.position.set(0, 0, 8 + Math.sin(t) * .1); dog.rotation.y = .2 + Math.sin(t * .8) * .2; dog.children[3].rotation.y = Math.sin(t * 2) * .2;
     cam(V(2.6, 1.9, 13.8), V(0, 1, 8), 38); sunFollow(V(0, 0, 0)); return {}; },
   bakery(t, p){ T0(); only(sky, town, clouds, bakery); bakery.position.set(-22, 0, 30); bakery.rotation.y = Math.PI / 2;

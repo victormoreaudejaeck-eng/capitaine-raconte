@@ -20,9 +20,18 @@ function overlay(t, fx, lt, sd){
   if (fx.spyglass){ octx.save(); octx.fillStyle = '#000'; octx.beginPath(); octx.rect(0, 0, W, H); octx.arc(W/2, 880, 430, 0, Math.PI * 2, true); octx.fill('evenodd');
     const g = octx.createRadialGradient(W/2, 880, 330, W/2, 880, 430); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,.9)'); octx.fillStyle = g; octx.beginPath(); octx.arc(W/2, 880, 430, 0, 7); octx.fill(); octx.restore(); }
   if (fx.stamp){ const k = easeOut(clamp((lt - .2) / .25, 0, 1)); if (k > 0){ octx.save(); octx.translate(W/2, 640); octx.rotate(-.18); octx.scale(2 - k, 2 - k); octx.globalAlpha = k;
-    octx.strokeStyle = '#e1000f'; octx.lineWidth = 14; octx.strokeRect(-330, -85, 660, 170); strokeText(fx.stamp, 0, 4, 104, '#e1000f', 0); octx.restore(); } }
+    octx.font = '900 104px "Inter", sans-serif'; const sw = Math.min(1, 900 / (octx.measureText(fx.stamp).width + 60)); octx.scale(sw, sw); const bw2 = octx.measureText(fx.stamp).width + 60;
+    octx.strokeStyle = '#e1000f'; octx.lineWidth = 14; octx.strokeRect(-bw2 / 2, -85, bw2, 170); strokeText(fx.stamp, 0, 4, 104, '#e1000f', 0);
+    if (fx.stampNo){ octx.lineWidth = 18; octx.beginPath(); octx.moveTo(-bw2 / 2, 85); octx.lineTo(bw2 / 2, -85); octx.stroke(); } octx.restore(); } }
   if (fx.tease){ const k = easeOut(clamp((lt - .3) / .4, 0, 1)); octx.fillStyle = `rgba(194,39,61,${.35 * k})`; octx.fillRect(0, 0, W, H);
     octx.save(); octx.translate(W/2, 700); octx.scale(k, k); strokeText('PARTIE 2', 0, -90, 150, '#ffffff', 22); strokeText('LA VILLE D\'À CÔTÉ…', 0, 60, 84, '#ffe14d', 14); octx.restore(); }
+  if (fx.alarmFx){ const k = Math.sin(t * 18) > 0 ? 1 : .35; const g = octx.createRadialGradient(W/2, H/2, 300, W/2, H/2, 1150); g.addColorStop(0, 'rgba(255,0,0,0)'); g.addColorStop(1, `rgba(255,0,20,${.55 * k})`); octx.fillStyle = g; octx.fillRect(0, 0, W, H);
+    octx.save(); octx.translate(W/2, 330); octx.scale(1 + .04 * k, 1 + .04 * k); octx.fillStyle = '#d10014'; octx.beginPath(); octx.roundRect(-430, -70, 860, 140, 30); octx.fill(); strokeText('🚨 PARISIEN DÉTECTÉ 🚨', 0, 4, 64, '#ffffff', 8); octx.restore(); }
+  if (fx.bubble){ const k = easeOut(clamp(lt / .2, 0, 1)); octx.save(); octx.translate(W/2, 560); octx.scale(k, k); octx.font = '900 62px "Inter", sans-serif'; const bw = octx.measureText(fx.bubble).width + 90;
+    octx.fillStyle = '#ffffff'; octx.strokeStyle = '#111'; octx.lineWidth = 8; octx.beginPath(); octx.roundRect(-bw / 2, -70, bw, 140, 60); octx.fill(); octx.stroke();
+    octx.beginPath(); octx.moveTo(-40, 66); octx.lineTo(10, 66); octx.lineTo(-60, 150); octx.closePath(); octx.fill(); octx.stroke(); octx.fillStyle = '#ffffff'; octx.fillRect(-46, 58, 60, 14);
+    octx.fillStyle = '#111'; octx.textAlign = 'center'; octx.textBaseline = 'middle'; octx.fillText(fx.bubble, 0, 4); octx.restore(); }
+  if (fx.tease2){ const k = easeOut(clamp((lt - .3) / .4, 0, 1)); octx.save(); octx.translate(W/2, 640); octx.scale(k, k); strokeText('PARTIE 2', 0, -90, 150, '#ffffff', 22); strokeText('LA GRANDE ÉVASION', 0, 60, 84, '#ffe14d', 14); octx.restore(); }
   if (fx.knock){ const s = 1 + Math.max(0, Math.sin(t * 14)) * .12; octx.save(); octx.translate(W/2, 640); octx.scale(s, s); strokeText(fx.knock, 0, 0, 104, '#ffffff', 16); octx.restore(); }
   if (fx.days){ const day = 1 + Math.floor(clamp(lt / sd, 0, .999) * 4); strokeText('JOUR ' + day, W/2, 380, 130, '#ff5a4d', 18); }
   if (fx.title){ const s = easeOut(clamp(lt / .5, 0, 1)); octx.save(); octx.translate(W/2, 820); octx.scale(s, s); const fitSize = (txt, base) => { octx.font = `900 ${base}px "Inter", sans-serif`; return Math.min(base, base * 960 / octx.measureText(txt).width); };

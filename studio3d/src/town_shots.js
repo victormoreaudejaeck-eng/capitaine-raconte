@@ -13,7 +13,7 @@ const SHOTS = {
     crowd(8, 0, -6, t, {rot: 0, mood: 'smug'}); citizens.slice(0, 8).forEach((c, i) => { c.rotation.y = Math.PI; });
     cam(V(0, 3.6, 12 - p * 3), V(0, 3, 3), 42); sunFollow(V(0, 0, 0)); return {}; },
   houses_posters(t, p){ T0(); cam(V(8 + p * 2, 2.5, -24 + p * 18), V(-20, 3, -20 + p * 18), 40); sunFollow(V(0, 0, 0)); return {}; },
-  car_sticker(t, p){ T0(); only(sky, town, clouds, cars[0]); cars[0].position.set(-2.4, 0, 6 + p * 3); cars[0].rotation.y = 0; cam(V(-1.6, 1.5, 1.2 + p * 3), V(-2.4, 1, 3.8 + p * 3), 40); sunFollow(V(0, 0, 0)); return {}; },
+  car_sticker(t, p){ T0(); only(sky, town, clouds, cars[0]); cars[0].position.set(-2.4, 0, 6 + p * 3); cars[0].rotation.y = 0; cam(V(-2.1, 1.7, -1.6 + p * 3), V(-2.4, 1.0, 3.8 + p * 3), 40); sunFollow(V(0, 0, 0)); return {}; },
   dog_suit(t, p){ T0(); only(sky, town, clouds, dog); dog.position.set(0, 0, 8 + Math.sin(t) * .1); dog.rotation.y = .2 + Math.sin(t * .8) * .2; dog.children[3].rotation.y = Math.sin(t * 2) * .2;
     cam(V(2.6, 1.9, 13.8), V(0, 1, 8), 38); sunFollow(V(0, 0, 0)); return {}; },
   bakery(t, p){ T0(); only(sky, town, clouds, bakery); bakery.position.set(-22, 0, 30); bakery.rotation.y = Math.PI / 2;
