@@ -24,9 +24,9 @@ function overlay(t, fx, lt, sd){
     octx.strokeStyle = '#e1000f'; octx.lineWidth = 14; octx.strokeRect(-bw2 / 2, -85, bw2, 170); strokeText(fx.stamp, 0, 4, 104, '#e1000f', 0);
     if (fx.stampNo){ octx.lineWidth = 18; octx.beginPath(); octx.moveTo(-bw2 / 2, 85); octx.lineTo(bw2 / 2, -85); octx.stroke(); } octx.restore(); } }
   if (fx.tease){ const k = easeOut(clamp((lt - .3) / .4, 0, 1)); octx.fillStyle = `rgba(194,39,61,${.35 * k})`; octx.fillRect(0, 0, W, H);
-    octx.save(); octx.translate(W/2, 700); octx.scale(k, k); strokeText('PARTIE 2', 0, -90, 150, '#ffffff', 22); strokeText('LA VILLE D\'À CÔTÉ…', 0, 60, 84, '#ffe14d', 14); octx.restore(); }
+    octx.save(); octx.translate(W/2, 700); octx.scale(k, k); strokeText(fx.teaseA || 'PARTIE 2', 0, -90, 150, '#ffffff', 22); const tb = fx.teaseB || 'LA VILLE D\'À CÔTÉ…'; octx.font = '900 84px "Inter", sans-serif'; const tsz = Math.min(84, 84 * 960 / octx.measureText(tb).width); strokeText(tb, 0, 60, tsz, '#ffe14d', 14); octx.restore(); }
   if (fx.alarmFx){ const k = Math.sin(t * 18) > 0 ? 1 : .35; const g = octx.createRadialGradient(W/2, H/2, 300, W/2, H/2, 1150); g.addColorStop(0, 'rgba(255,0,0,0)'); g.addColorStop(1, `rgba(255,0,20,${.55 * k})`); octx.fillStyle = g; octx.fillRect(0, 0, W, H);
-    octx.save(); octx.translate(W/2, 330); octx.scale(1 + .04 * k, 1 + .04 * k); octx.fillStyle = '#d10014'; octx.beginPath(); octx.roundRect(-430, -70, 860, 140, 30); octx.fill(); strokeText('🚨 PARISIEN DÉTECTÉ 🚨', 0, 4, 64, '#ffffff', 8); octx.restore(); }
+    octx.save(); octx.translate(W/2, 330); octx.scale(1 + .04 * k, 1 + .04 * k); octx.fillStyle = '#d10014'; octx.beginPath(); octx.roundRect(-430, -70, 860, 140, 30); octx.fill(); strokeText(fx.alarmText || '🚨 PARISIEN DÉTECTÉ 🚨', 0, 4, 64, '#ffffff', 8); octx.restore(); }
   if (fx.bubble){ const k = easeOut(clamp(lt / .2, 0, 1)); octx.save(); octx.translate(W/2, 560); octx.scale(k, k); octx.font = '900 62px "Inter", sans-serif'; const bw = octx.measureText(fx.bubble).width + 90;
     octx.fillStyle = '#ffffff'; octx.strokeStyle = '#111'; octx.lineWidth = 8; octx.beginPath(); octx.roundRect(-bw / 2, -70, bw, 140, 60); octx.fill(); octx.stroke();
     octx.beginPath(); octx.moveTo(-40, 66); octx.lineTo(10, 66); octx.lineTo(-60, 150); octx.closePath(); octx.fill(); octx.stroke(); octx.fillStyle = '#ffffff'; octx.fillRect(-46, 58, 60, 14);

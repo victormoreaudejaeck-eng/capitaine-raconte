@@ -1,0 +1,91 @@
+{
+ "film": "film_choco.html",
+ "title1": "DANS CETTE VILLE",
+ "title2": "ON DIT CHOCOLATINE",
+ "resolve_shot": "war_map",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "thumb": {
+  "time": 3.0,
+  "lines": [
+   "« PAIN AU CHOCOLAT »",
+   "= ILLÉGAL",
+   "DANS CETTE VILLE"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "🥐",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Dans cette ville, dire « pain au chocolat », c'est illégal.",
+   "shots": [
+    "gate_wide",
+    "statue"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Même le GPS dit : tournez à la chocolatine.",
+   "shots": [
+    "gps"
+   ],
+   "chip": null
+  },
+  {
+   "say": "La brigade des viennoiseries patrouille jour et nuit.",
+   "shots": [
+    "patrol_car",
+    "brigade_radar"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Moi, j'entre et je demande : un pain au... une chocolatine !",
+   "shots": [
+    "me_bakery",
+    "me_slip"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Ouf. Sauf que j'avais le sachet de ma ville.",
+   "shots": [
+    "baker_smile",
+    "bag_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Alarme. Brigade. Ce soir, les deux villes sont en guerre.",
+   "shots": [
+    "alarm_bag",
+    "arrest",
+    "war_map"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Partie trois : la guerre des viennoiseries. Abonne-toi !",
+   "shots": [
+    "war_tease",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ]
+}
