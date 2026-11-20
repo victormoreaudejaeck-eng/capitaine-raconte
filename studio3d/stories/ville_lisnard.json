@@ -1,0 +1,123 @@
+{
+ "film": "film_lisnard.html",
+ "title1": "DANS CETTE VILLE",
+ "title2": "TOUT LE MONDE VOTE LISNARD",
+ "resolve_shot": "tv_interview",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "thumb": {
+  "time": 4.0,
+  "lines": [
+   "LA VILLE",
+   "OÙ TOUT VA BIEN",
+   "…TROP BIEN"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "😁",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Dans cette ville, tout le monde vote Lisnard. Et ici, tout fonctionne. Vraiment tout.",
+   "shots": [
+    "riviera_wide",
+    "screen_ok"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Un nid-de-poule ? Réparé en trois secondes par un drone.",
+   "shots": [
+    "pothole",
+    "drone_fix"
+   ],
+   "chip": null
+  },
+  {
+   "say": "À la mairie, zéro paperasse. Le dernier formulaire est exposé au musée.",
+   "shots": [
+    "mairie_desks",
+    "museum"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Tapis rouge sur les trottoirs, et même les pigeons portent des lunettes de soleil.",
+   "shots": [
+    "red_carpet",
+    "pigeons"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Un matin, mon vélo crève. Enfin un problème ! Je cours à la mairie pour me plaindre.",
+   "shots": [
+    "bike_flat",
+    "me_run"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Sauf qu'il n'y a plus de guichet des réclamations. Ici, les problèmes n'existent pas.",
+   "shots": [
+    "closed_desk",
+    "screen_none"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Alors je râle dans la rue. Les gens s'arrêtent. Ils n'ont jamais vu quelqu'un se plaindre.",
+   "shots": [
+    "me_complain",
+    "crowd_gather"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le lendemain, je passe à la télé. Une semaine plus tard, des touristes font la queue pour m'écouter râler.",
+   "shots": [
+    "tv_interview",
+    "tourist_queue"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le maire m'a même nommé attraction officielle de la ville.",
+   "shots": [
+    "mayor_medal",
+    "plaque_shot"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le problème ? Maintenant, j'ai tout ce que je veux. Et je n'arrive plus à râler.",
+   "shots": [
+    "me_happy",
+    "crowd_leaves"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Partie deux : je pars chercher un vrai problème. Abonne-toi !",
+   "shots": [
+    "tease",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ]
+}
