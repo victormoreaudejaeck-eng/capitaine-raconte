@@ -2,7 +2,7 @@
  "film": "film_glucksmann.html",
  "title1": "DANS CETTE VILLE",
  "title2": "TOUT LE MONDE VOTE GLUCKSMANN",
- "resolve_shot": "wake_up",
+ "resolve_shot": "mayor_awake",
  "caption": {
   "color": "#f2ff4d",
   "y": 1390,
@@ -88,30 +88,38 @@
    "chip": null
   },
   {
-   "say": "Un jour, moi, j'ai ramené un pain au chocolat.",
+   "say": "Un jour, j'ai ramené un pain au chocolat. Le maire en a croqué un bout.",
    "shots": [
     "me_pain",
-    "pain_close"
+    "mayor_bite"
    ],
    "chip": null
   },
   {
-   "say": "Une bouchée, et toute la ville s'est réveillée. Ils ont couru, crié, débattu...",
+   "say": "Et là, pour la première fois, il a annoncé un cap clair.",
    "shots": [
-    "wake_up",
-    "crowd_run"
+    "mayor_awake",
+    "mayor_point"
    ],
    "chip": null
   },
   {
-   "say": "pendant trois minutes. Puis, sieste générale.",
+   "say": "Toute la ville a couru à la boulangerie. Vidée en deux minutes.",
    "shots": [
-    "crowd_sleep"
+    "rush_bakery",
+    "bakery_empty"
    ],
    "chip": null
   },
   {
-   "say": "Partie deux : la ville où il y a trop d'énergie. Abonne-toi !",
+   "say": "Et la boussole ? Elle indique enfin une direction.",
+   "shots": [
+    "compass_choc"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Partie deux : la ville où on dit chocolatine. Abonne-toi !",
    "shots": [
     "next_town_tease",
     "end_card"

@@ -743,6 +743,32 @@ const SHOTS = {
   next_town_tease(t, p){ G0(); renderer.toneMappingExposure = .5; cam(V(0, 60 - p * 20, 90), V(0, 0, -120), 40); sunFollow(V(0, 0, 0)); return {tease: true}; },
   end_card(t, p){ G0(); cloudDrift(t); cam(V(40 + p * 10, 50, 70), V(0, 0, 0), 40); sunFollow(V(0, 0, 0)); return {endcard: true}; },
 };
+// ---- nouvelle fin : le cap clair = la boulangerie ----
+bakery.traverse(o => { if (o.isMesh && o.material && o.material.color && o.material.color.getHex() === NAVY){ o.material = o.material.clone(); o.material.color.set(0xd9a050); } });
+bakery.traverse(o => { if (o.isMesh && o.material && o.material.map === POSTER_G) o.visible = false; });
+const chocs = [0, 1, 2, 3, 4, 5].map(() => { const c = painChoc.clone(); scene.add(c); return c; }); ALL.push(...chocs);
+Object.assign(SHOTS, {
+  mayor_bite(t, p){ G0(); only(sky, town, clouds, podium, mayor, painChoc); bRest(mayor); gMood(mayor, 'sleepy'); mayor.position.set(0, 1, -14.4); mayor.rotation.y = 0;
+    mayor.userData.armR.rotation.x = -2.0; mayor.userData.armR.rotation.z = .35; painChoc.position.set(.25, 4.1, -13.6); painChoc.rotation.set(0, .5, 0); painChoc.scale.set(p > .45 ? .6 : 1, 1, 1);
+    cam(V(.8, 4.5, -9.4 + p * .4), V(0, 4.1, -14.2), 36); sunFollow(V(0, 0, -12)); return {}; },
+  mayor_awake(t, p){ G0(); only(sky, town, clouds, podium, mayor); bRest(mayor); bMood(mayor, 'shock'); mayor.position.set(0, 1 + Math.abs(Math.sin(t * 14)) * .08, -14.4); mayor.rotation.y = 0;
+    const sh = Math.max(0, 1 - p * 2) * .12; cam(V(Math.sin(t * 40) * sh, 4.5 + Math.cos(t * 37) * sh, -10.4 + p * .8), V(0, 4.3, -14.4), 34); sunFollow(V(0, 0, -12)); return {flashW: Math.max(0, 1 - p * 6) * .7}; },
+  mayor_point(t, p){ G0(); only(sky, town, clouds, podium, mayor, ...folkG); bRest(mayor); bMood(mayor, 'angry'); mayor.position.set(0, 1, -14.4); mayor.rotation.y = .5;
+    mayor.userData.armR.rotation.x = -1.57; mayor.userData.armR.rotation.z = .2; fg(6, 0, -2, t, {rot: Math.PI, mood: 'shock', cols: 3, gap: 2.4});
+    cam(V(5.5 - p, 4.4, -6.2), V(-.6, 3.7, -14), 46); sunFollow(V(0, 0, -10)); return {bubble: 'CAP : LA BOULANGERIE !'}; },
+  rush_bakery(t, p){ G0(); only(sky, town, clouds, bakery, ...folkG); bakery.position.set(0, 0, -34); bakery.rotation.y = 0;
+    folkG.forEach((c, i) => { c.visible = true; bRest(c); bMood(c, 'happy'); c.position.set(-3.5 + (i % 5) * 1.8, Math.abs(Math.sin(t * 13 + i)) * .35, 6 - Math.floor(i / 5) * 2.2 - (i % 3) * .6 - p * 16); c.rotation.y = Math.PI; bWalk(c, t + i * .2, 2.6);
+      c.userData.armL.rotation.x = -1.2 + Math.sin(t * 18 + i) * .5; });
+    cam(V(11, 9, 14 - p * 6), V(0, 1.5, -16), 44); sunFollow(V(0, 0, -10)); return {}; },
+  bakery_empty(t, p){ G0(); only(sky, town, clouds, bakery, ...folkG, ...chocs); bakery.position.set(0, 0, -34); bakery.rotation.y = 0; bakery.userData.breads.forEach(b => b.visible = false);
+    folkG.forEach((c, i) => { c.visible = i < 6; bRest(c); bMood(c, 'happy'); c.position.set(-5 + i * 2, Math.abs(Math.sin(t * 7 + i)) * .3, -24.5 + (i % 2) * 1.4); c.rotation.y = (i - 2.5) * .15; c.userData.armR.rotation.x = -1.9; });
+    chocs.forEach((k, i) => { const c = folkG[i]; c.updateMatrixWorld(true); k.position.copy(c.userData.head.getWorldPosition(V(0, 0, 0))).add(V(.35, -.35, .75)); k.scale.setScalar(.55); k.rotation.set(0, .3, 0); });
+    cam(V(2, 4.2, -12 - p), V(0, 3.2, -27), 46); sunFollow(V(0, 0, -28)); return {stamp: 'RUPTURE DE STOCK'}; },
+  compass_choc(t, p){ G0(); only(sky, town, clouds, compass, painChoc); compass.scale.setScalar(1); compass.position.set(0, 3, 4); compass.rotation.set(-.15, 0, 0);
+    const k = Math.min(1, p * 2.2); compass.userData.needle.rotation.z = (1 - k) * (t * 9) - k * .75 + Math.sin(t * 8) * .03 * k;
+    painChoc.scale.setScalar(.32); painChoc.position.set(.66, 3.66, 4.45); painChoc.rotation.set(.3, .4, 0);
+    cam(V(.3, 3.4, 8.6), V(.3, 3.3, 4), 38); sunFollow(V(0, 0, 4)); return k >= 1 ? {stamp: 'CAP CLAIR !'} : {}; },
+});
 
 // ================= 2D OVERLAY =================
 function strokeText(txt, x, y, size, fill, lw = 14, font = '900'){
