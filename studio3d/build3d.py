@@ -166,7 +166,7 @@ def main():
             shots.append({"name": name, "start": s0 + i * dd, "dur": dd})
         if b.get("chip") and b["chip"] != "DAYS":
             chips.append({"text": b["chip"], "start": s0, "dur": s1 - s0})
-    timeline = {"shots": shots, "words": words, "chips": chips, "total": total, "title1": story.get("title1", ""), "title2": story.get("title2", "")}
+    timeline = {"shots": shots, "words": words, "chips": chips, "total": total, "title1": story.get("title1", ""), "title2": story.get("title2", ""), "caption": story.get("caption")}
     json.dump(timeline, open(os.path.join(OUT, "timeline.json"), "w"), ensure_ascii=False, indent=1)
     print(f"durée {total:.1f}s, {len(shots)} plans (moy. {total/len(shots):.2f}s), {len(words)} mots")
 

@@ -500,7 +500,7 @@ function strokeText(txt, x, y, size, fill, lw = 14, font = '900'){
 }
 let DATA = null;
 window.setData = d => { const find = (arr, t) => { for (const x of arr) if (t >= x.start && t < x.start + x.dur) return x; return null; };
-  DATA = { title1: d.title1 || '', title2: d.title2 || '', shotAt: t => find(d.shots, t) || d.shots[d.shots.length - 1], wordAt: t => { for (const w of d.words) if (t >= w.start && t < w.end) return w; return null; }, chipAt: t => { const c = find(d.chips, t); return c ? c.text : null; } }; };
+  DATA = { title1: d.title1 || '', title2: d.title2 || '', cap: d.caption || null, shotAt: t => find(d.shots, t) || d.shots[d.shots.length - 1], wordAt: t => { for (const w of d.words) if (t >= w.start && t < w.end) return w; return null; }, chipAt: t => { const c = find(d.chips, t); return c ? c.text : null; } }; };
 function overlay(t, fx, lt, sd){
   const v = octx.createRadialGradient(W/2, H/2, 600, W/2, H/2, 1300); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,.35)'); octx.fillStyle = v; octx.fillRect(0, 0, W, H);
   if (fx.dark){ octx.fillStyle = `rgba(0,0,0,${fx.dark})`; octx.fillRect(0, 0, W, H); }
@@ -514,6 +514,10 @@ function overlay(t, fx, lt, sd){
   if (fx.sepia){ octx.fillStyle = 'rgba(112,72,30,.22)'; octx.fillRect(0, 0, W, H); }
   if (fx.spyglass){ octx.save(); octx.fillStyle = '#000'; octx.beginPath(); octx.rect(0, 0, W, H); octx.arc(W/2, 880, 430, 0, Math.PI * 2, true); octx.fill('evenodd');
     const g = octx.createRadialGradient(W/2, 880, 330, W/2, 880, 430); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,.9)'); octx.fillStyle = g; octx.beginPath(); octx.arc(W/2, 880, 430, 0, 7); octx.fill(); octx.restore(); }
+  if (fx.stamp){ const k = easeOut(clamp((lt - .2) / .25, 0, 1)); if (k > 0){ octx.save(); octx.translate(W/2, 640); octx.rotate(-.18); octx.scale(2 - k, 2 - k); octx.globalAlpha = k;
+    octx.strokeStyle = '#e1000f'; octx.lineWidth = 14; octx.strokeRect(-330, -85, 660, 170); strokeText(fx.stamp, 0, 4, 104, '#e1000f', 0); octx.restore(); } }
+  if (fx.tease){ const k = easeOut(clamp((lt - .3) / .4, 0, 1)); octx.fillStyle = `rgba(194,39,61,${.35 * k})`; octx.fillRect(0, 0, W, H);
+    octx.save(); octx.translate(W/2, 700); octx.scale(k, k); strokeText('PARTIE 2', 0, -90, 150, '#ffffff', 22); strokeText('LA VILLE D\'À CÔTÉ…', 0, 60, 84, '#ffe14d', 14); octx.restore(); }
   if (fx.knock){ const s = 1 + Math.max(0, Math.sin(t * 14)) * .12; octx.save(); octx.translate(W/2, 640); octx.scale(s, s); strokeText(fx.knock, 0, 0, 104, '#ffffff', 16); octx.restore(); }
   if (fx.days){ const day = 1 + Math.floor(clamp(lt / sd, 0, .999) * 4); strokeText('JOUR ' + day, W/2, 380, 130, '#ff5a4d', 18); }
   if (fx.title){ const s = easeOut(clamp(lt / .5, 0, 1)); octx.save(); octx.translate(W/2, 820); octx.scale(s, s); const fitSize = (txt, base) => { octx.font = `900 ${base}px "Inter", sans-serif`; return Math.min(base, base * 960 / octx.measureText(txt).width); };
@@ -523,7 +527,7 @@ function overlay(t, fx, lt, sd){
   if (DATA){ const ch = fx.chipOverride || DATA.chipAt(t); if (ch){ octx.font = '800 46px "Inter", sans-serif'; const w = octx.measureText(ch).width + 70; octx.fillStyle = 'rgba(10,12,20,.6)'; octx.beginPath(); octx.roundRect(W/2 - w/2, 180, w, 84, 42); octx.fill();
     octx.fillStyle = '#ffffff'; octx.textAlign = 'center'; octx.textBaseline = 'middle'; octx.fillText(ch, W/2, 223); } }
   if (DATA){ const w = DATA.wordAt(t); if (w){ const age = t - w.start; const s = age < .07 ? .8 + age / .07 * .24 : 1.04 - Math.min(.04, (age - .07) * .4);
-    octx.font = '900 80px "Inter", sans-serif'; const fit = Math.min(1, 900 / octx.measureText(w.text).width); octx.save(); octx.translate(W/2, 1520); octx.scale(s * fit, s * fit); strokeText(w.text, 0, 0, 80, '#ffffff', 15); octx.restore(); } }
+    const cs = DATA.cap || {}; const sz = cs.size || 80; octx.font = `900 ${sz}px "Inter", sans-serif`; const fit = Math.min(1, 900 / octx.measureText(w.text).width); octx.save(); octx.translate(W/2, cs.y || 1520); octx.scale(s * fit, s * fit); strokeText(w.text, 0, 0, sz, cs.color || '#ffffff', cs.stroke || 15); octx.restore(); } }
 }
 window.drawFrame = (t) => {
   const sh = DATA.shotAt(t); const lt = t - sh.start, p = clamp(lt / sh.dur, 0, 1);

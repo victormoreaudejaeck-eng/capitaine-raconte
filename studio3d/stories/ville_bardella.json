@@ -1,0 +1,114 @@
+{
+ "film": "film_town.html",
+ "title1": "DANS CETTE VILLE",
+ "title2": "TOUT LE MONDE VOTE BARDELLA",
+ "resolve_shot": "next_town_tease",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "beats": [
+  {
+   "say": "Dans cette ville, tout le monde vote Bardella. Tout le monde... sauf moi.",
+   "shots": [
+    "town_wide",
+    "posters_street",
+    "me_alone"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Ici, chaque maison a son affiche. Chaque voiture a son autocollant. Même les chiens portent un petit costume bleu marine.",
+   "shots": [
+    "houses_posters",
+    "car_sticker",
+    "dog_suit"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le matin, à la boulangerie, il n'y a qu'une seule baguette : la baguette bleu marine.",
+   "shots": [
+    "bakery",
+    "baguette"
+   ],
+   "chip": null
+  },
+  {
+   "say": "À l'école, les enfants apprennent à faire la raie sur le côté avant même d'apprendre à lire.",
+   "shots": [
+    "school"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et le dimanche, toute la ville fait son jogging. En costume. En même temps. Au même rythme.",
+   "shots": [
+    "jogging"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Moi, j'ai essayé de m'intégrer. J'ai même mis une cravate. Mais les voisins ont remarqué un détail : ma maison n'avait pas d'affiche.",
+   "shots": [
+    "me_tie",
+    "neighbors_binoculars"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Depuis, ils me surveillent. Partout. Tout le temps.",
+   "shots": [
+    "spy_window",
+    "spy_bush"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le jour de l'élection, je suis entré dans l'isoloir. J'ai pris un bulletin...",
+   "shots": [
+    "voting_booth",
+    "ballot"
+   ],
+   "chip": "JOUR DU VOTE"
+  },
+  {
+   "say": "Et toute la ville a retenu son souffle.",
+   "shots": [
+    "town_freeze"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Mais ça, c'est pour la partie deux. Parce que dans la ville d'à côté... tout le monde vote Mélenchon. Abonne-toi pour ne pas la rater !",
+   "shots": [
+    "next_town_tease",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ],
+ "thumb": {
+  "time": 4.2,
+  "lines": [
+   "TOUT LE MONDE",
+   "VOTE BARDELLA",
+   "SAUF MOI"
+  ],
+  "hl": 1,
+  "top": 180,
+  "arrow": [
+   860,
+   1150,
+   620,
+   1320
+  ],
+  "emoji": "😳",
+  "emoji_pos": [
+   60,
+   1150
+  ]
+ }
+}
