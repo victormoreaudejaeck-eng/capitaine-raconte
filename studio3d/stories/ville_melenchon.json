@@ -1,0 +1,116 @@
+{
+ "film": "film_melenchon.html",
+ "title1": "DANS CETTE VILLE",
+ "title2": "TOUT LE MONDE VOTE MÉLENCHON",
+ "resolve_shot": "ticket_win",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "thumb": {
+  "time": 6.0,
+  "lines": [
+   "LE DERNIER RICHE",
+   "EST RUINÉ",
+   "DANS CETTE VILLE"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "💸",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Dans cette ville, tout le monde vote Mélenchon.",
+   "shots": [
+    "town_wide",
+    "posters_street"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le maire a promis de taxer les riches. Petit problème : il n'y en a qu'un.",
+   "shots": [
+    "mayor_speech",
+    "rich_reveal"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Bernard. Lundi, on taxe sa montre. Mardi, on taxe son yacht.",
+   "shots": [
+    "rich_watch",
+    "yacht_sale"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Mercredi, sa deuxième montre. Jeudi, Bernard prend le bus.",
+   "shots": [
+    "watch_sold",
+    "caddie_bus"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Vendredi... Bernard fait la queue à la soupe populaire.",
+   "shots": [
+    "soup_line",
+    "rich_sad"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et là, toute la ville comprend : c'était Bernard qui payait tout.",
+   "shots": [
+    "town_realize",
+    "tax_office"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Plus de lumière, plus d'écoles, plus rien. La ville est ruinée.",
+   "shots": [
+    "town_night",
+    "sad_crowd"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Samedi, miracle : Bernard gagne au Loto. Cent millions !",
+   "shots": [
+    "ticket_win",
+    "crowd_cheer"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le maire est tellement content... qu'il le taxe à cent pour cent.",
+   "shots": [
+    "mayor_tax",
+    "rich_shock"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Alors Bernard a déménagé. Dans la ville d'à côté. Abonne-toi pour la partie deux !",
+   "shots": [
+    "rich_leaves",
+    "next_town_tease",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ]
+}
