@@ -8,6 +8,9 @@ boat = boat.replace("const hull = new THREE.Mesh(hg, hullMat);", "if (tint) hull
 boat = boat.replace("const fin = new THREE.Mesh", "const keelG = new THREE.Group(); b.add(keelG);\n  const fin = new THREE.Mesh")
 boat = boat.replace("b.add(fin);", "keelG.add(fin);").replace("b.add(bulb);", "keelG.add(bulb);")
 boat = boat.replace("  return b;\n}", "  b.userData = {keel: keelG};\n  return b;\n}")
+import sys
+OUTF = sys.argv[1] if len(sys.argv) > 1 else 'film_real.html'
+PARTS = sys.argv[2:] or ['real_shots.js']
 src = lambda n: open(os.path.join(H, 'src', n)).read()
 html = '''<!doctype html>
 <html><head><meta charset="utf-8">
@@ -15,5 +18,5 @@ html = '''<!doctype html>
 <script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js","three/addons/":"/node_modules/three/examples/jsm/"}}</script>
 </head><body><canvas id="out" width="1080" height="1920"></canvas>
 <script type="module">
-''' + src('real_head.js') + '\n' + boat + '\n' + src('real_body.js') + '\n' + src('real_shots.js') + '\n</script></body></html>\n'
-open(os.path.join(H, 'film_real.html'), 'w').write(html); print('film_real.html', len(html), 'octets')
+''' + src('real_head.js') + '\n' + boat + '\n' + src('real_body.js') + '\n' + '\n'.join(src(p) for p in PARTS) + '\n' + src('real_overlay.js') + '\n</script></body></html>\n'
+open(os.path.join(H, OUTF), 'w').write(html); print(OUTF, len(html), 'octets')

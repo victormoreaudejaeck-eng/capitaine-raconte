@@ -1,0 +1,112 @@
+{
+ "film": "film_celeste.html",
+ "title1": "MARY CELESTE",
+ "title2": "LE NAVIRE FANTÔME",
+ "beats": [
+  {
+   "say": "Imagine. Tu croises un navire en pleine mer. Ses voiles sont hissées. Mais à bord... il n'y a plus personne.",
+   "shots": [
+    "mc_drift_far",
+    "mc_deck_empty",
+    "mc_wheel"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Voici l'histoire vraie du Mary Celeste.",
+   "shots": [
+    "title"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Novembre mille huit cent soixante-douze. Le Mary Celeste quitte New York pour Gênes, en Italie.",
+   "shots": [
+    "mc_ny_departure",
+    "mc_sailing_day"
+   ],
+   "chip": "NOVEMBRE 1872"
+  },
+  {
+   "say": "À bord, dix personnes. Le capitaine Benjamin Briggs, sa femme Sarah, leur petite fille de deux ans, et sept marins. Dans la cale : mille sept cents barils d'alcool.",
+   "shots": [
+    "mc_family",
+    "mc_hold_barrels"
+   ],
+   "chip": "10 À BORD"
+  },
+  {
+   "say": "Le quatre décembre, au large des Açores, l'équipage du Dei Gratia aperçoit un navire qui dérive bizarrement.",
+   "shots": [
+    "dg_lookout",
+    "mc_spotted"
+   ],
+   "chip": "4 DÉCEMBRE"
+  },
+  {
+   "say": "Personne à la barre. Personne sur le pont. Les marins décident de monter à bord.",
+   "shots": [
+    "mc_wheel_empty",
+    "mc_boarding"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le navire est en bon état. Les affaires de l'équipage sont toujours là. Le journal de bord aussi. Mais le canot de sauvetage a disparu.",
+   "shots": [
+    "mc_cabin",
+    "mc_logbook",
+    "mc_lifeboat_gone"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Dans la cale, environ un mètre d'eau. Et sur le pont, une sonde, l'outil qui sert à mesurer l'eau dans la coque.",
+   "shots": [
+    "mc_hold_water",
+    "mc_sounding_rod"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Dernière note du journal : le vingt-cinq novembre, près des Açores. Puis plus rien.",
+   "shots": [
+    "mc_log_close"
+   ],
+   "chip": "25 NOVEMBRE"
+  },
+  {
+   "say": "Alors, que s'est-il passé ? Une hypothèse : des vapeurs d'alcool s'échappent des barils. Le capitaine craint une explosion, ou croit que le navire coule. Il ordonne d'évacuer dans le canot.",
+   "shots": [
+    "mc_theory_vapors",
+    "mc_theory_evac"
+   ],
+   "chip": "HYPOTHÈSE"
+  },
+  {
+   "say": "Mais le canot n'a jamais été retrouvé. Ni les dix passagers.",
+   "shots": [
+    "mc_lifeboat_alone_sea",
+    "mc_lifeboat_far"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Douze ans plus tard, un jeune écrivain s'empare de l'histoire : Arthur Conan Doyle, le futur créateur de Sherlock Holmes. Dans sa nouvelle, il rebaptise le navire Marie Céleste. Le nom est resté.",
+   "shots": [
+    "mc_doyle_desk",
+    "mc_newspaper"
+   ],
+   "chip": "1884"
+  },
+  {
+   "say": "Le mystère, lui, n'a jamais été résolu. Abonne-toi pour la prochaine histoire.",
+   "shots": [
+    "mc_ghost_ship_fog",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ],
+ "resolve_shot": "end_card"
+}

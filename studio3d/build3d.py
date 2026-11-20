@@ -166,7 +166,7 @@ def main():
             shots.append({"name": name, "start": s0 + i * dd, "dur": dd})
         if b.get("chip") and b["chip"] != "DAYS":
             chips.append({"text": b["chip"], "start": s0, "dur": s1 - s0})
-    timeline = {"shots": shots, "words": words, "chips": chips, "total": total}
+    timeline = {"shots": shots, "words": words, "chips": chips, "total": total, "title1": story.get("title1", ""), "title2": story.get("title2", "")}
     json.dump(timeline, open(os.path.join(OUT, "timeline.json"), "w"), ensure_ascii=False, indent=1)
     print(f"durée {total:.1f}s, {len(shots)} plans (moy. {total/len(shots):.2f}s), {len(words)} mots")
 
@@ -175,14 +175,16 @@ def main():
     vtrack = np.zeros(N, np.float32); place(vtrack, voice, LEAD)
     music = np.zeros(N, np.float32); fx = np.zeros(N, np.float32)
     A, F, C, G, E = [110, 130.8, 164.8], [87.3, 110, 130.8], [130.8, 164.8, 196], [98, 123.5, 146.8], [82.4, 123.5, 164.8]
-    rescue_t = next(s["start"] for s in shots if s["name"] == "swim_under")
+    rs = story.get("resolve_shot", "swim_under")
+    rescue_t = next((s["start"] for s in shots if s["name"] == rs), total * .85)
     seg, k, prog = 0.0, 0, [A, F, C, G]
     while seg < rescue_t:
         dur = min(4.0, rescue_t - seg + 1.5); place(music, pad(dur + 1.5, prog[k % 4], k), seg, .55); seg += 4.0; k += 1
     seg = rescue_t
     for ch in ([C[0], E[1], G[2] * 2 / 1.5], [F[0] * 2, A[1] * 2, C[2]], [C[0], E[1], G[2] * 2 / 1.5]):
-        place(music, pad(4.5, [f * 2 for f in ch], 9), seg, .7); seg += 4.0
-    place(music, pad(total - seg + 1, [261.6, 329.6, 392], 3), seg, .7)
+        if seg < total: place(music, pad(4.5, [f * 2 for f in ch], 9), seg, .7)
+        seg += 4.0
+    if total - seg > .5: place(music, pad(total - seg + 1, [261.6, 329.6, 392], 3), seg, .7)
     # low drone + sub pulse for tension
     t = np.arange(N) / SR
     drone = (np.sin(2 * np.pi * 55 * t) * .25 * (0.6 + 0.4 * np.sin(2 * np.pi * .11 * t))).astype(np.float32)
@@ -206,6 +208,17 @@ def main():
         if n in ("plane_fly",):
             m = int(SR * dd); tt = np.arange(m) / SR
             place(fx, (np.sin(2 * np.pi * 92 * tt) * .2 + lp_fast(noise(m, 31), 500) * .4) * np.sin(np.pi * tt / dd), at)
+    for s in shots:
+        n, at, dd = s["name"], s["start"], s["dur"]
+        if n in ("mc_wheel", "mc_wheel_empty", "mc_deck_empty", "mc_drift_far", "mc_lifeboat_gone", "mc_sounding_rod"):
+            for k in range(int(dd / .9)):
+                m = int(SR * .5); tt = np.arange(m) / SR
+                creak = np.sin(2 * np.pi * (180 + 40 * np.sin(tt * 9)) * tt) * env(m, .05, .25) * .35 + lp_fast(noise(m, 41 + k), 600) * env(m, .02, .2) * .4
+                place(fx, creak.astype(np.float32), at + .2 + k * .9, .7)
+        if n == "mc_theory_vapors":
+            m = int(SR * dd); hiss = noise(m, 51) - lp_fast(noise(m, 51), 2500); place(fx, (hiss * .25 * np.sin(np.pi * np.arange(m) / m)).astype(np.float32), at)
+        if n in ("mc_hold_barrels", "mc_hold_water", "mc_cabin", "mc_logbook", "mc_log_close"):
+            m = int(SR * dd); place(fx, (lp_fast(noise(m, 61), 250) * .4).astype(np.float32), at)
     # whoosh on every cut (subtle) for pace
     for s in shots[1:]: place(fx, sfx_whoosh(.35), s["start"] - .12, .25)
     # ducking: music & fx under the voice
