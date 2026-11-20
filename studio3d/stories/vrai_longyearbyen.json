@@ -35,14 +35,15 @@
    "say": "Dans cette ville, on dit qu'il est interdit de mourir. La vérité est encore plus étrange.",
    "shots": [
     "aerial_arctic",
-    "town_aurora"
+    "town_aurora",
+    "houses_row"
    ],
    "chip": null
   },
   {
    "say": "Longyearbyen, en Norvège. À mille trois cents kilomètres du pôle Nord.",
    "shots": [
-    "houses_row",
+    "pole_map",
     "pylons"
    ],
    "chip": null
@@ -51,6 +52,7 @@
    "say": "Ici, le sol reste gelé toute l'année. Et dans les années 1950, on découvre un problème : au cimetière, les corps ne se décomposent pas.",
    "shots": [
     "permafrost_cut",
+    "cemetery_wide",
     "cemetery_slope"
    ],
    "chip": null
@@ -58,7 +60,8 @@
   {
    "say": "Parmi eux, des victimes de la grippe espagnole de 1918. En 1998, des scientifiques viennent même y prélever le virus.",
    "shots": [
-    "coffin_ice"
+    "coffin_ice",
+    "coffin_close2"
    ],
    "chip": null
   },
@@ -66,6 +69,7 @@
    "say": "Depuis, le cimetière n'accepte plus d'enterrements. Quand quelqu'un va mourir, on l'évacue en avion vers le continent.",
    "shots": [
     "cemetery_sign",
+    "town_evening",
     "plane_takeoff"
    ],
    "chip": null
@@ -73,7 +77,8 @@
   {
    "say": "Et on n'y naît pas non plus : les futures mamans partent accoucher ailleurs.",
    "shots": [
-    "plane_sky"
+    "plane_sky",
+    "plane_away"
    ],
    "chip": null
   },
@@ -82,7 +87,8 @@
    "shots": [
     "cat_sign",
     "bear_sign",
-    "bear_walk"
+    "bear_walk",
+    "bear_close"
    ],
    "chip": null
   },

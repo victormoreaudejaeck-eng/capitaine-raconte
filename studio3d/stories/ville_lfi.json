@@ -1,0 +1,114 @@
+{
+ "film": "film_lfi.html",
+ "title1": "DANS CETTE VILLE",
+ "title2": "TOUT LE MONDE VOTE LFI",
+ "resolve_shot": "vote_hands",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "thumb": {
+  "time": 20.0,
+  "lines": [
+   "MON CROISSANT",
+   "COUPÉ EN 300",
+   "DANS CETTE VILLE"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "🥐",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Dans cette ville, tout le monde vote LFI. Ici, pas de chef : tout se décide en assemblée générale.",
+   "shots": [
+    "town_red_wide",
+    "ag_hall"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le prix de la baguette ? Trois heures de débat. Elle a refroidi.",
+   "shots": [
+    "bakery_debate",
+    "cold_bread"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Les feux rouges ? On a voté pour la couleur. Le rouge a gagné. Partout. Tout le temps.",
+   "shots": [
+    "traffic_vote",
+    "all_red_jam"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Même le maire n'existe pas : dans son bureau, il y a trois cents chaises.",
+   "shots": [
+    "mayor_office"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Moi, un matin, je voulais juste un croissant. Mais le boulanger m'a dit : ça, il faut voter.",
+   "shots": [
+    "me_bakery",
+    "vote_sign"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Alors on a organisé une réunion… pour choisir l'heure de la réunion. Elle a duré trois jours.",
+   "shots": [
+    "meeting_day1",
+    "meeting_night"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Pendant ce temps, toute la ville était dans la salle : plus de bus, plus de boulangerie, plus rien.",
+   "shots": [
+    "empty_streets",
+    "closed_shops"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Au bout de trois jours, enfin, le vote : mon croissant est adopté, à l'unanimité !",
+   "shots": [
+    "vote_hands",
+    "croissant_hero"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et comme ici, tout se partage, on l'a coupé en trois cents morceaux. J'ai eu une miette.",
+   "shots": [
+    "croissant_cut",
+    "crumb_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Partie deux : je pars dans la ville d'à côté, où personne ne vote jamais. Abonne-toi !",
+   "shots": [
+    "tease",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ]
+}

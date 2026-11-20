@@ -23,6 +23,13 @@ const SHOTS = {
   bear_walk(t, p){ A0(bear, anorak1); const bz = 74 - p * 6; bear.position.set(16, aH(16, bz), bz); bear.rotation.y = Math.PI / 2 + .3; bear.userData.legs.forEach((l, i) => l.rotation.z = Math.sin(t * 5 + i * 1.6) * .35);
     anorak1.position.set(8, aH(8, 58), 58); anorak1.rotation.y = .6; oldMood(anorak1, 'side');
     cam(V(2, 3.2, 52), V(13, 2, 68), 40); sunFollow(V(12, 0, 64)); return {focusY: .5, band: .2, tilt: 7, grade: 'rgba(255,170,150,.18)'}; },
+  pole_map(t, p){ A0(); cam(V(-80 + p * 20, 160 - p * 30, 260), V(0, 0, -60), 38); sunFollow(V(0, 0, 0)); return {lower: ['78° NORD', 'à 1 300 km du pôle Nord'], focusY: .5, band: .25, tilt: 6, grade: 'rgba(255,170,150,.2)'}; },
+  cemetery_wide(t, p){ A0(); const y = aH(-34, 32); cam(V(-60 + p * 6, y + 14, 70), V(-34, y, 32), 40); sunFollow(V(-34, 0, 32)); return {focusY: .55, band: .2, tilt: 8, grade: 'rgba(255,170,150,.18)'}; },
+  coffin_close2(t, p){ aLook(true); only(iceCut); scene.background = new THREE.Color(0x0b0f18); scene.fog = null; hemi.intensity = .5; cam(V(-1.2 + p * .8, -1.6, 4.2), V(0, -2.2, .3), 38); return {recon: true, tilt: 3, focusY: .5, band: .14, date: '1998'}; },
+  town_evening(t, p){ A0(); cam(V(-34 + p * 6, 15, 66), V(0, 3, 8), 40); sunFollow(V(0, 0, 10)); return {focusY: .55, band: .2, tilt: 7, grade: 'rgba(255,170,150,.18)'}; },
+  plane_away(t, p){ A0(aplane); aplane.position.set(20 + p * 50, 40 + p * 15, 10 - p * 30); aplane.rotation.set(0, .5, .1); cam(V(-5, 3, 58), aplane.position.clone(), 30); sunFollow(V(0, 0, 0)); return {focusY: .4, band: .3, tilt: 4, grade: 'rgba(255,170,150,.18)'}; },
+  bear_close(t, p){ A0(bear); bear.position.set(16, aH(16, 70), 70); bear.rotation.y = Math.PI / 2 + .6; bear.userData.legs.forEach((l, i) => l.rotation.z = Math.sin(t * 5 + i * 1.6) * .3);
+    cam(V(27, 3.2, 81 - p * .6), V(16.5, 2.0, 70), 36); sunFollow(V(16, 0, 70)); return {focusY: .5, band: .18, tilt: 6, grade: 'rgba(255,170,150,.18)'}; },
   aurora_end(t, p){ aLook(true); only(AG, aurora); auroraWave(t); cam(V(-30 + p * 10, 25, 110 - p * 10), V(0, 95, -260), 50); sunFollow(V(0, 0, 0)); return {brand: true, aurora: true, focusY: .5, band: .3, tilt: 6, grade: 'rgba(120,160,255,.2)'}; },
 };
 // aurore boréale dessinée en 2D (fiable en rendu logiciel), au-dessus du ciel uniquement
