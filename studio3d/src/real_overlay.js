@@ -49,7 +49,7 @@ window.drawFrame = (t) => {
   if (typeof brig !== 'undefined') brig.userData.yawl.visible = true;
   const fx = SHOTS[sh.name](t, p, sh.dur) || {};
   [tony, sailorA, sailorB].forEach((pp, i) => { if (!pp.visible) return; const u = pp.userData; u.spine.rotation.x += Math.sin(t * 1.7 + i) * .025; u.neck.rotation.z += Math.sin(t * .9 + i * 2) * .035; u.neck.rotation.y += Math.sin(t * .6 + i) * .05; });
-  composer.render(); octx.drawImage(renderer.domElement, 0, 0); overlay(t, fx, lt, sh.dur);
+  composer.render(); octx.drawImage(renderer.domElement, 0, 0); if (window.postFX) window.postFX(t, fx, lt, p); overlay(t, fx, lt, sh.dur); if (window.postFX2) window.postFX2(t, fx, lt, p);
 };
 window.grab = () => out.toDataURL('image/jpeg', .9);
 window.ready = true;

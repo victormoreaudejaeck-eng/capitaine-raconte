@@ -1,0 +1,87 @@
+{
+ "film": "film_village.html",
+ "title1": "",
+ "title2": "",
+ "resolve_shot": "villagers_worried",
+ "caption": {
+  "color": "#ffffff",
+  "y": 1500,
+  "size": 76,
+  "stroke": 12
+ },
+ "thumb": {
+  "time": 1.2,
+  "lines": [
+   "DANS CE VILLAGE",
+   "INTERDIT DE MOURIR",
+   "(ET C'EST VRAI)"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "⚰️",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Dans ce village de France, il est interdit de mourir.",
+   "shots": [
+    "aerial_village",
+    "church_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "C'est vrai.",
+   "shots": [
+    "vrai_street"
+   ],
+   "chip": null
+  },
+  {
+   "say": "En 2008, le cimetière de Sarpourenx est plein,",
+   "shots": [
+    "cemetery_crane"
+   ],
+   "chip": null
+  },
+  {
+   "say": "et la justice refuse de l'agrandir.",
+   "shots": [
+    "tribunal_desk"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Alors le maire affiche un arrêté :",
+   "shots": [
+    "sign_desk",
+    "board_pin"
+   ],
+   "chip": null
+  },
+  {
+   "say": "sans place au cimetière, défense de mourir ici.",
+   "shots": [
+    "arrete_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Les contrevenants seront sévèrement punis.",
+   "shots": [
+    "villagers_worried",
+    "brand_end"
+   ],
+   "chip": null
+  }
+ ]
+}
