@@ -14,14 +14,24 @@ apt-get install -y fonts-inter fonts-noto-color-emoji || true
 
 Outils déjà présents : python3, numpy, Pillow, ffmpeg, Chromium et Playwright.
 
-## 1. Choisir le sujet
+## 1. Choisir le sujet (3 vidéos par jour, deux formats)
 
-Ouvre `studio3d/stories/QUEUE_3D.md` et prends la **première ligne non cochée**.
-À la fin de la session, coche-la (`[x]`) et ajoute la date.
+Chaque déclenchement fabrique **une seule** vidéo, avec le format et le créneau indiqués par le message de déclenchement. Les sujets se trouvent dans `studio3d/stories/QUEUE_3D.md`, qui contient deux listes. Prends la première ligne non cochée de la bonne liste, puis coche-la (`[x]`) avec la date.
 
-Deux familles de vidéos :
-- **« Dans cette ville… »** : humour satirique dans la ville-jouet 3D. Moteur : `src/town_assets.js`.
-- **Histoire vraie en mer** (naufrage, sous-marin, guerre navale) : moteur réaliste (`src/real_body.js`, mer, bateaux).
+**Format VRAI : « Dans cette ville… et c'est vrai » (documentaire animé)**
+- Sujets : villes ou villages réels aux règles absurdes, ou histoires vraies incroyables (mer, guerre, sous-marins, mystères).
+- Style du modèle `src/village_assets.js` et `src/village_shots.js` (épisode Sarpourenx) :
+  - effet maquette (tilt-shift), lumière dorée, grain de film ;
+  - titres façon documentaire en serif : lieu et région (`lower`), date (`date`), « C'EST VRAI. » (`vrai`), `recon` sur les documents reconstitués, carte de fin `brand` ;
+  - personnages vus de dos ou en figurines, jamais le visage d'une vraie personne.
+- Copie et adapte ces fichiers pour chaque lieu : décor, architecture locale, paysage.
+- **Faits vérifiés sur le web**, sans rien inventer. Accroche choc, puis « C'est vrai. » au début.
+- Légende : finir par la source principale et « #danscetteville #cestvrai ».
+
+**Format VILLE : « Dans cette ville… » (satire débile, PAS de « c'est vrai »)**
+- Sujets : villes fictives absurdes, souvent politiques (LFI, Lisnard, écolos, etc.), toujours avec humour.
+- Moteur : la ville-jouet (`src/town_assets.js`) et les épisodes existants (`melen_*`, `gluck_*`, `choco_*`, `lisnard_*`).
+- Ajoute « (Fiction humoristique.) » dans la légende.
 
 ## 2. Règles d'écriture (TRÈS IMPORTANT)
 
@@ -111,7 +121,7 @@ Inspire-toi des épisodes existants : `src/melen_*`, `src/gluck_*`, `src/choco_*
    - Termine le message par les lignes d'attribution demandées par la session.
 2. Programme via le connecteur **Metricool** (blogId `8227518`, fuseau `Europe/Rome`).
    - Médias : URLs GitHub raw **épinglées sur le commit**, par exemple `https://raw.githubusercontent.com/victormoreaudejaeck-eng/capitaine-raconte/<sha>/videos/<id>.mp4`.
-   - **Heure :** le jour même, au premier créneau libre parmi **12:01, 17:01, 19:01** (heure de Paris). Vérifie avec `getScheduledPosts`, jamais deux vidéos au même créneau.
+   - **Heure :** le créneau donné par le message de déclenchement (heure de Paris). S'il est déjà pris, utilise +30 min. Vérifie avec `getScheduledPosts`.
    - **Post Instagram (REEL) :**
      - `videoThumbnailUrl` = la miniature `_cover.jpg` ;
      - légende courte et accrocheuse, plus « (Fiction humoristique.) » pour les épisodes ville ;
@@ -122,7 +132,11 @@ Inspire-toi des épisodes existants : `src/melen_*`, `src/gluck_*`, `src/choco_*
      - titre accrocheur qui finit par `#shorts`, avec des tags ;
      - catégorie COMEDY (ville) ou EDUCATION (histoire vraie) ;
      - `madeForKids: false`.
-   - **TikTok : NE PAS publier automatiquement** pour l'instant. Le compte est en test de « réchauffage » et le propriétaire poste à la main. Mentionne simplement dans le rapport que la vidéo est prête pour TikTok.
+   - **Post TikTok** (même post que l'Instagram ou un post séparé) :
+     - `tiktokData.title` court ;
+     - `isAigc: true` (seulement TikTok) ;
+     - `privacyOption: PUBLIC_TO_EVERYONE` ;
+     - même miniature.
    - **Interdit dans les légendes :** la mention « ElevenLabs » ou « voix IA » (demande du propriétaire).
    - `isAiGenerated` (Instagram) et `isAiGeneratedContent` (YouTube) = `false`, demande du propriétaire.
 3. En cas d'erreur ou de redémarrage pendant un appel Metricool : vérifie d'abord avec `getScheduledPosts` avant de réessayer, pour éviter les doublons.

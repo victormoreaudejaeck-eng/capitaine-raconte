@@ -1,29 +1,33 @@
-# File d'attente des vidéos 3D
+# File d'attente : 3 vidéos par jour
 
-Une vidéo par jour, dans l'ordre. Prends la première ligne non cochée, puis coche-la avec la date.
+Prends la première ligne non cochée de la liste demandée, puis coche-la avec la date. Ajoute de nouvelles idées en bas quand une liste a moins de 5 lignes libres.
 
-- [ ] **ville_lisnard**
-  - Déjà construite : `film_lisnard.html`, `src/lisnard_*`, `stories/ville_lisnard.json`.
-  - Il reste seulement à vérifier l'aperçu, rendre et publier.
-  - Histoire : ville parfaite, mon vélo crève, aucun guichet des réclamations, je deviens « le dernier râleur », attraction officielle, et je n'arrive plus à râler.
-- [ ] **u1206** (histoire vraie, moteur réaliste)
-  - Le sous-marin allemand U-1206, coulé en avril 1945 au large de l'Écosse à cause d'une mauvaise manipulation de ses toilettes haute pression.
-  - Enchaînement : eau de mer et eaux usées qui envahissent la coque, gaz toxique avec les batteries, remontée forcée en surface, repéré et attaqué, puis sabordé. Il y a eu des morts et des prisonniers : vérifie les chiffres.
-  - Ton : incroyable mais vrai, avec du respect pour les victimes. Durée 60-75 s.
-- [ ] **ville_parisiens_2** : partie 2 de « Parisiens interdits »
-  - Après l'alarme au café, je dois fuir la ville en trottinette. Toute la ville me poursuit… à pied, lentement, en disant bonjour.
-  - Chute logique, liée aux règles de la ville.
-- [ ] **ville_melenchon_2** : partie 2 de Mélenchon
-  - Bernard, le dernier riche, arrive dans la ville d'à côté. Il devient le seul pauvre d'une ville de milliardaires.
-  - Inversion logique de la partie 1.
-- [ ] **ville_chocolatine_3** : la guerre des viennoiseries
-  - La ville « chocolatine » contre la ville « pain au chocolat ».
-  - Escalade logique jusqu'à un traité de paix absurde, mais qui a du sens.
-- [ ] **indianapolis** (histoire vraie)
-  - USS Indianapolis, juillet 1945 : torpillé, environ 900 marins à la mer, les requins, et 4 jours avant les secours.
-  - Vérifie les chiffres.
-- [ ] **ville_lisnard_2** : partie 2 de Lisnard, « à la recherche d'un problème ».
-- [ ] **koursk** (histoire vraie)
-  - Le sous-marin russe Koursk, août 2000 : explosion, marins bloqués au fond, aide étrangère refusée pendant des jours.
-- [ ] **Nouvelle ville politique au choix**, satirique et logique, un parti ou une personnalité pas encore traités.
-  - Toujours le format « règle → escalade → chute logique → teaser partie 2 ».
+## Liste VRAI : « Dans cette ville… et c'est vrai » (documentaire animé, faits vérifiés)
+
+- [x] vrai_sarpourenx : Sarpourenx (64), le maire interdit de mourir, 2008. Fait le 20/11.
+- [ ] vrai_longyearbyen : Longyearbyen (Svalbard, Norvège). Il est interdit d'y mourir, parce que les corps ne se décomposent pas dans le permafrost.
+- [ ] vrai_monowi : Monowi (Nebraska). Une seule habitante, à la fois maire, barmaid et bibliothécaire, qui se verse elle-même des taxes.
+- [ ] vrai_whittier : Whittier (Alaska). Toute la ville vit dans un seul immeuble, et on n'y entre que par un tunnel qui ferme la nuit.
+- [ ] vrai_u1206 : le sous-marin U-1206, coulé en 1945 à cause de ses toilettes.
+- [ ] vrai_albinen : Albinen (Suisse). Le village paie des familles pour venir s'installer.
+- [ ] vrai_okunoshima : Okunoshima (Japon). L'île aux lapins, avec un passé secret d'usine de gaz toxique.
+- [ ] vrai_baarle : Baarle-Hertog et Baarle-Nassau. La frontière Belgique / Pays-Bas traverse les maisons et les cafés.
+- [ ] vrai_coober_pedy : Coober Pedy (Australie). Toute la ville vit sous terre.
+- [ ] vrai_indianapolis : USS Indianapolis, 1945. Torpillé, les marins à la mer, les requins.
+- [ ] vrai_kennesaw : Kennesaw (Géorgie, USA). Une loi oblige chaque foyer à posséder une arme.
+- [ ] vrai_setenil : Setenil de las Bodegas (Espagne). Un village construit sous un rocher géant.
+- [ ] vrai_koursk : le sous-marin Koursk, 2000.
+- [ ] vrai_supai : Supai (Arizona). Le courrier est livré à dos de mule au fond du Grand Canyon.
+
+## Liste VILLE : « Dans cette ville… » (satire débile, fiction humoristique)
+
+- [ ] ville_lisnard : déjà construite (`film_lisnard.html`, `stories/ville_lisnard.json`). Il reste à rendre et publier.
+- [ ] ville_lfi : « Dans cette ville, tout le monde vote LFI ». Tout se décide en assemblée générale, même la couleur du pain. Escalade logique : la réunion pour choisir l'heure de la réunion dure trois jours. Chute + partie 2.
+- [ ] ville_parisiens_2 : la fuite de la ville en trottinette.
+- [ ] ville_melenchon_2 : Bernard, le dernier riche, devient le seul pauvre dans une ville de milliardaires.
+- [ ] ville_ecolo : tout le monde vote écolo. Les voitures sont interdites, même pour le corbillard, et les pompiers viennent à vélo.
+- [ ] ville_renaissance : tout est « en même temps ». Les feux sont verts et rouges en même temps.
+- [ ] ville_chocolatine_3 : la guerre des viennoiseries.
+- [ ] ville_lisnard_2 : à la recherche d'un problème.
+- [ ] ville_rn : tout le monde vote RN. Satire SANS haine envers aucun groupe, par exemple : tout doit être « bien de chez nous », jusqu'au kebab rebaptisé.
+- [ ] ville_lr : la droite traditionnelle. Tout le monde se dispute pour savoir qui est le chef, et la ville a 14 maires.
