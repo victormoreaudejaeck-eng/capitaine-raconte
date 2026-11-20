@@ -1,0 +1,122 @@
+{
+ "film": "film_glucksmann.html",
+ "title1": "DANS CETTE VILLE",
+ "title2": "TOUT LE MONDE VOTE GLUCKSMANN",
+ "resolve_shot": "wake_up",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "thumb": {
+  "time": 10.0,
+  "lines": [
+   "PLUS AUCUNE",
+   "ÉNERGIE",
+   "DANS CETTE VILLE"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "🍵",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Dans cette ville, tout le monde vote Glucksmann.",
+   "shots": [
+    "town_wide",
+    "posters_street"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Ici, personne ne crie. Personne ne court. En fait... personne n'a d'énergie.",
+   "shots": [
+    "slow_walk",
+    "yawn_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le matin, tout le monde fait la queue au stand de matcha. Lait d'avoine, évidemment.",
+   "shots": [
+    "matcha_wide",
+    "matcha_cup"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le sucre ? Interdit. Ici, on ne carbure pas aux glucides... mais au Glucksmann.",
+   "shots": [
+    "sugar_jar",
+    "sleepy_crowd"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Même les manifs sont calmes. C'est un sit-in. Enfin... une sieste.",
+   "shots": [
+    "sit_in",
+    "zzz_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Quand on demande au maire où va la ville, il répond toujours : il faut un cap clair.",
+   "shots": [
+    "mayor_cap",
+    "mayor_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Alors on lui a offert une boussole. L'aiguille n'a jamais réussi à choisir.",
+   "shots": [
+    "compass_give",
+    "compass_spin"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Un jour, moi, j'ai ramené un pain au chocolat.",
+   "shots": [
+    "me_pain",
+    "pain_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Une bouchée, et toute la ville s'est réveillée. Ils ont couru, crié, débattu...",
+   "shots": [
+    "wake_up",
+    "crowd_run"
+   ],
+   "chip": null
+  },
+  {
+   "say": "pendant trois minutes. Puis, sieste générale.",
+   "shots": [
+    "crowd_sleep"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Partie deux : la ville où il y a trop d'énergie. Abonne-toi !",
+   "shots": [
+    "next_town_tease",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ]
+}
