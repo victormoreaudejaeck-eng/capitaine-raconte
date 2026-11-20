@@ -15,9 +15,9 @@ const SHOTS = {
   houses_posters(t, p){ T0(); cam(V(8 + p * 2, 2.5, -24 + p * 18), V(-20, 3, -20 + p * 18), 40); sunFollow(V(0, 0, 0)); return {}; },
   car_sticker(t, p){ T0(); only(sky, town, clouds, cars[0]); cars[0].position.set(-2.4, 0, 6 + p * 3); cars[0].rotation.y = 0; cam(V(-1.6, 1.5, 1.2 + p * 3), V(-2.4, 1, 3.8 + p * 3), 40); sunFollow(V(0, 0, 0)); return {}; },
   dog_suit(t, p){ T0(); only(sky, town, clouds, dog); dog.position.set(0, 0, 8 + Math.sin(t) * .1); dog.rotation.y = .2 + Math.sin(t * .8) * .2; dog.children[3].rotation.y = Math.sin(t * 2) * .2;
-    cam(V(1.6, 1.4, 11.5), V(0, .9, 8), 36); sunFollow(V(0, 0, 0)); return {}; },
-  bakery(t, p){ T0(); only(sky, town, clouds, bakery, me); bakery.position.set(-22, 0, 30); bakery.rotation.y = Math.PI / 2; bRest(me); bMood(me, 'shock'); me.position.set(-15.5, 0, 30); me.rotation.y = -Math.PI / 2;
-    cam(V(-10, 3.2, 35 - p * 2), V(-19, 2, 30), 42); sunFollow(V(-20, 0, 30)); return {}; },
+    cam(V(2.6, 1.9, 13.8), V(0, 1, 8), 38); sunFollow(V(0, 0, 0)); return {}; },
+  bakery(t, p){ T0(); only(sky, town, clouds, bakery); bakery.position.set(-22, 0, 30); bakery.rotation.y = Math.PI / 2;
+    cam(V(-8.5 + p * .6, 3.6, 34.5), V(-17.2, 2.4, 30), 46); sunFollow(V(-20, 0, 30)); return {}; },
   baguette(t, p){ T0(); only(sky, town, clouds, bigBread, bakery); bakery.position.set(-22, 0, 30); bakery.rotation.y = Math.PI / 2; bigBread.position.set(-15, 2.4 + Math.sin(t * 2) * .05, 30); bigBread.rotation.set(0, t * .6, Math.PI / 2);
     cam(V(-12.5, 2.7, 31.6), V(-15, 2.4, 30), 34); sunFollow(V(-15, 0, 30)); return {stamp: 'BLEU MARINE'}; },
   school(t, p){ townLook(); only(classroom, ...citizens.slice(0, 6)); scene.background = new THREE.Color(0xfdf6e3); hemi.intensity = 1.6; spot.intensity = 0;
@@ -31,17 +31,17 @@ const SHOTS = {
   neighbors_binoculars(t, p){ T0(); only(sky, town, clouds, ...citizens.slice(0, 3), binoc); citizens.slice(0, 3).forEach((c, i) => { bRest(c); bMood(c, 'side'); c.position.set(-15 + i * 1.6, 0, 12 + (i % 2) * .5); c.rotation.y = Math.PI / 2; c.userData.armL.rotation.x = c.userData.armR.rotation.x = -1.6; });
     citizens[1].updateMatrixWorld(true); binoc.position.copy(citizens[1].userData.head.getWorldPosition(V(0, 0, 0))).add(V(.65, 0, 0)); binoc.rotation.y = Math.PI / 2;
     cam(V(-9, 3.3, 14.5), V(-14, 3.2, 12.2), 40); sunFollow(V(-14, 0, 12)); return {}; },
-  spy_window(t, p){ T0(); only(sky, town, clouds, citizens[2], me); bRest(me); bMood(me, 'scared'); me.position.set(14.5, 0, 12.5); me.rotation.y = Math.PI / 2;
-    bRest(citizens[2]); bMood(citizens[2], 'side'); citizens[2].position.set(19, 1.6, 9.8 - p * .4); citizens[2].rotation.y = -Math.PI / 2;
-    cam(V(9, 3.4, 15), V(16, 3.4, 11.5), 42); sunFollow(V(16, 0, 12)); return {}; },
+  spy_window(t, p){ T0(); only(sky, town, clouds, citizens[2], me); bRest(me); bMood(me, 'scared'); me.position.set(0, 0, 4); me.rotation.y = 0;
+    bRest(citizens[2]); bMood(citizens[2], 'side'); citizens[2].position.set(1.15, 0, 3.0); citizens[2].rotation.set(0, -.35, .12 * Math.min(1, p * 3));
+    cam(V(0, 3.4, 9.5), V(.4, 3.3, 3.6), 40); sunFollow(V(0, 0, 4)); return {}; },
   spy_bush(t, p){ T0(); only(sky, town, clouds, ...citizens.slice(3, 6)); citizens.slice(3, 6).forEach((c, i) => { bRest(c); bMood(c, 'side'); c.position.set(10.8 + i * .2, -1.6 + Math.min(1, p * 3) * .9, -4 + i * 1.8); c.rotation.y = -Math.PI / 2; });
     cam(V(4, 2.5, -1), V(11, 2.2, -2), 40); sunFollow(V(10, 0, -2)); return {}; },
-  voting_booth(t, p){ townLook(); only(booth, me, ...citizens.slice(0, 5)); scene.background = new THREE.Color(0xeef1f6); hemi.intensity = 1.5; bRest(me); bMood(me, 'neutral'); me.position.set(-1.8 + p * .2, 0, -1); me.rotation.y = Math.PI; bWalk(me, t, .7);
+  voting_booth(t, p){ townLook(); only(booth, me, ...citizens.slice(0, 5)); scene.background = new THREE.Color(0xeef1f6); hemi.intensity = 1.5; bRest(me); bMood(me, 'neutral'); me.position.set(-2.6, 0, -1.2 - p * 1.0); me.rotation.y = Math.PI; bWalk(me, t, .7);
     citizens.slice(0, 5).forEach((c, i) => { bRest(c); bMood(c, 'side'); c.position.set(-6 + i * 1.6, 0, 4); c.rotation.y = Math.PI + (i - 2) * .15; });
-    cam(V(2, 4, 8), V(-1.5, 2, -2), 44); return {}; },
-  ballot(t, p){ townLook(); only(booth, me); scene.background = new THREE.Color(0xeef1f6); hemi.intensity = 1.5; bRest(me); bMood(me, 'neutral'); me.position.set(-1.8, 0, -3.2); me.rotation.y = Math.PI;
-    const [a, b] = booth.userData.ballots; a.position.set(-2.2, 2.6, -3.9); b.position.set(-1.4, 2.6, -3.9); a.rotation.y = b.rotation.y = 0; a.position.y += Math.sin(t * 3) * .02;
-    cam(V(-1.8, 3.4, -2.2), V(-1.8, 2.6, -3.9), 40); return {}; },
+    cam(V(5, 3.6, 4.5), V(-2, 2.1, -2.8), 46); return {}; },
+  ballot(t, p){ townLook(); only(booth); scene.background = new THREE.Color(0xeef1f6); hemi.intensity = 1.5; bRest(me); bMood(me, 'neutral'); me.position.set(-1.8, 0, -3.2); me.rotation.y = Math.PI;
+    const [a, b] = booth.userData.ballots; a.position.set(-2.15, 2.6, -2.95); b.position.set(-1.45, 2.6, -2.95); a.rotation.y = b.rotation.y = 0; a.position.y += Math.sin(t * 3) * .02;
+    cam(V(-1.8, 3.0, -1.1), V(-1.8, 2.6, -2.95), 50); return {}; },
   town_freeze(t, p){ T0(); only(sky, town, clouds, ...citizens, dog); crowd(14, 0, -18, t, {rot: 0, mood: 'shock', cols: 5, gap: 2.4}); dog.position.set(4, 0, -12); dog.rotation.y = 0;
     cam(V(0, 3.2 + p * 2, -2 - p * 2), V(0, 3, -18), 46); sunFollow(V(0, 0, -15)); return {silence: true}; },
   next_town_tease(t, p){ T0(); only(sky, town, clouds); renderer.toneMappingExposure = .5; cam(V(0, 60 - p * 20, 90), V(0, 0, -120), 40); sunFollow(V(0, 0, 0)); return {tease: true}; },

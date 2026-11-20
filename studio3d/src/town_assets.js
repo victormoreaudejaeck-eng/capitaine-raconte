@@ -2,7 +2,7 @@
 // ===================== "DANS CETTE VILLE" : bright toy-town assets (original characters) =====================
 const toon = (c, o = {}) => new THREE.MeshStandardMaterial({color: c, roughness: .55, ...o});
 const town = new THREE.Group(); scene.add(town);
-const NAVY = 0x1c2d5a;
+const NAVY = 0x27407e;
 const posterTex = (l1, l2, bg = '#1c2d5a') => canvasTex(512, 720, (c, w, h) => { c.fillStyle = bg; c.fillRect(0, 0, w, h);
   c.fillStyle = '#ffffff'; c.fillRect(0, h - 130, w, 130); c.fillStyle = '#e1000f'; c.fillRect(0, h - 150, w, 20);
   c.fillStyle = '#ffffff'; c.textAlign = 'center'; c.font = '900 92px Inter, sans-serif'; c.fillText(l1, w / 2, 300); c.font = '900 150px Inter, sans-serif'; c.fillText(l2, w / 2, 470);
@@ -57,9 +57,9 @@ const bakery = new THREE.Group(); scene.add(bakery);
   sign.position.set(0, 6, 4.02); bakery.add(sign);
   const awn = new THREE.Mesh(new THREE.BoxGeometry(11, .2, 2.4), toon(0x1c2d5a)); awn.position.set(0, 4.6, 5); awn.rotation.x = .25; bakery.add(awn);
   const glass = new THREE.Mesh(new THREE.PlaneGeometry(8, 3.2), toon(0xbfe6ff, {roughness: .05, transparent: true, opacity: .35})); glass.position.set(0, 2.2, 4.03); bakery.add(glass);
-  const counter = new THREE.Mesh(new THREE.BoxGeometry(8, 1.2, 1.4), toon(0x8a5a3a)); counter.position.set(0, .6, 2.6); bakery.add(counter);
+  const counter = new THREE.Mesh(new THREE.BoxGeometry(8, 1.2, 1.4), toon(0x8a5a3a)); counter.position.set(0, .6, 5.2); bakery.add(counter);
   const navyBread = toon(NAVY, {roughness: .5}); bakery.userData.breads = [];
-  for (let i = 0; i < 9; i++){ const br = new THREE.Mesh(new THREE.CapsuleGeometry(.14, 1.2, 4, 10), navyBread); br.rotation.z = Math.PI / 2; br.position.set(-3.2 + i * .8, 1.32, 2.6); bakery.add(br); bakery.userData.breads.push(br); }
+  for (let i = 0; i < 9; i++){ const br = new THREE.Mesh(new THREE.CapsuleGeometry(.14, 1.2, 4, 10), navyBread); br.rotation.z = Math.PI / 2; br.position.set(-3.2 + i * .8, 1.32, 5.2); bakery.add(br); bakery.userData.breads.push(br); }
   const pb = poster(1.4, 2); pb.position.set(4.6, 2.4, 4.04); bakery.add(pb); }
 const bigBread = new THREE.Mesh(new THREE.CapsuleGeometry(.2, 1.6, 6, 14), toon(NAVY, {roughness: .45})); scene.add(bigBread);
 // classroom
@@ -118,4 +118,4 @@ const dog = new THREE.Group(); { const b = new THREE.Mesh(new THREE.BoxGeometry(
   for (const sx of [-1, 1]){ const ear = new THREE.Mesh(new THREE.BoxGeometry(.15, .3, .1), toon(0x8a5a3a)); ear.position.set(sx * .25, 1.55, .85); dog.add(ear); }
   for (const [x, z] of [[-.25, .5], [.25, .5], [-.25, -.5], [.25, -.5]]){ const l = new THREE.Mesh(new THREE.BoxGeometry(.18, .45, .18), toon(0xd9a066)); l.position.set(x, .22, z); dog.add(l); } } scene.add(dog);
 ALL.push(town, clouds, ...cars, bakery, bigBread, classroom, booth, binoc, me, ...citizens, dog);
-function townLook(){ look('day'); setSky('toy', 40, 210, 2, .9, .003); renderer.toneMappingExposure = .62; sunLight.intensity = 2.6; hemi.intensity = 1.0; hemi.color.set(0xdff2ff); hemi.groundColor.set(0x7ccf5a); scene.fog = new THREE.Fog(0xcfe8ff, 120, 700); }
+function townLook(){ look('day'); setSky('toy', 42, 210, 1.6, 1.3, .002); renderer.toneMappingExposure = .4; sunLight.intensity = 2.4; sunLight.color.set(0xfff4e2); hemi.intensity = .55; hemi.color.set(0xd6ecff); hemi.groundColor.set(0x6fae55); scene.fog = new THREE.Fog(0xbfdcf5, 220, 1000); bloom.strength = .06; scene.environment = null; renderer.toneMappingExposure = .95; hemi.intensity = 2.4; hemi.color.set(0xeef6ff); hemi.groundColor.set(0x9ccf88); sunLight.intensity = 2.0; }
