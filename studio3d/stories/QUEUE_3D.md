@@ -5,7 +5,7 @@ Prends la première ligne non cochée de la liste demandée, puis coche-la avec 
 ## Liste VRAI : « Dans cette ville… et c'est vrai » (documentaire animé, faits vérifiés)
 
 - [x] vrai_sarpourenx : Sarpourenx (64), le maire interdit de mourir, 2008. Fait le 20/11.
-- [ ] vrai_longyearbyen : Longyearbyen (Svalbard, Norvège). Il est interdit d'y mourir, parce que les corps ne se décomposent pas dans le permafrost.
+- [x] vrai_longyearbyen (fait le 20/11, publié le 21/11 à 12:01) : Longyearbyen (Svalbard, Norvège). Il est interdit d'y mourir, parce que les corps ne se décomposent pas dans le permafrost.
 - [ ] vrai_monowi : Monowi (Nebraska). Une seule habitante, à la fois maire, barmaid et bibliothécaire, qui se verse elle-même des taxes.
 - [ ] vrai_whittier : Whittier (Alaska). Toute la ville vit dans un seul immeuble, et on n'y entre que par un tunnel qui ferme la nuit.
 - [ ] vrai_u1206 : le sous-marin U-1206, coulé en 1945 à cause de ses toilettes.
@@ -21,13 +21,14 @@ Prends la première ligne non cochée de la liste demandée, puis coche-la avec 
 
 ## Liste VILLE : « Dans cette ville… » (satire débile, fiction humoristique)
 
-- [ ] ville_lisnard : déjà construite (`film_lisnard.html`, `stories/ville_lisnard.json`). Il reste à rendre et publier.
-- [ ] ville_lfi : « Dans cette ville, tout le monde vote LFI ». Tout se décide en assemblée générale, même la couleur du pain. Escalade logique : la réunion pour choisir l'heure de la réunion dure trois jours. Chute + partie 2.
+- [x] ville_lisnard (fait le 20/11, publié le 21/11 à 17:01) : déjà construite (`film_lisnard.html`, `stories/ville_lisnard.json`). Il reste à rendre et publier.
+- [x] ville_lfi (fait le 20/11, publié le 21/11 à 20:01) : « Dans cette ville, tout le monde vote LFI ». Tout se décide en assemblée générale, même la couleur du pain. Escalade logique : la réunion pour choisir l'heure de la réunion dure trois jours. Chute + partie 2.
+- [ ] ville_lfi_2 : partie 2 de LFI, la ville d'à côté où personne ne vote jamais (tout est décidé par un tirage au sort, ou par le chat du maire…), chute logique.
 - [ ] ville_parisiens_2 : la fuite de la ville en trottinette.
 - [ ] ville_melenchon_2 : Bernard, le dernier riche, devient le seul pauvre dans une ville de milliardaires.
 - [ ] ville_ecolo : tout le monde vote écolo. Les voitures sont interdites, même pour le corbillard, et les pompiers viennent à vélo.
 - [ ] ville_renaissance : tout est « en même temps ». Les feux sont verts et rouges en même temps.
 - [ ] ville_chocolatine_3 : la guerre des viennoiseries.
-- [ ] ville_lisnard_2 : à la recherche d'un problème.
+- [x] ville_lisnard (fait le 20/11, publié le 21/11 à 17:01)_2 : à la recherche d'un problème.
 - [ ] ville_rn : tout le monde vote RN. Satire SANS haine envers aucun groupe, par exemple : tout doit être « bien de chez nous », jusqu'au kebab rebaptisé.
 - [ ] ville_lr : la droite traditionnelle. Tout le monde se dispute pour savoir qui est le chef, et la ville a 14 maires.
