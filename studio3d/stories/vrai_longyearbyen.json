@@ -1,0 +1,97 @@
+{
+ "film": "film_arctic.html",
+ "title1": "",
+ "title2": "",
+ "resolve_shot": "cemetery_sign",
+ "caption": {
+  "color": "#ffffff",
+  "y": 1500,
+  "size": 76,
+  "stroke": 12
+ },
+ "thumb": {
+  "time": 2.0,
+  "lines": [
+   "LA VILLE OÙ",
+   "ON N'A PAS LE DROIT",
+   "DE MOURIR"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "❄️",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Dans cette ville, on dit qu'il est interdit de mourir. La vérité est encore plus étrange.",
+   "shots": [
+    "aerial_arctic",
+    "town_aurora"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Longyearbyen, en Norvège. À mille trois cents kilomètres du pôle Nord.",
+   "shots": [
+    "houses_row",
+    "pylons"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Ici, le sol reste gelé toute l'année. Et dans les années 1950, on découvre un problème : au cimetière, les corps ne se décomposent pas.",
+   "shots": [
+    "permafrost_cut",
+    "cemetery_slope"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Parmi eux, des victimes de la grippe espagnole de 1918. En 1998, des scientifiques viennent même y prélever le virus.",
+   "shots": [
+    "coffin_ice"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Depuis, le cimetière n'accepte plus d'enterrements. Quand quelqu'un va mourir, on l'évacue en avion vers le continent.",
+   "shots": [
+    "cemetery_sign",
+    "plane_takeoff"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et on n'y naît pas non plus : les futures mamans partent accoucher ailleurs.",
+   "shots": [
+    "plane_sky"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Les chats sont interdits, pour protéger les oiseaux. Et personne ne sort de la ville sans fusil, à cause des ours polaires.",
+   "shots": [
+    "cat_sign",
+    "bear_sign",
+    "bear_walk"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Une ville où l'on vit… mais où l'on ne naît pas, et où l'on n'est pas enterré.",
+   "shots": [
+    "aurora_end"
+   ],
+   "chip": null
+  }
+ ]
+}
