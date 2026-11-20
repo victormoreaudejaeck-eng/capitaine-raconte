@@ -126,5 +126,31 @@
  ],
  "film": "film_real.html",
  "title1": "4 JOURS",
- "title2": "SOUS LA COQUE"
+ "title2": "SOUS LA COQUE",
+ "thumb": {
+  "time": 1.2,
+  "lines": [
+   "IL A SURVÉCU",
+   "4 JOURS",
+   "SOUS SON BATEAU"
+  ],
+  "hl": 1,
+  "top": 1060,
+  "circle": [
+   540,
+   540,
+   240
+  ],
+  "arrow": [
+   960,
+   1010,
+   770,
+   720
+  ],
+  "emoji": "😱",
+  "emoji_pos": [
+   40,
+   800
+  ]
+ }
 }

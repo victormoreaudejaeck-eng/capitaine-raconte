@@ -241,6 +241,8 @@ def main():
     sh("ffmpeg", "-v", "error", "-y", "-i", silent, "-i", os.path.join(OUT, "mix.wav"), "-map", "0:v", "-map", "1:a",
        "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-shortest", final)
     print("✅", final)
+    if story.get("thumb"):
+        sh("python3", os.path.join(HERE, "thumb.py"), STORY)
 
 
 if __name__ == "__main__":

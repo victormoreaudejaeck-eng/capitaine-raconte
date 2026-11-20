@@ -108,5 +108,26 @@
    "chip": null
   }
  ],
- "resolve_shot": "end_card"
+ "resolve_shot": "end_card",
+ "thumb": {
+  "time": 2.2,
+  "lines": [
+   "10 PERSONNES",
+   "DISPARUES",
+   "PERSONNE À BORD"
+  ],
+  "hl": 1,
+  "top": 170,
+  "arrow": [
+   180,
+   1000,
+   380,
+   1180
+  ],
+  "emoji": "👻",
+  "emoji_pos": [
+   800,
+   720
+  ]
+ }
 }
