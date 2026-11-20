@@ -1,0 +1,28 @@
+name: Grand Large (Roblox)
+
+on:
+  push:
+    paths: ["grand-large/**", ".github/workflows/grand-large.yml"]
+  pull_request:
+    paths: ["grand-large/**"]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: grand-large
+    steps:
+      - uses: actions/checkout@v4
+      - uses: CompeyDev/setup-rokit@v0.1.2
+        with:
+          path: grand-large
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Formatage
+        run: stylua --check src tests
+      - name: Lint
+        run: selene src
+      - name: Tests du moteur de voile
+        run: lune run tests/run
+      - name: Build
+        run: rojo build default.project.json -o GrandLarge.rbxl

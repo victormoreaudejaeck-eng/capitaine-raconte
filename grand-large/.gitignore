@@ -1,0 +1,7 @@
+*.rbxl.lock
+*.rbxlx.lock
+Packages/
+ServerPackages/
+wally.lock
+sourcemap.json
+roblox.yml
