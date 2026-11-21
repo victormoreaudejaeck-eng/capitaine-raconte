@@ -6,7 +6,7 @@ Prends la première ligne non cochée de la liste demandée, puis coche-la avec 
 
 - [x] vrai_sarpourenx : Sarpourenx (64), le maire interdit de mourir, 2008. Fait le 20/11.
 - [x] vrai_longyearbyen (fait le 20/11, publié le 21/11 à 12:01) : Longyearbyen (Svalbard, Norvège). Il est interdit d'y mourir, parce que les corps ne se décomposent pas dans le permafrost.
-- [ ] vrai_monowi : Monowi (Nebraska). Une seule habitante, à la fois maire, barmaid et bibliothécaire, qui se verse elle-même des taxes.
+- [x] vrai_monowi (fait le 21/11, publié le 22/11 à 12:01) : Monowi (Nebraska). Une seule habitante, à la fois maire, barmaid et bibliothécaire, qui se verse elle-même des taxes.
 - [ ] vrai_whittier : Whittier (Alaska). Toute la ville vit dans un seul immeuble, et on n'y entre que par un tunnel qui ferme la nuit.
 - [ ] vrai_u1206 : le sous-marin U-1206, coulé en 1945 à cause de ses toilettes.
 - [ ] vrai_albinen : Albinen (Suisse). Le village paie des familles pour venir s'installer.
