@@ -43,7 +43,8 @@
    "say": "Monowi, au Nebraska. Dans les années 1930, environ cent cinquante personnes vivaient ici.",
    "shots": [
     "old_town_sepia",
-    "houses_empty"
+    "church_sepia",
+    "silos"
    ],
    "chip": null
   },
@@ -51,6 +52,7 @@
    "say": "Puis les jeunes sont partis, l'un après l'autre. En 2000, il ne reste plus qu'un couple : Elsie et Rudy.",
    "shots": [
     "houses_empty",
+    "rusty_car",
     "couple_back"
    ],
    "chip": null
@@ -58,7 +60,8 @@
   {
    "say": "En 2004, Rudy meurt. Elsie devient la seule habitante… et donc, tout le reste.",
    "shots": [
-    "alone_road"
+    "alone_road",
+    "water_tower"
    ],
    "chip": null
   },
@@ -66,7 +69,8 @@
    "say": "Elle est maire, trésorière, secrétaire de mairie. Chaque année, elle signe elle-même la licence de son propre bar.",
    "shots": [
     "lic_close",
-    "tavern_sign"
+    "tavern_sign",
+    "open_sign"
    ],
    "chip": null
   },
@@ -82,14 +86,16 @@
    "say": "Elle s'occupe aussi de la bibliothèque de Rudy : cinq mille livres, en libre-service.",
    "shots": [
     "library_shot",
-    "library_books"
+    "library_books",
+    "honor_box"
    ],
    "chip": null
   },
   {
    "say": "On raconte même qu'elle se paie ses impôts à elle-même. Elle, elle dément : elle paie ses impôts comme tout le monde.",
    "shots": [
-    "tax_doc"
+    "tax_doc",
+    "dusk_silos"
    ],
    "chip": null
   },

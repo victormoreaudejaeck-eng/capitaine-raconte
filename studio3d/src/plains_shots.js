@@ -24,5 +24,12 @@ const SHOTS = {
   library_shot(t, p){ B0(library); library.updateMatrixWorld(true); cam(library.localToWorld(V(-3 + p * 4, 3, 5.5)), library.localToWorld(V(0, 3.2, -4.4)), 42); return {focusY: .5, band: .2, tilt: 5}; },
   library_books(t, p){ B0(library); library.updateMatrixWorld(true); cam(library.localToWorld(V(-4.5 + p * 1.2, 2.8, .4)), library.localToWorld(V(-4.5 + p * 1.2, 2.6, -4.2)), 40); return {focusY: .5, band: .14, tilt: 4}; },
   tax_doc(t, p){ B0(barIn, taxPaper); barIn.updateMatrixWorld(true); const w = barIn.localToWorld(V(-1, 1.43, -2)); taxPaper.position.copy(w); taxPaper.rotation.set(-Math.PI / 2, 0, .15); cam(V(w.x + .3, w.y + 2.6 - p * .3, w.z + 1.2), w, 40); return {recon: true, tilt: 4, focusY: .5, band: .16}; },
+  silos(t, p){ P0(); cam(V(2 - p * 2, 4, -44), V(-18, 10, -30), 40); sunFollow(V(-20, 0, -30)); return {focusY: .45, band: .22, tilt: 7}; },
+  church_sepia(t, p){ P0(...townsfolk30.slice(0, 4)); townsfolk30.slice(0, 4).forEach((f, i) => { f.position.set((i % 2 ? 1.2 : -1.2), 0, 4 + i * 3 - p * 2); f.rotation.y = 0; oldMood(f, 'calm'); }); cam(V(3, 6, -26 + p * 2), V(0, 2, 16), 42); sunFollow(V(0, 0, 0)); return {grade: SEPIA, focusY: .5, band: .2, tilt: 7}; },
+  water_tower(t, p){ P0(); cam(V(22 + p * 3, 4, -32), V(30, 17, -50), 40); sunFollow(V(30, 0, -50)); return {focusY: .4, band: .22, tilt: 6}; },
+  rusty_car(t, p){ P0(); cam(V(-1 - p, 3.2, 31), V(-12, 2, 14), 40); sunFollow(V(-9, 0, 18)); return {focusY: .55, band: .2, tilt: 7}; },
+  open_sign(t, p){ P0(); tavern.updateMatrixWorld(true); const s = tavern.localToWorld(V(3.4, 2.6, 4.03)); cam(tavern.localToWorld(V(3.0, 2.7, 7.5 - p)), s, 34); sunFollow(s); return {focusY: .5, band: .16, tilt: 5}; },
+  honor_box(t, p){ B0(library); library.updateMatrixWorld(true); const b = library.localToWorld(V(4.6, 1.2, -1.4)); cam(library.localToWorld(V(3.6, 2.2, 1.6 - p * .4)), b, 36); return {focusY: .55, band: .16, tilt: 4}; },
+  dusk_silos(t, p){ P0(); renderer.toneMappingExposure = .5; cam(V(0, 9, 22 + p * 4), V(-20, 10, -30), 40); sunFollow(V(0, 0, 0)); return {focusY: .5, band: .22, tilt: 7, grade: 'rgba(255,130,70,.3)'}; },
   dusk_end(t, p){ P0(); renderer.toneMappingExposure = .45; cam(V(-40 + p * 10, 22, 80 - p * 10), V(6, 3, 22), 40); sunFollow(V(0, 0, 20)); return {brand: true, focusY: .5, band: .25, tilt: 8, grade: 'rgba(255,130,70,.35)'}; },
 };
