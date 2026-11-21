@@ -1,0 +1,110 @@
+{
+ "film": "film_whittier.html",
+ "title1": "",
+ "title2": "",
+ "resolve_shot": "cut_wide",
+ "caption": {
+  "color": "#ffffff",
+  "y": 1500,
+  "size": 76,
+  "stroke": 12
+ },
+ "thumb": {
+  "time": 4.5,
+  "lines": [
+   "TOUTE LA VILLE",
+   "DANS UN SEUL IMMEUBLE",
+   "(ET C'EST VRAI)"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "🏢",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Dans cette ville, presque toute la population vit dans un seul immeuble. Et c'est vrai.",
+   "shots": [
+    "aerial_bay",
+    "bay_boats",
+    "tower_reveal"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Whittier, en Alaska. Environ deux cent soixante-dix habitants, quatorze étages.",
+   "shots": [
+    "tower_up",
+    "harbor"
+   ],
+   "chip": null
+  },
+  {
+   "say": "À l'origine, c'était une base militaire de la guerre froide. Les soldats sont partis… l'immeuble est resté.",
+   "shots": [
+    "ruin_sepia",
+    "tower_sepia"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Aujourd'hui, presque tout est à l'intérieur : la mairie, la police, la poste, l'épicerie, le cabinet médical.",
+   "shots": [
+    "cut_wide",
+    "cut_pan",
+    "cut_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "L'école est juste à côté, reliée par un tunnel souterrain. Les enfants peuvent aller en classe en pantoufles.",
+   "shots": [
+    "school_ext",
+    "tunnel_kid",
+    "slippers_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Ton voisin de palier ? C'est peut-être aussi le policier. Ou le maire.",
+   "shots": [
+    "hallway_shot",
+    "neighbors_badge"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Pour sortir de la ville, une seule route : un tunnel à une voie, partagé avec le train.",
+   "shots": [
+    "tunnel_portal",
+    "train_through"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et la nuit, il ferme. Si tu rates le dernier passage, tu restes coincé jusqu'au matin.",
+   "shots": [
+    "gate_close",
+    "car_waiting"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Une ville entière… sous un seul toit.",
+   "shots": [
+    "tower_night",
+    "aerial_night"
+   ],
+   "chip": null
+  }
+ ]
+}
