@@ -133,11 +133,7 @@ Inspire-toi des épisodes existants : `src/melen_*`, `src/gluck_*`, `src/choco_*
      - titre accrocheur qui finit par `#shorts`, avec des tags ;
      - catégorie COMEDY (ville) ou EDUCATION (histoire vraie) ;
      - `madeForKids: false`.
-   - **Post TikTok** (même post que l'Instagram ou un post séparé) :
-     - `tiktokData.title` court ;
-     - `isAigc: true` (seulement TikTok) ;
-     - `privacyOption: PUBLIC_TO_EVERYONE` ;
-     - même miniature.
+   - **TikTok : NE RIEN PUBLIER** (demande du propriétaire, jusqu'à nouvel ordre). Instagram et YouTube uniquement.
    - **Interdit dans les légendes :** la mention « ElevenLabs » ou « voix IA » (demande du propriétaire).
    - `isAiGenerated` (Instagram) et `isAiGeneratedContent` (YouTube) = `false`, demande du propriétaire.
 3. En cas d'erreur ou de redémarrage pendant un appel Metricool : vérifie d'abord avec `getScheduledPosts` avant de réessayer, pour éviter les doublons.
