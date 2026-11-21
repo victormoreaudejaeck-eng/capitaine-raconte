@@ -1,0 +1,110 @@
+{
+ "film": "film_rn.html",
+ "title1": "",
+ "title2": "",
+ "resolve_shot": "bakery_riot",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "thumb": {
+  "time": 25.0,
+  "lines": [
+   "« 100 % FRANÇAIS »",
+   "LE CROISSANT INTERDIT",
+   "DANS CETTE VILLE"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "🥐",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Dans cette ville, tout le monde vote RN. Ici, une seule règle : cent pour cent français. On est chez nous !",
+   "shots": [
+    "town_wide_rn",
+    "banner_chant",
+    "mayor_megaphone"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le café ? Interdit, il vient d'Éthiopie. Les bananes ? Dehors.",
+   "shots": [
+    "cafe_ban",
+    "cafe_sad",
+    "banana_crate"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le chocolat ? Le cacao vient d'Amérique. Interdit aussi.",
+   "shots": [
+    "choco_ban",
+    "choco_cry"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Les frites ? Mauvaise nouvelle : la pomme de terre vient du Pérou.",
+   "shots": [
+    "fries_close",
+    "citizens_shock"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le maire passe ses journées à faire des selfies pour TikTok… avec un téléphone fabriqué en Chine. Personne n'a rien dit.",
+   "shots": [
+    "mayor_selfie",
+    "phone_back"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Puis un historien a lâché la bombe : le croissant vient d'Autriche.",
+   "shots": [
+    "historian_book",
+    "croissant_stamp"
+   ],
+   "chip": null
+  },
+  {
+   "say": "La mairie a interdit le croissant. Et là, émeute à la boulangerie.",
+   "shots": [
+    "bakery_riot",
+    "riot_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "À la fin, il ne restait qu'une seule chose cent pour cent française : la grève. Toute la ville s'est mise en grève.",
+   "shots": [
+    "strike_wide",
+    "strike_aerial",
+    "strike_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et toi, tu tiendrais combien de temps dans cette ville ? Dis-le en commentaire.",
+   "shots": [
+    "question_end",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ]
+}
