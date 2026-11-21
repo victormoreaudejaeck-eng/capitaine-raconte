@@ -21,6 +21,10 @@ Prends la première ligne non cochée de la liste demandée, puis coche-la avec 
 
 ## Liste VILLE : « Dans cette ville… » (satire débile, fiction humoristique)
 
+- [ ] ville_retailleau : tout le monde vote Retailleau. L'ordre partout : même les pigeons marchent au pas, les files d'attente sont alignées au laser, un PV pour un croissant mal rangé. Escalade : la ville est si ordonnée que plus rien ne bouge. Chute logique + partie 2.
+- [ ] ville_macron : « en même temps » (les feux sont rouges ET verts, la boulangerie ouvre ET ferme), et pour trouver du travail il suffit de traverser la rue (allusion). Chute : toute la ville traverse la rue en même temps, embouteillage géant. Partie 2.
+- [ ] ville_ecolo_velo : tout le monde vote écolo. Tout à vélo, même le camion de pompiers, le sapin de Noël interdit et remplacé par une plante verte, le barbecue au tofu. Chute logique. Partie 2.
+- [ ] ville_glucksmann_3 : partie 3 de Glucksmann, « la grande panne ». La France est dans le noir, le maire doit trouver un nouveau cap clair, la ville redécouvre le matcha. Chute logique.
 - [x] ville_lisnard (fait le 20/11, publié le 21/11 à 17:01) : déjà construite (`film_lisnard.html`, `stories/ville_lisnard.json`). Il reste à rendre et publier.
 - [x] ville_lfi (fait le 20/11, publié le 21/11 à 20:01) : « Dans cette ville, tout le monde vote LFI ». Tout se décide en assemblée générale, même la couleur du pain. Escalade logique : la réunion pour choisir l'heure de la réunion dure trois jours. Chute + partie 2.
 - [x] ville_lfi_2 : Moustache, le chat qui décide (fait le 21/11, publié le 22/11 à 17:01)

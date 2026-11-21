@@ -35,6 +35,18 @@ Chaque déclenchement fabrique **une seule** vidéo, avec le format et le créne
 
 ## 2. Règles d'écriture (TRÈS IMPORTANT)
 
+**Ce qui marche (stats Instagram du 21/11) :** Glucksmann a fait 15 286 vues et 1 208 partages, contre 1 800 à 3 800 vues pour les autres. La raison : un humour bâti sur de **vraies références reconnaissables**. Le jeu de mots glucides/Glucksmann, le matcha au lait d'avoine, le « cap clair », le débat pain au chocolat/chocolatine. Les gens partagent quand ils reconnaissent la référence.
+
+- **Épisodes VILLE :** au moins **3 vraies références** sur la personnalité, le parti ou le sujet, par exemple :
+  - clichés connus de ses électeurs ;
+  - thèmes ou slogans associés, paraphrasés, jamais attribués comme citation ;
+  - jeux de mots sur le nom ;
+  - sujets d'actualité ;
+  - débats et mèmes français (chocolatine, Parisiens, trottinettes, matcha, vélo…).
+  Le tout est poussé jusqu'à l'absurde avec une logique.
+- **Épisodes VRAI :** les faits restent exacts, avec des touches d'humour dans la narration.
+- **Titres et légendes :** mets la référence en avant dès la première ligne, avec le nom ou le cliché.
+
 - **L'histoire doit avoir du sens.** C'est le reproche principal des spectateurs. Structure obligatoire :
   - une règle absurde mais claire (« dans cette ville, … ») ;
   - 3 ou 4 exemples qui montrent la règle ;
