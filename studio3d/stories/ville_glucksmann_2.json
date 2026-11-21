@@ -1,0 +1,117 @@
+{
+ "film": "film_gluck2.html",
+ "title1": "",
+ "title2": "",
+ "resolve_shot": "wheels_wide",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "thumb": {
+  "time": 33.0,
+  "lines": [
+   "CETTE VILLE",
+   "ALIMENTE LA FRANCE",
+   "EN COURANT"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "⚡",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Suite de l'épisode Glucksmann. Depuis le pain au chocolat, le maire a enfin trouvé son cap clair : la boulangerie.",
+   "shots": [
+    "town_sunrise",
+    "mayor_points",
+    "bakery_queue"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Fini le matcha. Maintenant, au petit-déjeuner, c'est trois pains au chocolat.",
+   "shots": [
+    "matcha_closed",
+    "breakfast_pile"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et toute la ville a trop d'énergie. Les gens courent au lieu de marcher. Les manifs se font en sprint.",
+   "shots": [
+    "crowd_sprint",
+    "demo_sprint"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le maire annonce un nouveau cap toutes les cinq minutes. Cap clair. Cap très clair. Cap fluo.",
+   "shots": [
+    "mayor_cap1",
+    "mayor_cap2",
+    "mayor_cap3"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Moi, j'ai eu une idée : et si on transformait toute cette énergie en électricité ?",
+   "shots": [
+    "me_idea"
+   ],
+   "chip": null
+  },
+  {
+   "say": "On a construit des roues de hamster géantes. Toute la ville court dedans, jour et nuit.",
+   "shots": [
+    "wheels_wide",
+    "wheel_close",
+    "wheels_night"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Résultat : la ville produit tellement d'électricité qu'elle alimente toute la France.",
+   "shots": [
+    "pylons_shot",
+    "france_lit"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Jusqu'au matin où la boulangerie est tombée en rupture de pains au chocolat.",
+   "shots": [
+    "bakery_rupture",
+    "folk_shock"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Toute la ville s'est endormie d'un coup. Et la France entière a été plongée dans le noir.",
+   "shots": [
+    "crowd_sleep2",
+    "france_dark"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Partie trois : la grande panne. Abonne-toi !",
+   "shots": [
+    "tease",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ]
+}
