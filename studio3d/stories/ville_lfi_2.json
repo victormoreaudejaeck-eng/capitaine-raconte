@@ -1,0 +1,115 @@
+{
+ "film": "film_cat.html",
+ "title1": "",
+ "title2": "",
+ "resolve_shot": "cat_mayor",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "thumb": {
+  "time": 7.0,
+  "lines": [
+   "DANS CETTE VILLE",
+   "LE CHAT",
+   "DÉCIDE DE TOUT"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "🐈",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Suite d'hier. J'ai fui la ville où on vote pour tout. Dans la ville d'à côté, personne ne vote jamais.",
+   "shots": [
+    "arrive_sign",
+    "town_wide_cat"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Ici, toutes les décisions sont prises par une seule personne : Moustache. Le chat du maire.",
+   "shots": [
+    "balcony_cat",
+    "cat_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le chat s'assoit sur la boulangerie ? Elle reçoit un budget. Il dort sur la route ? Route fermée trois jours.",
+   "shots": [
+    "cat_bakery",
+    "cat_road_jam"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Il fait ses griffes sur la mairie ? On construit une mairie neuve.",
+   "shots": [
+    "cat_claws",
+    "new_mairie"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Moi, j'achète un croissant. Je le pose deux secondes sur un banc… Moustache s'assoit dessus.",
+   "shots": [
+    "me_buy",
+    "cat_on_croissant"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Décision officielle : le croissant appartient désormais à la ville.",
+   "shots": [
+    "decree_shot",
+    "me_shock"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Alors j'ai lancé une pétition : et si, pour une fois, on votait ?",
+   "shots": [
+    "me_petition",
+    "crowd_gasp"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Toute la ville a eu peur. Puis tout le monde est allé voter. Une première historique.",
+   "shots": [
+    "vote_line",
+    "ballot_box"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Résultat : Moustache, élu maire avec quatre-vingt-dix-neuf pour cent des voix.",
+   "shots": [
+    "results_board",
+    "cat_mayor"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Partie trois : je fuis encore. Abonne-toi !",
+   "shots": [
+    "tease",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ]
+}
