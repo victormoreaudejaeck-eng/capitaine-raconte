@@ -16,7 +16,7 @@ Outils déjà présents : python3, numpy, Pillow, ffmpeg, Chromium et Playwright
 
 ## 1. Choisir le sujet (3 vidéos par jour, deux formats)
 
-**Veille d'abord (2 min) :** fais une recherche web sur l'actualité politique et sociale française du moment (« polémique politique France aujourd'hui », « débat qui fait réagir », sujets tendance). Si un sujet chaud se prête au format VILLE, prends-le en priorité sur la liste et adapte-le en ville absurde. Exemples : une mesure, un chiffre, un clash entre partis, un débat de société.
+**Veille d'abord (2 min) :** fais une recherche web sur l'actualité politique et sociale française du moment (« polémique politique France aujourd'hui », « débat qui fait réagir », sujets tendance). Si un sujet chaud se prête au format VILLE, prends-le en priorité sur la liste et adapte-le en ville absurde. Exemples : une mesure, un chiffre, un clash entre partis, un débat de société. **Source X/Twitter (demande du propriétaire) :** cherche aussi ce qui buzze sur X (« polémique X politique », « tweet polémique député », « bad buzz politique », « trending France politique ») via la recherche web (articles de presse qui citent les tweets). Ne recopie jamais un tweet sans l'avoir vérifié. **Vérifie toujours les vraies positions des partis avant d'écrire** (exemple : Glucksmann refuse toute alliance avec LFI, donc ne jamais écrire qu'ils veulent s'allier).
 - **À éviter :** les drames (attentats, morts, guerre) et les affaires judiciaires en cours visant une personne nommée. On ne rit pas de victimes et on ne relaie pas d'accusations.
 - **Formats qui marchent :**
   - une ville par parti ou personnalité ;

@@ -12,8 +12,8 @@
  "thumb": {
   "time": 20.0,
   "lines": [
-   "L'UNION DE LA GAUCHE",
-   "3 JOURS POUR UNE TABLE",
+   "GLUCKSMANN vs LFI",
+   "L'UNION IMPOSSIBLE",
    "DANS CETTE VILLE"
   ],
   "hl": 1,
@@ -32,15 +32,23 @@
  },
  "beats": [
   {
-   "say": "Suite de la ville Glucksmann. Pour gagner l'élection, il faut faire l'union de la gauche avec la ville LFI d'à côté.",
+   "say": "Suite de la ville Glucksmann. À gauche, tout le monde réclame l'union pour battre le RN.",
    "shots": [
-    "two_towns",
-    "mayor_gluck"
+    "two_towns"
    ],
    "chip": null
   },
   {
-   "say": "Premier sommet. Trois jours pour choisir la forme de la table. Ronde ? Carrée ? Ils ont fini par en prendre deux.",
+   "say": "Sauf que le maire Glucksmann prévient : jamais avec LFI. Et la ville LFI répond : l'union, oui… mais derrière nous.",
+   "shots": [
+    "mayor_gluck",
+    "lfi_no",
+    "face_off"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Résultat : ils n'arrivent même pas à s'asseoir à la même table. Une ronde, une carrée.",
    "shots": [
     "table_round",
     "table_square",
@@ -49,7 +57,7 @@
    "chip": null
   },
   {
-   "say": "Ensuite : qui sera tête de liste ? Tout le monde lève la main. Tout le monde.",
+   "say": "Qui sera tête de liste ? Tout le monde lève la main. Tout le monde.",
    "shots": [
     "hands_up",
     "hands_close"
@@ -64,7 +72,7 @@
    "chip": null
   },
   {
-   "say": "Pour avancer, chaque ville lance sa propre union de la gauche. Puis une troisième, pour réunir les deux.",
+   "say": "Chacun lance sa propre union de la gauche. Puis une troisième, pour réunir les deux.",
    "shots": [
     "union1",
     "union2",
@@ -89,7 +97,7 @@
    "chip": null
   },
   {
-   "say": "Et toi, l'union de la gauche, tu y crois ? Dis-le en commentaire.",
+   "say": "Et toi, une union Glucksmann–LFI, tu y crois ? Dis-le en commentaire.",
    "shots": [
     "question_union",
     "end_card"
