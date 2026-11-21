@@ -23,7 +23,8 @@ Prends la première ligne non cochée de la liste demandée, puis coche-la avec 
 
 - [x] ville_lisnard (fait le 20/11, publié le 21/11 à 17:01) : déjà construite (`film_lisnard.html`, `stories/ville_lisnard.json`). Il reste à rendre et publier.
 - [x] ville_lfi (fait le 20/11, publié le 21/11 à 20:01) : « Dans cette ville, tout le monde vote LFI ». Tout se décide en assemblée générale, même la couleur du pain. Escalade logique : la réunion pour choisir l'heure de la réunion dure trois jours. Chute + partie 2.
-- [ ] ville_lfi_2 : partie 2 de LFI, la ville d'à côté où personne ne vote jamais (tout est décidé par un tirage au sort, ou par le chat du maire…), chute logique.
+- [x] ville_lfi_2 : Moustache, le chat qui décide (fait le 21/11, publié le 22/11 à 17:01)
+- [ ] ville_lfi_3 : partie 3, « je fuis encore ». J'arrive dans une troisième ville dont la règle est logique et absurde (par exemple : tout se décide à pile ou face). Escalade et chute qui découle de la règle.
 - [ ] ville_parisiens_2 : la fuite de la ville en trottinette.
 - [ ] ville_melenchon_2 : Bernard, le dernier riche, devient le seul pauvre dans une ville de milliardaires.
 - [ ] ville_ecolo : tout le monde vote écolo. Les voitures sont interdites, même pour le corbillard, et les pompiers viennent à vélo.
