@@ -54,6 +54,8 @@ Limites qui protègent les comptes :
 - aucune fausse citation ;
 - aucune fausse information présentée comme vraie.
 
+**Ce qui NE marche PAS (retour du propriétaire, 21/11) :** Glucksmann partie 2 (énergie, roues de hamster, panne de la France) était hors sujet, sans lien avec la politique. **Chaque gag et la chute doivent porter sur une vraie position, mesure, rivalité ou un vrai cliché politique.** L'absurde sert à grossir la politique, jamais à la remplacer.
+
 **Ce qui marche (stats Instagram du 21/11) :** Glucksmann a fait 15 286 vues et 1 208 partages, contre 1 800 à 3 800 vues pour les autres. La raison : un humour bâti sur de **vraies références reconnaissables**. Le jeu de mots glucides/Glucksmann, le matcha au lait d'avoine, le « cap clair », le débat pain au chocolat/chocolatine. Les gens partagent quand ils reconnaissent la référence.
 
 - **Épisodes VILLE :** au moins **3 vraies références** sur la personnalité, le parti ou le sujet, par exemple :
