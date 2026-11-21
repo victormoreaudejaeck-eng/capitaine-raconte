@@ -21,6 +21,12 @@ Prends la première ligne non cochée de la liste demandée, puis coche-la avec 
 
 ## Liste VILLE : « Dans cette ville… » (satire débile, fiction humoristique)
 
+- [ ] ville_49_3 : le maire gouverne au 49.3. Tout passe sans vote, même ton menu au resto et le prénom de ton chien. Escalade : il fait passer au 49.3 la fin de son propre mandat… Question finale : « 49.3 : pour ou contre ? »
+- [ ] ville_retraites : la retraite recule chaque année (64, 70, 85…). Les centenaires bossent au McDo, le cimetière a des horaires de bureau. Question : « Tu partirais à quel âge ? »
+- [ ] ville_impots : tout est taxé, même respirer (taxe sur l'air), les nuages, les rêves. Chute : un habitant découvre une chose non taxée et toute la ville se jette dessus. Question : « Le pire impôt selon toi ? »
+- [ ] ville_dubai : tous les influenceurs sont partis à Dubaï. La ville est vide, il ne reste que les vrais travailleurs… et tout marche enfin. Question : « Tu les ferais revenir ? »
+- [ ] ville_hidalgo_velo : pistes cyclables partout, même dans les maisons ; la voiture devient un objet de musée ; baignade obligatoire dans la Seine. Question : « Team vélo ou team voiture ? »
+- [ ] ville_bayrou_centre : tout doit être « au centre ». La ville entière se serre au milieu de la place. Question : « Gauche, droite ou centre ? »
 - [ ] ville_retailleau : tout le monde vote Retailleau. L'ordre partout : même les pigeons marchent au pas, les files d'attente sont alignées au laser, un PV pour un croissant mal rangé. Escalade : la ville est si ordonnée que plus rien ne bouge. Chute logique + partie 2.
 - [ ] ville_macron : « en même temps » (les feux sont rouges ET verts, la boulangerie ouvre ET ferme), et pour trouver du travail il suffit de traverser la rue (allusion). Chute : toute la ville traverse la rue en même temps, embouteillage géant. Partie 2.
 - [ ] ville_ecolo_velo : tout le monde vote écolo. Tout à vélo, même le camion de pompiers, le sapin de Noël interdit et remplacé par une plante verte, le barbecue au tofu. Chute logique. Partie 2.

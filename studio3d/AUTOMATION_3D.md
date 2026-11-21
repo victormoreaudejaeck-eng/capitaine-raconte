@@ -35,6 +35,16 @@ Chaque déclenchement fabrique **une seule** vidéo, avec le format et le créne
 
 ## 2. Règles d'écriture (TRÈS IMPORTANT)
 
+**LIGNE ÉDITORIALE (22/11, demande du propriétaire) : vidéos PROVOCANTES qui font réagir.** Les 3 vidéos du jour sont toutes des satires politiques ou de société, au format VILLE. Chacune doit pousser à commenter :
+- sujets clivants : retraites, impôts, 49.3, vélo contre voiture, Paris contre province, influenceurs à Dubaï, etc. ;
+- personnalités et partis caricaturés à partir de vraies références ;
+- fin sur une question qui divise, par exemple « Et toi, tu vivrais dans cette ville ? », « Team A ou team B ? » ;
+- légende et premier commentaire qui posent la même question.
+Limites qui protègent les comptes :
+- on se moque des politiques, des partis, des mesures et des clichés de société, JAMAIS d'un groupe pour son origine, sa religion, son genre ou son orientation ;
+- aucune fausse citation ;
+- aucune fausse information présentée comme vraie.
+
 **Ce qui marche (stats Instagram du 21/11) :** Glucksmann a fait 15 286 vues et 1 208 partages, contre 1 800 à 3 800 vues pour les autres. La raison : un humour bâti sur de **vraies références reconnaissables**. Le jeu de mots glucides/Glucksmann, le matcha au lait d'avoine, le « cap clair », le débat pain au chocolat/chocolatine. Les gens partagent quand ils reconnaissent la référence.
 
 - **Épisodes VILLE :** au moins **3 vraies références** sur la personnalité, le parti ou le sujet, par exemple :
