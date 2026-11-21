@@ -1,0 +1,109 @@
+{
+ "film": "film_zucman.html",
+ "title1": "",
+ "title2": "",
+ "resolve_shot": "gold_pedalo",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "thumb": {
+  "time": 30.0,
+  "lines": [
+   "TAXE ZUCMAN",
+   "LE MILLIARDAIRE",
+   "SE DÉGUISE EN PAUVRE"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "💸",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Tu te souviens de Bernard, le dernier riche de la ville ? Il est de retour. Et cette fois, la ville a voté la taxe Zucman.",
+   "shots": [
+    "rich_return",
+    "mayor_vote",
+    "tax_board_wide"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Deux pour cent par an sur les fortunes de plus de cent millions. Dans toute la ville, un seul concerné.",
+   "shots": [
+    "tax_board_close",
+    "rich_shock"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Alors Bernard a un plan : devenir pauvre. Enfin… avoir l'air pauvre.",
+   "shots": [
+    "rich_plan",
+    "rich_disguise"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Il échange sa Rolex contre une montre en plastique, et son yacht contre un pédalo.",
+   "shots": [
+    "watch_swap",
+    "pedalo_trailer"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Il va manger à la soupe populaire… mais en Ferrari.",
+   "shots": [
+    "ferrari_soup",
+    "soup_queue"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le contrôleur des impôts débarque. Bernard jure qu'il n'a plus un centime.",
+   "shots": [
+    "inspector_arrives",
+    "rich_pleads"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le contrôleur remarque juste un petit détail : le pédalo est en or massif.",
+   "shots": [
+    "gold_pedalo",
+    "inspector_glasses"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Bernard a payé ses deux pour cent. Puis il a déménagé en Belgique… à cinq cents mètres de la frontière.",
+   "shots": [
+    "pay_stamp",
+    "rich_leaves",
+    "border_sign"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et toi, la taxe Zucman : pour ou contre ? Dis-le en commentaire.",
+   "shots": [
+    "vote_split",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ]
+}
