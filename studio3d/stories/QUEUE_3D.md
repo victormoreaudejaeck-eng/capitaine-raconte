@@ -21,6 +21,10 @@ Prends la première ligne non cochée de la liste demandée, puis coche-la avec 
 
 ## Liste VILLE : « Dans cette ville… » (satire débile, fiction humoristique)
 
+- [ ] ville_coupee_en_deux : CLASH. La ville est coupée en deux par un mur : moitié LFI, moitié RN. Deux boulangeries, deux mairies, deux marchés, et chaque camp accuse l'autre de tout. Chute : la seule boulangerie qui marche est pile sur la frontière, alors tout le monde fait la queue ensemble sans se parler. Question : « Tu irais de quel côté ? »
+- [ ] ville_smic : le SMIC augmente de 1,6 % (vraie annonce de décembre 2026). La ville fait la fête… puis tout augmente de 1,7 %. Escalade logique, chute. Question : « 1,6 %, c'est assez ? »
+- [ ] ville_ultra_riches : la taxe sur les ultra-riches (débat Zucman) est votée en ville. Retour de Bernard, le dernier riche (référence à notre épisode Mélenchon), qui se déguise en pauvre pour y échapper. Question : « Taxer les ultra-riches : pour ou contre ? »
+- [ ] ville_plateau_tele : tout le monde parle comme sur un plateau de débat télé : on se coupe la parole, on crie, on fait des « fact-check » à la boulangerie. Chute : plus personne n'arrive à commander un pain. Question : « Le pire débat télé ? »
 - [ ] ville_49_3 : le maire gouverne au 49.3. Tout passe sans vote, même ton menu au resto et le prénom de ton chien. Escalade : il fait passer au 49.3 la fin de son propre mandat… Question finale : « 49.3 : pour ou contre ? »
 - [ ] ville_retraites : la retraite recule chaque année (64, 70, 85…). Les centenaires bossent au McDo, le cimetière a des horaires de bureau. Question : « Tu partirais à quel âge ? »
 - [ ] ville_impots : tout est taxé, même respirer (taxe sur l'air), les nuages, les rêves. Chute : un habitant découvre une chose non taxée et toute la ville se jette dessus. Question : « Le pire impôt selon toi ? »

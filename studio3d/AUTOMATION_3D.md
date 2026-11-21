@@ -16,6 +16,15 @@ Outils déjà présents : python3, numpy, Pillow, ffmpeg, Chromium et Playwright
 
 ## 1. Choisir le sujet (3 vidéos par jour, deux formats)
 
+**Veille d'abord (2 min) :** fais une recherche web sur l'actualité politique et sociale française du moment (« polémique politique France aujourd'hui », « débat qui fait réagir », sujets tendance). Si un sujet chaud se prête au format VILLE, prends-le en priorité sur la liste et adapte-le en ville absurde. Exemples : une mesure, un chiffre, un clash entre partis, un débat de société.
+- **À éviter :** les drames (attentats, morts, guerre) et les affaires judiciaires en cours visant une personne nommée. On ne rit pas de victimes et on ne relaie pas d'accusations.
+- **Formats qui marchent :**
+  - une ville par parti ou personnalité ;
+  - un clash entre partis, par exemple une ville coupée en deux ou un conseil municipal qui dégénère ;
+  - une mesure poussée à l'extrême ;
+  - un débat de société, par exemple vélo contre voiture ou Paris contre province.
+- **Histoires VRAIES :** ne jamais déformer la réalité. Seule la satire VILLE est de la fiction, et elle est présentée comme telle.
+
 Chaque déclenchement fabrique **une seule** vidéo, avec le format et le créneau indiqués par le message de déclenchement. Les sujets se trouvent dans `studio3d/stories/QUEUE_3D.md`, qui contient deux listes. Prends la première ligne non cochée de la bonne liste, puis coche-la (`[x]`) avec la date.
 
 **Format VRAI : « Dans cette ville… et c'est vrai » (documentaire animé)**
