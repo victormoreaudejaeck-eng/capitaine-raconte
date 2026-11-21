@@ -49,6 +49,7 @@ Chaque déclenchement fabrique **une seule** vidéo, avec le format et le créne
 - **Durée :**
   - viser **60 à 75 s** (≈ 850 à 1 000 caractères de voix), parce que TikTok ne rémunère que les vidéos de plus d'une minute ;
   - un plan toutes les ~2 s, avec 2 ou 3 plans par phrase.
+  - **Règle de rythme :** nombre de plans ≥ durée de la voix / 2,6. Pour 55 s, il faut au moins 21 plans. `build3d.py` affiche « moy. X s » : au-dessus de 2,8 s, arrête le rendu, ajoute des plans (la voix reste en cache) et relance.
 
 ## 3. Fabriquer l'épisode
 
