@@ -1,0 +1,110 @@
+{
+ "film": "film_retail.html",
+ "title1": "",
+ "title2": "",
+ "resolve_shot": "philippe_cut",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "thumb": {
+  "time": 4.0,
+  "lines": [
+   "−5 °C",
+   "DOUDOUNE SANS MANCHE",
+   "OBLIGATOIRE"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "🥶",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Dans cette ville, tout le monde vote Retailleau. Il fait moins cinq, et l'uniforme obligatoire, c'est la doudoune sans manche.",
+   "shots": [
+    "town_snow",
+    "vest_line",
+    "arms_cold"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Son slogan : président de l'ordre, de la justice et de la fierté française. Alors ici, tout doit être en ordre.",
+   "shots": [
+    "retail_podium",
+    "ordre_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Les pigeons marchent au pas. Les files d'attente sont alignées au laser. Un croissant de travers ? Amende.",
+   "shots": [
+    "pigeons",
+    "laser_queue",
+    "croissant_row",
+    "pv_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le panneau « État de droit » ? Rangé à la cave. Il paraît qu'il n'est ni intangible, ni sacré.",
+   "shots": [
+    "cellar_wide",
+    "cellar_tag"
+   ],
+   "chip": null
+  },
+  {
+   "say": "La mairie, elle, a tenu quatorze heures. Comme un certain gouvernement Lecornu.",
+   "shots": [
+    "mairie_open",
+    "mairie_closed"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le soir, pas de journal télé : un spectacle du Puy du Fou.",
+   "shots": [
+    "salon_tv",
+    "tv_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "La ville est devenue si ordonnée que plus rien ne bouge. Tout le monde attend, au garde-à-vous, dans la file pour 2027.",
+   "shots": [
+    "frozen_wide",
+    "queue_2027"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et là, quelqu'un double toute la file : Édouard Philippe.",
+   "shots": [
+    "philippe_cut",
+    "retail_shock"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Retailleau 2027 : président de l'ordre… ou du désordre ? Dis-le en commentaire.",
+   "shots": [
+    "question_r",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ]
+}
