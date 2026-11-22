@@ -150,6 +150,12 @@ Inspire-toi des épisodes existants : `src/melen_*`, `src/gluck_*`, `src/choco_*
 
 ## 4. Publier
 
+**MISE À JOUR 22/11 (prioritaire sur tout ce qui suit).** Metricool est bloqué jusqu'au 30/11 (limite de 20 posts par mois du plan gratuit).
+- **YouTube :** via le connecteur Zapier, action `youtube_upload_video` (public, catégorie 23 « Comédie », made_for_kids false, langue fr, URL raw GitHub épinglée au commit). Zapier ne programme pas : crée un rappel `send_later` à l'heure du créneau, qui fera l'upload à ce moment-là.
+- **Instagram :** jusqu'au 30/11, envoie la vidéo, la légende et le premier commentaire au propriétaire, qui publie à la main. Le propriétaire ne veut PAS de Zapier pour Instagram. À partir du 01/12, programme via Metricool.
+- **TikTok :** rien.
+- La suppression d'une vidéo YouTube passe par le propriétaire (action irréversible).
+
 1. Commit et push sur `main`.
    - Identité : `git -c user.name="victormoreaudejaeck-eng" -c user.email="victormoreaudejaeck-eng@users.noreply.github.com" commit ...`
    - Termine le message par les lignes d'attribution demandées par la session.
