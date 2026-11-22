@@ -1,0 +1,101 @@
+{
+ "film": "film_euro.html",
+ "title1": "",
+ "title2": "",
+ "resolve_shot": "barter",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "thumb": {
+  "time": 8.0,
+  "lines": [
+   "FRANC, ÉCU, EURO…",
+   "LA MONNAIE CHANGE",
+   "CHAQUE MATIN"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "💸",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Suite de la ville où Marine est présidente. Cette fois, c'est l'argent : ici, la monnaie change tous les matins.",
+   "shots": [
+    "town_wide2",
+    "marine_hi",
+    "calendar"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Lundi : on sort de l'euro, retour au franc. Comme dans son programme de 2017.",
+   "shots": [
+    "board_lundi",
+    "franc_coins"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Mardi : deux monnaies. Le franc pour les gens, l'écu pour les entreprises. C'était aussi au programme.",
+   "shots": [
+    "board_mardi",
+    "two_registers",
+    "baker_confused"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Mercredi : finalement, on garde l'euro. Tout le monde court racheter des euros.",
+   "shots": [
+    "board_mercredi",
+    "queue_exchange"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Jeudi : on verra.",
+   "shots": [
+    "board_jeudi"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Les prix sont affichés en quatre monnaies. Plus personne ne sait payer… alors on paie en croissants.",
+   "shots": [
+    "price_board",
+    "barter",
+    "barter_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le seul qui s'en sort, c'est le chat. Lui, il est payé en euros… par le Parlement européen.",
+   "shots": [
+    "cat_counts",
+    "cat_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et toi, tu lui confierais ton portefeuille ? Dis-le en commentaire.",
+   "shots": [
+    "question_eu",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ]
+}
