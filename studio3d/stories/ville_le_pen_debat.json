@@ -1,0 +1,111 @@
+{
+ "film": "film_deb.html",
+ "title1": "",
+ "title2": "",
+ "resolve_shot": "cat_wins",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "thumb": {
+  "time": 9.0,
+  "lines": [
+   "SFR OU ALSTOM ?",
+   "LA VILLE DES FICHES",
+   "MÉLANGÉES"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "📄",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Retour dans la ville de Marine. Ici, tout se règle avec des fiches. Comme au débat de 2017, face à Macron.",
+   "shots": [
+    "town_wide3",
+    "marine_cards",
+    "cards_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le problème, c'est que les fiches sont toujours mélangées. Comme le jour où elle avait confondu SFR et Alstom.",
+   "shots": [
+    "cards_fly",
+    "cards_fly2"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Chez l'opérateur de téléphone, on te vend une turbine. À l'usine de turbines, on te propose un forfait mobile.",
+   "shots": [
+    "phone_turbine",
+    "turbine_phone"
+   ],
+   "chip": null
+  },
+  {
+   "say": "À la boulangerie, on te lit la météo. Chez le médecin, on te prescrit la sortie de l'euro.",
+   "shots": [
+    "bakery_weather",
+    "doctor_euro"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le nez dans leurs fiches, plus personne ne se regarde. Les gens se cognent dans la rue.",
+   "shots": [
+    "street_bump",
+    "bump_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Alors la ville organise un grand débat pour remettre de l'ordre. Marine contre… le chat.",
+   "shots": [
+    "debate_wide",
+    "debate_crowd",
+    "marine_lectern"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Marine lit ses fiches. Le chat, lui, la regarde droit dans les yeux, sans une seule note.",
+   "shots": [
+    "marine_reads",
+    "marine_sweat",
+    "cat_stares"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Résultat : le chat gagne le débat. Même dans son camp, on reconnaît que c'était raté.",
+   "shots": [
+    "cat_wins",
+    "marine_shock",
+    "crowd_cheer"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et toi, c'était le pire débat de l'histoire ? Dis-le en commentaire.",
+   "shots": [
+    "question_db",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ]
+}
