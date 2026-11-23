@@ -1,102 +1,114 @@
 {
- "film": "film_bard.html",
- "title1": "",
- "title2": "",
- "resolve_shot": "chaos",
+ "film": "film_town.html",
+ "title1": "DANS CETTE VILLE",
+ "title2": "TOUT LE MONDE VOTE BARDELLA",
+ "resolve_shot": "next_town_tease",
  "caption": {
   "color": "#f2ff4d",
   "y": 1390,
   "size": 92,
   "stroke": 16
  },
- "thumb": {
-  "time": 5.0,
-  "lines": [
-   "BARDELLA",
-   "GÈRE LA VILLE",
-   "EN 15 SECONDES"
-  ],
-  "hl": 1,
-  "top": 1020,
-  "arrow": [
-   960,
-   980,
-   720,
-   760
-  ],
-  "emoji": "📱",
-  "emoji_pos": [
-   40,
-   760
-  ]
- },
  "beats": [
   {
-   "say": "Dans cette ville, c'est Jordan Bardella qui gère tout… en vidéos de quinze secondes. Comme sur TikTok.",
+   "say": "Dans cette ville, tout le monde vote Bardella. Tout le monde... sauf moi.",
    "shots": [
-    "town_b",
-    "bard_selfie",
-    "screen_budget"
+    "town_wide",
+    "posters_street",
+    "me_alone"
    ],
    "chip": null
   },
   {
-   "say": "Le budget de la ville ? Une vidéo avec une musique tendance. Les réponses de fond ? « Dans la partie 2. »",
+   "say": "Ici, chaque maison a son affiche. Chaque voiture a son autocollant. Même les chiens portent un petit costume bleu marine.",
    "shots": [
-    "screen_likes",
-    "screen_partie2",
-    "citizens_wait"
+    "houses_posters",
+    "car_sticker",
+    "dog_suit"
    ],
    "chip": null
   },
   {
-   "say": "Sauf que la partie 2 ne sort jamais.",
+   "say": "Le matin, à la boulangerie, il n'y a qu'une seule baguette : la baguette bleu marine.",
    "shots": [
-    "calendar_b"
+    "bakery",
+    "baguette"
    ],
    "chip": null
   },
   {
-   "say": "La mairie devient un studio selfie. Le conseil municipal vote… en likes.",
+   "say": "À l'école, les enfants apprennent à faire la raie sur le côté avant même d'apprendre à lire.",
    "shots": [
-    "selfie_studio",
-    "rings_wide",
-    "likes_council"
+    "school"
    ],
    "chip": null
   },
   {
-   "say": "En 2024, la ville avait déjà imprimé les affiches « Bardella Premier ministre ». Ça non plus, ce n'est jamais sorti.",
+   "say": "Et le dimanche, toute la ville fait son jogging. En costume. En même temps. Au même rythme.",
    "shots": [
-    "posters_2024",
-    "posters_never"
+    "jogging"
    ],
    "chip": null
   },
   {
-   "say": "Pour comprendre son programme, les habitants achètent son livre : « Ce que je cherche ». Ils cherchent encore.",
+   "say": "Moi, j'ai essayé de m'intégrer. J'ai même mis une cravate. Mais les voisins ont remarqué un détail : ma maison n'avait pas d'affiche.",
    "shots": [
-    "books_read",
-    "book_close"
+    "me_tie",
+    "neighbors_binoculars"
    ],
    "chip": null
   },
   {
-   "say": "Un jour, le wifi tombe en panne. Plus de vidéos… et plus personne ne sait qui dirige la ville.",
+   "say": "Depuis, ils me surveillent. Partout. Tout le temps.",
    "shots": [
-    "wifi_off",
-    "chaos",
-    "bard_lost"
+    "spy_window",
+    "spy_bush"
    ],
    "chip": null
   },
   {
-   "say": "Et toi, pour 2027 : Bardella ou Marine ? Dis-le en commentaire.",
+   "say": "Le jour de l'élection, je suis entré dans l'isoloir. J'ai pris un bulletin...",
    "shots": [
-    "question_b",
+    "voting_booth",
+    "ballot"
+   ],
+   "chip": "JOUR DU VOTE"
+  },
+  {
+   "say": "Et toute la ville a retenu son souffle.",
+   "shots": [
+    "town_freeze"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Mais ça, c'est pour la partie deux. Parce que dans la ville d'à côté... tout le monde vote Mélenchon. Abonne-toi pour ne pas la rater !",
+   "shots": [
+    "next_town_tease",
     "end_card"
    ],
    "chip": null
   }
- ]
+ ],
+ "thumb": {
+  "time": 4.2,
+  "lines": [
+   "TOUT LE MONDE",
+   "VOTE BARDELLA",
+   "SAUF MOI"
+  ],
+  "hl": 1,
+  "top": 180,
+  "arrow": [
+   980,
+   1300,
+   790,
+   1020
+  ],
+  "emoji": "😳",
+  "emoji_pos": [
+   50,
+   1180
+  ]
+ }
 }

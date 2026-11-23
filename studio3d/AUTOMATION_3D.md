@@ -148,6 +148,8 @@ Inspire-toi des épisodes existants : `src/melen_*`, `src/gluck_*`, `src/choco_*
    - prépare quand même la 3D et l'aperçu, puis commite ;
    - signale « quota ElevenLabs insuffisant » dans le rapport.
 
+**Identifiant unique (incident du 23/11) :** avant de créer `stories/<id>.json`, vérifie que ni `stories/<id>.json` ni `videos/<id>.mp4` n'existent déjà. Sinon, ajoute un suffixe (`_2`, `_tiktok`…). Un id déjà pris écrase l'ancien épisode, et le contrôle de fin de rendu se trompe de fichier.
+
 ## 4. Publier
 
 **MISE À JOUR 22/11 (prioritaire sur tout ce qui suit).** Metricool est bloqué jusqu'au 30/11 (limite de 20 posts par mois du plan gratuit).

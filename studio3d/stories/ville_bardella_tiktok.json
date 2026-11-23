@@ -1,0 +1,102 @@
+{
+ "film": "film_bard.html",
+ "title1": "",
+ "title2": "",
+ "resolve_shot": "chaos",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "thumb": {
+  "time": 5.0,
+  "lines": [
+   "BARDELLA",
+   "GÈRE LA VILLE",
+   "EN 15 SECONDES"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "📱",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Dans cette ville, c'est Jordan Bardella qui gère tout… en vidéos de quinze secondes. Comme sur TikTok.",
+   "shots": [
+    "town_b",
+    "bard_selfie",
+    "screen_budget"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le budget de la ville ? Une vidéo avec une musique tendance. Les réponses de fond ? « Dans la partie 2. »",
+   "shots": [
+    "screen_likes",
+    "screen_partie2",
+    "citizens_wait"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Sauf que la partie 2 ne sort jamais.",
+   "shots": [
+    "calendar_b"
+   ],
+   "chip": null
+  },
+  {
+   "say": "La mairie devient un studio selfie. Le conseil municipal vote… en likes.",
+   "shots": [
+    "selfie_studio",
+    "rings_wide",
+    "likes_council"
+   ],
+   "chip": null
+  },
+  {
+   "say": "En 2024, la ville avait déjà imprimé les affiches « Bardella Premier ministre ». Ça non plus, ce n'est jamais sorti.",
+   "shots": [
+    "posters_2024",
+    "posters_never"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Pour comprendre son programme, les habitants achètent son livre : « Ce que je cherche ». Ils cherchent encore.",
+   "shots": [
+    "books_read",
+    "book_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Un jour, le wifi tombe en panne. Plus de vidéos… et plus personne ne sait qui dirige la ville.",
+   "shots": [
+    "wifi_off",
+    "chaos",
+    "bard_lost"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et toi, pour 2027 : Bardella ou Marine ? Dis-le en commentaire.",
+   "shots": [
+    "question_b",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ]
+}
