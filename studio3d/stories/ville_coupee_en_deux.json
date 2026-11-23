@@ -1,0 +1,104 @@
+{
+ "film": "film_mur.html",
+ "title1": "",
+ "title2": "",
+ "resolve_shot": "queue_together",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "thumb": {
+  "time": 3.0,
+  "lines": [
+   "LFI | RN",
+   "UNE VILLE",
+   "COUPÉE EN DEUX"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "🧱",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Dans cette ville, un mur coupe tout en deux. À gauche, la ville LFI. À droite, la ville RN.",
+   "shots": [
+    "wall_build",
+    "wall_wide",
+    "side_left",
+    "side_right"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Côté LFI, le SMIC est à mille six cents euros… mais il faut trois jours d'assemblée générale pour choisir la baguette.",
+   "shots": [
+    "ag_left",
+    "ag_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Côté RN, la TVA sur l'énergie baisse à 5,5 %… mais le croissant est interdit : il est autrichien.",
+   "shots": [
+    "croissant_right",
+    "croissant_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Chaque camp accuse l'autre de tout. Il pleut ? C'est la faute de LFI. Un nid-de-poule ? C'est la faute du RN.",
+   "shots": [
+    "blame_rain",
+    "blame_pothole"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Les deux mairies installent des haut-parleurs géants pour s'engueuler par-dessus le mur.",
+   "shots": [
+    "speakers",
+    "speak_l",
+    "speak_r"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et le mur monte, encore et encore. Bientôt, plus personne ne voit le soleil.",
+   "shots": [
+    "wall_grows",
+    "wall_top",
+    "wall_shadow"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Mais la seule boulangerie qui marche est pile sur la frontière. Alors tous les matins, LFI et RN font la queue ensemble… sans se parler.",
+   "shots": [
+    "bakery_border",
+    "queue_together",
+    "no_talk"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et toi, tu irais de quel côté du mur ? Dis-le en commentaire.",
+   "shots": [
+    "question_m",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ]
+}
