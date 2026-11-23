@@ -1,0 +1,104 @@
+{
+ "film": "film_ru.html",
+ "title1": "",
+ "title2": "",
+ "resolve_shot": "plane_fail",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "thumb": {
+  "time": 36.0,
+  "lines": [
+   "LE PRÊT RUSSE",
+   "9 MILLIONS…",
+   "ET UN AVION"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "✈️",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Retour dans la ville de Marine. Cette fois, la mairie a besoin d'argent. Mais, dit-elle, les banques françaises refusent de lui prêter.",
+   "shots": [
+    "town_wide4",
+    "marine_money",
+    "bank_fr"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Alors elle trouve une banque… tchéco-russe. Neuf millions d'euros. Et ça, c'est vrai : c'était en 2014.",
+   "shots": [
+    "bank_ru",
+    "money_sack"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Avec cet argent, la ville s'offre tout : un feu d'artifice, et des poupées russes à la place des nains de jardin.",
+   "shots": [
+    "fireworks",
+    "dolls_garden",
+    "dolls_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Puis la banque fait faillite. Et la dette est rachetée par… un vendeur de pièces d'avion. Ça aussi, c'est vrai.",
+   "shots": [
+    "bank_closed",
+    "crate_arrive"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Alors chaque mois, la mairie reçoit des pièces d'avion : une aile, une hélice, un moteur.",
+   "shots": [
+    "wing_delivery",
+    "propeller",
+    "engine_drop"
+   ],
+   "chip": null
+  },
+  {
+   "say": "En 2023, le prêt est remboursé en avance. Mais les habitants ont déjà construit un avion entier.",
+   "shots": [
+    "repaid_sign",
+    "plane_built",
+    "plane_side",
+    "plane_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Marine le jure : aucune contrepartie. La preuve ? L'avion ne vole même pas.",
+   "shots": [
+    "marine_swear",
+    "plane_fail"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et toi, un prêt russe pour un parti français, ça te choque ou pas ? Dis-le en commentaire.",
+   "shots": [
+    "question_ru",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ]
+}
