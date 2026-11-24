@@ -1,0 +1,94 @@
+{
+ "film": "film_smic.html",
+ "title1": "",
+ "title2": "",
+ "resolve_shot": "missing_s",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "thumb": {
+  "time": 14.0,
+  "lines": [
+   "SMIC +1,6 %",
+   "TOUT LE RESTE",
+   "+1,7 %"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "💸",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Dans cette ville, grande nouvelle : le SMIC augmente de 1,6 %. Et ça, c'est vrai : c'est au 1er décembre, avec un coup de pouce du gouvernement.",
+   "shots": [
+    "town_s",
+    "paper_read",
+    "paper_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Toute la ville fait la fête : feu d'artifice, confettis, on danse dans la rue.",
+   "shots": [
+    "party",
+    "fireworks_s"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le lendemain, le boulanger change son étiquette : la baguette, plus 1,7 %.",
+   "shots": [
+    "baker_tag",
+    "tag_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Puis le loyer : plus 1,7 %. Le bus : plus 1,7 %. Et même le feu d'artifice d'hier, la mairie le facture… plus 1,7 %.",
+   "shots": [
+    "rent",
+    "bus",
+    "invoice_s"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Alors notre héros sort sa calculatrice.",
+   "shots": [
+    "calc_s",
+    "calc_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Pour fêter ses 1,6 %, il s'offre un croissant. Le croissant a pris 1,7 %. Il lui manque… un centime.",
+   "shots": [
+    "croissant_buy",
+    "missing_s",
+    "me_sad"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et toi : 1,6 %, c'est assez ou c'est une blague ? Dis-le en commentaire.",
+   "shots": [
+    "question_s",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ]
+}
