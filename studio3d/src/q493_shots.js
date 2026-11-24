@@ -24,5 +24,6 @@ const SHOTS = {
   question_q(t, p){ Q0(newMayor, citizens[0]); place(newMayor, -1, 4, .4, 'smug'); place(citizens[0], 1, 4, -.4, 'angry'); cam(V(0, 3.6, 10 - p), V(0, 3.2, 4), 40); sunFollow(V(0, 0, 4)); return {bubble: '49.3 : POUR OU CONTRE ?'}; },
   menu_close(t, p){ Q0(restoTable, marks[0]); restoTable.position.set(0, 0, 3); marks[0].position.set(.1, 2.42, 3.25); marks[0].rotation.set(-.2, 0, 0); marks[0].scale.setScalar(.8); cam(V(0, 2.6, 5.4 - p * .4), V(0, 2.4, 3.2), 40); sunFollow(V(0, 0, 3)); return {stamp: 'IMPOSÉ'}; },
   hands_close(t, p){ Q0(citizens[1], reds[2], citizens[4]); [citizens[1], reds[2], citizens[4]].forEach((c, i) => { place(c, -1.6 + i * 1.6, 4, Math.PI, 'angry'); c.userData.armR.rotation.x = -2.9; }); cam(V(0, 3.4, -2.5 + p * .5), V(0, 3.6, 4), 40); sunFollow(V(0, 0, 4)); return {bubble: 'CENSURE !'}; },
+  stamp_close(t, p){ Q0(bigStamp, marks[5]); marks[5].position.set(0, .15, 3); marks[5].rotation.set(-Math.PI / 2, 0, .3); marks[5].scale.setScalar(1.6); marks[5].visible = p > .5; stampAt(0, 0, 3, t * 2.5); cam(V(.5, 3.2, 7 - p * .4), V(0, 1, 3), 40); sunFollow(V(0, 0, 3)); return {chipOverride: '🔁 ET DE TROIS'}; },
   end_card(t, p){ Q0(); cloudsMove(t); cam(V(40 + p * 10, 50, 70), V(0, 0, 0), 40); sunFollow(V(0, 0, 0)); return {endcard: true}; },
 };
