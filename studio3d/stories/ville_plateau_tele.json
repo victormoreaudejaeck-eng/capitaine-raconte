@@ -1,0 +1,109 @@
+{
+ "film": "film_plat.html",
+ "title1": "",
+ "title2": "",
+ "resolve_shot": "shouting",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "thumb": {
+  "time": 8.0,
+  "lines": [
+   "10 CHRONIQUEURS",
+   "POUR UNE BAGUETTE",
+   "DANS CETTE VILLE"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "🎙️",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Dans cette ville, tout le monde parle comme sur un plateau télé.",
+   "shots": [
+    "town_p",
+    "street_mics"
+   ],
+   "chip": null
+  },
+  {
+   "say": "À la boulangerie, dix chroniqueurs débattent de ta baguette. Chacun a un avis… personne ne l'a goûtée.",
+   "shots": [
+    "studio_wide",
+    "panel_close",
+    "baguette_hero"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et à chaque croissant vendu, un bandeau « Alerte info ».",
+   "shots": [
+    "bandeau_s"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Tu veux répondre ? On te coupe la parole. Tu insistes ? « On marque une pause, on revient juste après. »",
+   "shots": [
+    "me_try",
+    "cut_off",
+    "pub_s"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le fact-checking tombe : c'est bien une baguette. Le débat continue quand même.",
+   "shots": [
+    "fact_s",
+    "debate_continues"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le ton monte. Les chroniqueurs se lèvent. Ça hurle pour un pain aux raisins.",
+   "shots": [
+    "shouting",
+    "raisins"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Alors l'Arcom débarque et coupe la fréquence de la boulangerie. Comme pour une certaine chaîne, en 2025.",
+   "shots": [
+    "arcom_in",
+    "unplug",
+    "screen_cut"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Résultat : plus personne ne peut acheter de pain… mais l'audience n'a jamais été aussi haute.",
+   "shots": [
+    "no_bread",
+    "audience_s"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et toi, c'est quoi le pire débat télé ? Dis-le en commentaire.",
+   "shots": [
+    "question_p",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ]
+}
