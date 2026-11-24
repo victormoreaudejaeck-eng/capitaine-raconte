@@ -1,0 +1,102 @@
+{
+ "film": "film_q493.html",
+ "title1": "",
+ "title2": "",
+ "resolve_shot": "triple_stamp",
+ "caption": {
+  "color": "#f2ff4d",
+  "y": 1390,
+  "size": 92,
+  "stroke": 16
+ },
+ "thumb": {
+  "time": 8.0,
+  "lines": [
+   "49.3",
+   "MÊME POUR",
+   "LE NOM DU CHIEN"
+  ],
+  "hl": 1,
+  "top": 1020,
+  "arrow": [
+   960,
+   980,
+   720,
+   760
+  ],
+  "emoji": "🏛️",
+  "emoji_pos": [
+   40,
+   760
+  ]
+ },
+ "beats": [
+  {
+   "say": "Dans cette ville, le maire gouverne au 49.3. Pas de vote, pas de débat : un coup de tampon.",
+   "shots": [
+    "town_q",
+    "mayor_stamp"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Ton menu au resto ? 49.3. Le prénom de ton chien ? 49.3. La couleur de ta porte ? 49.3.",
+   "shots": [
+    "resto",
+    "menu_close",
+    "dog_name",
+    "door_color"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Comme Élisabeth Borne, il l'a utilisé vingt-trois fois. Lui, avant le petit-déjeuner.",
+   "shots": [
+    "counter_s",
+    "stamps_rain"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Alors les habitants votent une motion de censure. Et comme Michel Barnier en 2024, le maire tombe.",
+   "shots": [
+    "motion_vote",
+    "hands_close",
+    "mayor_falls"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Le nouveau maire le jure : plus jamais de 49.3. Comme Sébastien Lecornu, en octobre 2025.",
+   "shots": [
+    "new_mayor",
+    "promise_close"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Mais plus personne ne sait se mettre d'accord : trois semaines de débat pour le nom d'une rue.",
+   "shots": [
+    "council_long",
+    "street_name"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Alors en janvier, il dégaine le 49.3. Trois fois. Comme Lecornu pour le budget 2026.",
+   "shots": [
+    "january",
+    "triple_stamp"
+   ],
+   "chip": null
+  },
+  {
+   "say": "Et toi : 49.3, pour ou contre ? Dis-le en commentaire.",
+   "shots": [
+    "question_q",
+    "end_card"
+   ],
+   "chip": null
+  }
+ ]
+}

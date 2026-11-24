@@ -1,0 +1,23 @@
+
+// ===================== Dans cette ville, le maire gouverne au 49.3 =====================
+const qSign = (lines, bg, fg = '#fff', w = 1024, h = 400) => canvasTex(w, h, (c) => { c.fillStyle = bg; c.fillRect(0, 0, w, h); c.textAlign = 'center'; lines.forEach(([t, sz, y, col]) => { c.fillStyle = col || fg; c.font = `900 ${sz}px Inter, sans-serif`; const k = Math.min(1, (w - 60) / c.measureText(t).width); c.font = `900 ${sz * k}px Inter, sans-serif`; c.fillText(t, w / 2, y); }); });
+// tampon géant 49.3
+const STAMP_TEX = canvasTex(400, 400, (c) => { c.fillStyle = '#fff'; c.fillRect(0, 0, 400, 400); c.strokeStyle = '#c40012'; c.lineWidth = 22; c.beginPath(); c.arc(200, 200, 170, 0, 7); c.stroke(); c.fillStyle = '#c40012'; c.font = '900 130px Inter'; c.textAlign = 'center'; c.fillText('49.3', 200, 245); });
+const bigStamp = new THREE.Group(); scene.add(bigStamp); { const h = new THREE.Mesh(new THREE.CylinderGeometry(.25, .3, 1.4, 16), toon(0x6a3a1a)); h.position.y = 1.4; bigStamp.add(h); const k = new THREE.Mesh(new THREE.SphereGeometry(.4, 16, 12), toon(0x6a3a1a)); k.position.y = 2.2; bigStamp.add(k); const b = new THREE.Mesh(new THREE.BoxGeometry(1.4, .5, 1.4), toon(0x333333)); b.position.y = .5; bigStamp.add(b); const f = new THREE.Mesh(new THREE.PlaneGeometry(1.3, 1.3), toon(0xffffff, {map: STAMP_TEX})); f.rotation.x = Math.PI / 2; f.position.y = .24; bigStamp.add(f); }
+function stampMark(){ const m = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), toon(0xffffff, {map: canvasTex(300, 300, (c) => { c.clearRect(0, 0, 300, 300); c.strokeStyle = '#c40012'; c.lineWidth = 16; c.beginPath(); c.arc(150, 150, 120, 0, 7); c.stroke(); c.fillStyle = '#c40012'; c.font = '900 92px Inter'; c.textAlign = 'center'; c.fillText('49.3', 150, 182); }), transparent: true, side: THREE.DoubleSide})); scene.add(m); return m; }
+const marks = Array.from({length: 6}, stampMark);
+// table de resto + menu
+const restoTable = new THREE.Group(); scene.add(restoTable); { const t = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.4, .12, 24), toon(0xf4f1ea)); t.position.y = 1.5; restoTable.add(t); const l = new THREE.Mesh(new THREE.CylinderGeometry(.12, .3, 1.5, 12), toon(0x444444)); l.position.y = .75; restoTable.add(l); const menu = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 1.6), toon(0xffffff, {map: qSign([['MENU', 120, 120, '#111'], ['IMPOSÉ', 110, 260, '#c40012'], ['49.3', 140, 380, '#c40012']], '#fffdf2', '#111', 600, 440)})); menu.position.set(0, 2.4, .2); menu.rotation.x = -.2; restoTable.add(menu); }
+// porte repeinte
+const doorQ = new THREE.Group(); scene.add(doorQ); { const w = new THREE.Mesh(new THREE.BoxGeometry(4, 5, .3), toon(0xf1ead8)); w.position.y = 2.5; doorQ.add(w); const d = new THREE.Mesh(new THREE.PlaneGeometry(1.8, 3.2), toon(0x8a2a8a)); d.position.set(0, 1.6, .16); doorQ.add(d); doorQ.userData.d = d; }
+const dogTag = new THREE.Mesh(new THREE.PlaneGeometry(2.4, .9), toon(0xffffff, {map: qSign([['IL S\'APPELLE : 49.3', 90, 230]], '#c40012')})); scene.add(dogTag);
+// compteur Borne
+const counter23 = new THREE.Mesh(new THREE.PlaneGeometry(4.4, 2.4), toon(0xffffff, {map: canvasTex(900, 490, (c) => { c.fillStyle = '#111'; c.fillRect(0, 0, 900, 490); c.fillStyle = '#ffcc33'; c.font = '900 60px Inter'; c.textAlign = 'center'; c.fillText('COMPTEUR 49.3', 450, 90); c.fillStyle = '#ff4040'; c.font = '900 260px Inter'; c.fillText('23', 450, 340); c.fillStyle = '#aaa'; c.font = '700 44px Inter'; c.fillText('avant le petit-déjeuner', 450, 440); })})); scene.add(counter23);
+// motion de censure
+const motionSign = new THREE.Mesh(new THREE.PlaneGeometry(5, 1.6), toon(0xffffff, {map: qSign([['MOTION DE CENSURE', 110, 170], ['adoptée', 80, 310, '#ffcc33']], '#1a1a2e')})); scene.add(motionSign);
+// nouveau maire + promesse
+const newMayor = makeBlocky({shirt: 0x2a3a5a, pants: 0x2a3a5a, hair: 0x3a2614, slick: true, suit: true, tie: 0x2b8a3e, mood: 'happy'});
+const promise = new THREE.Mesh(new THREE.PlaneGeometry(7.6, 1.8), toon(0xffffff, {map: qSign([['PLUS JAMAIS DE 49.3', 130, 180], ['promis, juré', 70, 320, '#ffcc33']], '#2b8a3e')})); scene.add(promise);
+const weekBoard = new THREE.Mesh(new THREE.PlaneGeometry(5.6, 2.2), toon(0xffffff, {map: qSign([['CONSEIL MUNICIPAL', 80, 110], ['SEMAINE 3', 130, 250, '#ffcc33'], ['sujet : le nom d\'une rue', 60, 350]], '#1f2a24')})); scene.add(weekBoard);
+const janvier = new THREE.Mesh(new THREE.PlaneGeometry(4.4, 1.6), toon(0xffffff, {map: qSign([['JANVIER', 150, 230]], '#0d1b4a')})); scene.add(janvier);
+ALL.push(bigStamp, ...marks, restoTable, doorQ, dogTag, counter23, motionSign, newMayor, promise, weekBoard, janvier);
