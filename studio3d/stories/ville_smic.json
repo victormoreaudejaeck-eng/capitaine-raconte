@@ -36,7 +36,8 @@
    "shots": [
     "town_s",
     "paper_read",
-    "paper_close"
+    "paper_close",
+    "paper_crowd"
    ],
    "chip": null
   },
@@ -44,6 +45,7 @@
    "say": "Toute la ville fait la fête : feu d'artifice, confettis, on danse dans la rue.",
    "shots": [
     "party",
+    "party_close",
     "fireworks_s"
    ],
    "chip": null
@@ -60,6 +62,7 @@
    "say": "Puis le loyer : plus 1,7 %. Le bus : plus 1,7 %. Et même le feu d'artifice d'hier, la mairie le facture… plus 1,7 %.",
    "shots": [
     "rent",
+    "rent_close",
     "bus",
     "invoice_s"
    ],
@@ -77,6 +80,7 @@
    "say": "Pour fêter ses 1,6 %, il s'offre un croissant. Le croissant a pris 1,7 %. Il lui manque… un centime.",
    "shots": [
     "croissant_buy",
+    "coins_close",
     "missing_s",
     "me_sad"
    ],
