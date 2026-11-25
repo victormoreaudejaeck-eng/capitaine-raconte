@@ -150,6 +150,8 @@ Inspire-toi des épisodes existants : `src/melen_*`, `src/gluck_*`, `src/choco_*
 
 **Identifiant unique (incident du 23/11) :** avant de créer `stories/<id>.json`, vérifie que ni `stories/<id>.json` ni `videos/<id>.mp4` n'existent déjà. Sinon, ajoute un suffixe (`_2`, `_tiktok`…). Un id déjà pris écrase l'ancien épisode, et le contrôle de fin de rendu se trompe de fichier.
 
+**MISE À JOUR 25/11 :** sur YouTube, les histoires vraies reprennent : la tâche 2/3 (créneau 17:01) fait une histoire VRAIE (première ligne non cochée de la liste VRAI, format documentaire `doc_kit`, faits vérifiés et sourcés, aucune déformation). Les tâches 1/3 et 3/3 restent en satire politique. Maximum 3 uploads YouTube par 24 h (limite Zapier).
+
 ## 4. Publier
 
 **MISE À JOUR 22/11 (prioritaire sur tout ce qui suit).** Metricool est bloqué jusqu'au 30/11 (limite de 20 posts par mois du plan gratuit).

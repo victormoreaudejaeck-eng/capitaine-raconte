@@ -2,9 +2,9 @@
 
 Prends la première ligne non cochée de la liste demandée, puis coche-la avec la date. Ajoute de nouvelles idées en bas quand une liste a moins de 5 lignes libres.
 
-## Liste VRAI (EN PAUSE depuis le 21/11, demande du propriétaire) : « Dans cette ville… et c'est vrai » (documentaire animé, faits vérifiés)
+## Liste VRAI (REPRISE le 25/11 pour YouTube, demande du propriétaire : 1 histoire vraie par jour, créneau 17:01) : « Dans cette ville… et c'est vrai » (documentaire animé, faits vérifiés)
 
-- [x] vrai_sarpourenx : Sarpourenx (64), le maire interdit de mourir, 2008. Fait le 20/11.
+- [x] vrai_sarpourenx : Sarpourenx (64), le maire interdit de mourir, 2008. Fait le 20/11 (YouTube dim. 29 à 17:01).
 - [x] vrai_longyearbyen (fait le 20/11, publié le 21/11 à 12:01) : Longyearbyen (Svalbard, Norvège). Il est interdit d'y mourir, parce que les corps ne se décomposent pas dans le permafrost.
 - [x] vrai_monowi (fait le 21/11, publié le 22/11 à 12:01) : Monowi (Nebraska). Une seule habitante, à la fois maire, barmaid et bibliothécaire, qui se verse elle-même des taxes.
 - [x] vrai_whittier (fait le 21/11, publié le 23/11 à 10:01) : Whittier (Alaska). Toute la ville vit dans un seul immeuble, et on n'y entre que par un tunnel qui ferme la nuit.
