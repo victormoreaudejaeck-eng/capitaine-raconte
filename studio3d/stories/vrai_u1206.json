@@ -1,0 +1,22 @@
+{
+ "film": "film_u1206.html",
+ "title1": "",
+ "title2": "",
+ "resolve_shot": "geyser",
+ "caption": {"color": "#ffffff", "y": 1500, "size": 76, "stroke": 12},
+ "thumb": {"time": 3.5, "lines": ["COULÉ PAR", "SES TOILETTES", "(ET C'EST VRAI)"], "hl": 1, "top": 1020, "arrow": [960, 980, 720, 760], "emoji": "🚽", "emoji_pos": [40, 760]},
+ "beats": [
+  {"say": "Ce sous-marin de guerre a été perdu à cause… de ses toilettes. Et c'est vrai.", "shots": ["sub_dive", "toilet_hero", "vrai_sub"], "chip": null},
+  {"say": "Avril 1945. Le U-1206, un sous-marin allemand, patrouille au large de l'Écosse.", "shots": ["map_scot", "sub_cruise"], "chip": null},
+  {"say": "À bord, des toilettes dernier cri : on peut les vider même en plongée profonde.", "shots": ["toilet_reveal", "valves_close"], "chip": null},
+  {"say": "Mais le système est si compliqué que des marins sont formés exprès pour s'en servir.", "shots": ["manual_doc", "crew_panel"], "chip": null},
+  {"say": "Le 14 avril, à une soixantaine de mètres de profondeur, le commandant a un souci avec la chasse d'eau.", "shots": ["depth_gauge", "corridor_cmdr"], "chip": null},
+  {"say": "Selon le récit le plus connu, il appelle un technicien… qui ouvre la mauvaise vanne.", "shots": ["tech_arrives", "valve_turn", "geyser"], "chip": null},
+  {"say": "L'eau de mer jaillit dans le sous-marin et coule jusqu'aux batteries, juste en dessous.", "shots": ["flood_rise", "batteries_cut"], "chip": null},
+  {"say": "Au contact de l'eau de mer, les batteries dégagent du chlore, un gaz toxique.", "shots": ["gas_green", "crew_flee"], "chip": null},
+  {"say": "Le commandant doit faire surface. En pleine guerre, tout près des côtes britanniques.", "shots": ["sub_rise", "surface_break"], "chip": null},
+  {"say": "Le sous-marin est sabordé. Trois marins se noient, les autres sont faits prisonniers.", "shots": ["rafts_out", "sub_sinking"], "chip": null},
+  {"say": "Aujourd'hui, son épave repose toujours au fond de la mer du Nord.", "shots": ["wreck_seabed", "wreck_tower"], "chip": null},
+  {"say": "Et toi : tu aurais osé tirer la chasse ? Dis-le en commentaire.", "shots": ["toilet_end", "brand_end"], "chip": null}
+ ]
+}

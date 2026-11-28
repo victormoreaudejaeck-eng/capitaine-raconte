@@ -8,7 +8,7 @@ Prends la première ligne non cochée de la liste demandée, puis coche-la avec 
 - [x] vrai_longyearbyen (fait le 20/11, publié le 21/11 à 12:01) : Longyearbyen (Svalbard, Norvège). Il est interdit d'y mourir, parce que les corps ne se décomposent pas dans le permafrost.
 - [x] vrai_monowi (fait le 21/11, publié le 22/11 à 12:01) : Monowi (Nebraska). Une seule habitante, à la fois maire, barmaid et bibliothécaire, qui se verse elle-même des taxes.
 - [x] vrai_whittier (fait le 21/11, publié le 23/11 à 10:01) : Whittier (Alaska). Toute la ville vit dans un seul immeuble, et on n'y entre que par un tunnel qui ferme la nuit.
-- [ ] vrai_u1206 : le sous-marin U-1206, coulé en 1945 à cause de ses toilettes.
+- [x] vrai_u1206 : FAIT 28/11 (U-1206, 14/04/1945, toilettes haute pression, mauvaise vanne, chlore, sabordé près de Peterhead). Publication YouTube lun. 30/11 12:01 (dimanche complet).
 - [ ] vrai_albinen : Albinen (Suisse). Le village paie des familles pour venir s'installer.
 - [ ] vrai_okunoshima : Okunoshima (Japon). L'île aux lapins, avec un passé secret d'usine de gaz toxique.
 - [ ] vrai_baarle : Baarle-Hertog et Baarle-Nassau. La frontière Belgique / Pays-Bas traverse les maisons et les cafés.
