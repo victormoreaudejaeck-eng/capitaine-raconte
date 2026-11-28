@@ -1,0 +1,19 @@
+{
+ "film": "film_imp.html",
+ "title1": "",
+ "title2": "",
+ "resolve_shot": "vote_board",
+ "caption": {"color": "#f2ff4d", "y": 1390, "size": 92, "stroke": 16},
+ "thumb": {"time": 4.0, "lines": ["MÊME L'AIR", "EST TAXÉ", "SAUF EUX"], "hl": 1, "top": 1020, "arrow": [960, 980, 720, 760], "emoji": "💸", "emoji_pos": [40, 760]},
+ "beats": [
+  {"say": "Dans cette ville, tout est taxé. Même l'air que tu respires.", "shots": ["town_i", "taxman_walk", "air_meter_close"], "chip": null},
+  {"say": "Tes fenêtres ? Taxées. Comme en France, de 1798 à 1926 : les gens muraient leurs fenêtres.", "shots": ["window_house", "bricking", "brick_close"], "chip": null},
+  {"say": "Ta piscine ? Repérée vue du ciel par l'intelligence artificielle du fisc. Plus de cent vingt mille en France.", "shots": ["drone_fly", "pool_scan", "letter_close"], "chip": null},
+  {"say": "Ton billet d'avion ? Taxe presque triplée en 2025. Les nuages ? Taxés aussi.", "shots": ["ticket_close", "cloud_tags"], "chip": null},
+  {"say": "Même tes rêves : la nuit, le percepteur passe relever le compteur.", "shots": ["bed_dream", "taxman_bed"], "chip": null},
+  {"say": "Un jour, une habitante propose de taxer les très grandes fortunes : deux pour cent au-dessus de cent millions. Comme la taxe Zucman.", "shots": ["citizen_propose", "zuc_sign", "rich_worried"], "chip": null},
+  {"say": "Rejetée. Comme à l'Assemblée, le 31 octobre 2025 : le bloc central, la droite et le RN ont voté contre.", "shots": ["vote_board", "rich_toast"], "chip": null},
+  {"say": "Dans cette ville, la seule taxe qui ne passe pas, c'est celle sur les plus grandes fortunes.", "shots": ["rich_bag", "me_meter"], "chip": null},
+  {"say": "Et toi : le pire impôt, c'est lequel ? Dis-le en commentaire.", "shots": ["question_i", "end_card"], "chip": null}
+ ]
+}
