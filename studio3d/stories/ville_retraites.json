@@ -1,0 +1,18 @@
+{
+ "film": "film_retr.html",
+ "title1": "",
+ "title2": "",
+ "resolve_shot": "doyen_shock",
+ "caption": {"color": "#f2ff4d", "y": 1390, "size": 92, "stroke": 16},
+ "thumb": {"time": 8.0, "lines": ["LA RETRAITE", "CHANGE", "CHAQUE MATIN"], "hl": 1, "top": 1020, "arrow": [960, 980, 720, 760], "emoji": "👴", "emoji_pos": [40, 760]},
+ "beats": [
+  {"say": "Dans cette ville, l'âge de la retraite change tous les matins. Lundi : soixante-deux ans.", "shots": ["town_r", "board_lun"], "chip": null},
+  {"say": "Mardi : soixante-quatre. Sans vote, au 49.3, comme Élisabeth Borne en 2023.", "shots": ["board_mar", "mayor_493"], "chip": null},
+  {"say": "Toute la ville descend dans la rue. Des mois de manif. Et la réforme passe quand même.", "shots": ["protest_wide", "protest_signs", "protest_close", "nothing_moves"], "chip": null},
+  {"say": "Alors le maire réunit un conclave, comme François Bayrou. Résultat : fumée noire.", "shots": ["conclave_ext", "smoke_black", "smoke_sign"], "chip": null},
+  {"say": "Mercredi : réforme suspendue. Comme Sébastien Lecornu, jusqu'à la présidentielle.", "shots": ["board_mer", "susp_sign", "mayor_pause"], "chip": null},
+  {"say": "Le doyen, cent un ans, file au guichet. Réponse : revenez après la présidentielle.", "shots": ["doyen_walk", "doyen_close", "guichet_note", "doyen_shock"], "chip": null},
+  {"say": "Jeudi : plus personne ne sait à quel âge il part. Même pas le maire.", "shots": ["board_jeu", "lost_crowd"], "chip": null},
+  {"say": "Et toi : tu partirais à quel âge ? Dis-le en commentaire.", "shots": ["question_r", "end_card"], "chip": null}
+ ]
+}
